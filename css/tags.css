@@ -1,0 +1,52 @@
+.tags {
+  margin-top: 15px;
+  height: 30px;
+  text-align: left;
+}
+
+.post_tags {
+  margin-top: 15px;
+  height: 30px;
+  text-align: center;
+}
+
+.tag {
+  cursor: pointer;
+  transform-origin: 0 0;
+  width: 30px;
+  height: 20px;
+  padding: 20px;
+  margin: .75em 0 0;
+  background: url("../data/vector/tag.svg") left center no-repeat;
+  background-size: 20px 20px;
+  transition: all .2s ease-in;
+  text-decoration: none;
+  font-weight: 700;
+  color: #3f64d3 !important;
+  -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+  -moz-transition: -moz-transform 0.3s, opacity 0.3s;
+  transition: transform 0.3s, opacity 0.3s;
+  text-decoration: none !important;
+}
+
+.tag:hover {
+  opacity: 1.0 !important;
+  font-weight: 800 !important;
+  color: #1c4cdb !important;
+}
+
+.tag a:link {
+  text-decoration: none !important;
+}
+
+.tag a:visited {
+  text-decoration: none !important;
+}
+
+.tag a:hover {
+  text-decoration: none !important;
+}
+
+.tag a:active {
+  text-decoration: none !important;
+}

@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=David+Libre|Hind:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="../../fonts/Serif/cmun-serif.css" />
+    <link rel="stylesheet" href="../../fonts/Serif-Slanted/cmun-serif-slanted.css" />
+
+    <link rel="stylesheet" href="../../css/reset.css">
+    <link rel="stylesheet" href="../../css/default.css">
+    <link rel="stylesheet" href="../../css/nav_bar.css">
+    <link rel="stylesheet" href="../../css/post.css">
+    <link rel="stylesheet" href="../../comments/inlineDisqussions.css">
+    <link rel="stylesheet" href="../../css/progress_bar.css">
+    <link rel="stylesheet" href="../../css/go_up.css">
+    <link rel="stylesheet" href="../../css/footer.css">
+    <link rel="stylesheet" href="../../css/tags.css">
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: { autoNumber: "AMS" } }
+    });
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143270978-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-143270978-1');
+    </script>
+
+    <link rel="shortcut icon" href="../../data/icons/Icon.ico" />
+    <title>Blog | Igor Poletaev</title>
+
+</head>
+
+<body>
+
+    <header class="header">
+
+        <div class="home">
+            <a href="../../index.html" title="Home">
+                <img src="../../data/vector/logo.svg" alt="Home">
+            </a>
+        </div>
+
+        <nav class="navigation">
+            <a href="#navigation" class="nav-trigger">
+                <span><em aria-hidden="true"></em></span>
+            </a>
+
+            <ul>
+                <li><a href="../../archives.html">Archives</a></li>
+                <li><a href="../../about.html">About</a></li>
+            </ul>
+
+        </nav>
+
+    </header>
+    <main>
+
+        <div id="wrap">
+
+            <progress value="0" id="progressBar">
+                <div class="progress-container">
+                    <span class="progress-bar"></span>
+                </div>
+            </progress>
+
+            <div class="content">
+                <div class="container">
+
+                    <h1>Why Are Planet Orbits Elliptical?</h1>
+                    <div class="time">September 23, 2018</div>
+                    <div class="post_tags">
+                        <a href="../../tags/astronomy/index.html" class="tag">astronomy</a>
+                        <a href="../../tags/physics/index.html" class="tag">physics</a>
+                    </div>
+                    </br>
+
+                    <h3>Preface</h3>
+                    <p>
+                    If you are outside the city, find an opportunity to look at the sky at night. If you are lucky enough, the sky will be clear, and if the air is cold, you will see the Milky Way along with millions of sparkling stars covering the entire sky. You'll certainly remember that for a long time... 
+                    </p>
+
+                    <p>
+                    Most of us at least once in life, lying under the night sky have thought about space. Why are there so many stars? Why do they shine? Why do some of them have planets that rotate around them? So, finally, how does it all work together? I have always been interested in these questions, so I decided, even though along with my modest efforts, to try and make astronomy a little more popular among the masses.
+                    </p>
+                    <p>
+                    Of course, neither in a blog like this one nor in any book, it is impossible to answer even some of the questions above. So this series of <a href="../../tags/astronomy/index.html">astronomical notes</a> will cover some simple, I would even say, everyday astronomy topics. These cosmic questions will be touched upon mostly superficially, in a scientifically-popular style, but I will try to make it so that the “computations lovers”, too can find something interesting for themselves.
+                    </p>
+
+                    <h3>Astronomy</h3>                   
+                    <p>
+                    Before we start, I would like firstly to talk a bit about astronomy. Astronomy is a natural science that studies the motion, structure, origin, and evolution of celestial bodies and their systems. It is one of the most ancient sciences which emerged based on the practical necessities of humans and has always been developing along with them.
+                    </p> 
+                    <p>
+                    The first mentions of astronomy date back to ancient Egypt and China, where simple astronomical observations were being used for time and orientation measurements. Nowadays, astronomy is widely used for geographical positioning as well as precise time measurements. Astronomy helps study the Earth and space. For example, without astronomy today, there would be no taxi services and plenty of maps that we all are accustomed to use. Modern astronomy is closely connected with math and physics, and chemistry and geography. Astronomy, using the achievements of other sciences, enriches them and stimulates their development, giving them an increasing amount of new challenges.
+                    </p>
+
+                    <h3>What Is This Post About?</h3>
+                    <p>
+                    This post is written to touch on, perhaps, the most common question that people across the world have been asking since their childhood: “Why and how do planets rotate around the Sun?”. Let’s start with the fact that our Solar System consists of one central star - the Sun and 8 (previously 9 with <a href="https://en.wikipedia.org/wiki/Pluto">Pluto</a>) large planets. All these planets have different sizes, masses, chemical elements they are made of, orbital periods, and so on. However, they all are united by one essential fact: they rotate around the Sun by elliptical orbits. Let's figure this out. But before I start writing some formulas, you probably want to ask another question: "Why are we talking only about the Solar System? Is this rotation fact true only for it?". Answer is no. It is a universal phenomenon, which doesn't depend on place and can be applied both in small star systems with only one planet and for systems with many planets, like the Solar System we live in. Thus, we can consider the problem from the most general, mathematical point of view. 
+                    </p>
+                    <p>
+                    Moreover, I want to add that this post does not cover the question of why the Solar System's planets, at some point, started to rotate around the Sun, which is still a topic of hot discussions in the scientific community (there are different <a href="https://en.wikipedia.org/wiki/Formation_and_evolution_of_the_Solar_System">theories</a> explaining that). So we will consider the planets' rotation as fact.
+                    </p>
+
+                    <h3>History</h3>
+                    <p>
+                    First of all, it is useful to have some historical context of the planet rotation problem. In the early XVII century, the famous German astronomer <a href="https://en.wikipedia.org/wiki/Johannes_Kepler">Johannes Kepler</a> discovered laws under which the movement of satellites around the center of gravity takes place.
+                    </p>
+                    <p>
+
+                    Kepler was engaged in the analysis of a large number of astronomical observations, which were already available by then. The data contained information about the Solar System's planet motion. Among the chaos of seemingly at first glance unrelated numbers, he managed to discern the beautiful and simple patterns: namely that, the orbits of the planets are elliptical<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> and their parameters are interrelated. The latter is obvious, if only from the fact that all planets have a single center of attraction: the Sun. In Kepler's laws, nature once again discovers the rationality of its structure.
+                    </p>
+                    <p>
+                    However, Kepler did not give any physical explanation for the laws he discovered. His work was more of a philosophical nature, which was the hallmark of any scientific research during that period. After the discovery of the laws of planetary motion, a little more than 50 years passed and the English physicist Isaac Newton gave them a robust physical-mathematical explanation. Moreover, incidentally, as an "application", he formulated the fundamental laws of mechanics as well as the law of universal gravitation, and developed the foundations of differential computation in his famous <a href="https://en.wikipedia.org/wiki/Philosophi%C3%A6_Naturalis_Principia_Mathematica">work</a> - “Philosophiæ Naturalis Principia Mathematica.” Newton needed derivatives to overcome difficulties in describing the uneven motion (see <a href="../2018-12-9-Math-Part-2/index.html">this</a> post about derivatives). 
+                    </p>
+                    <p>
+                    Now, we will attempt to reproduce a theoretical way to determine the laws of Kepler, for a little while, becoming participants of their "second discovery".
+                    </p>
+
+
+                    <h3>Kepler’s Motion</h3>
+
+                    <p>
+                    Let us consider the movement of some planet with mass 
+                    <span class="math">\(m\)</span> around the Sun with mass <span class="math">\(M\)</span>.  Also, suppose <span class="math">\(\vec{r}_{1}\)</span> and <span class="math">\(\vec{r}_{2}\)</span> are their position vectors respectively, so <span class="math">\(\vec{r} = \vec{r}_{1} − \vec{r}_{2}\)</span> is a distance between the planet and the Sun:
+                    </p>
+
+                    <div>
+                    <img src="images/pic_1.png" alt style>
+                    </div>
+
+                    <p>
+                    Since even for the heaviest planet, Jupiter, <span class="math">\(m/M \approx 1/2000\)</span>, the Sun with a very good precision might be assumed as motionless, and the mutual attraction between the planets can be disregarded in the leading-order <a href="https://en.wikipedia.org/wiki/Leading-order_term">term</a>. Formally, if we want to write down Newton's second law of motion using the law of universal gravitation in a vector form, it will give us the following<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>:
+                    </p>
+
+                     <p><span>\[\begin{equation}m \ddot{\vec{r}}_{1} = − \dfrac{GMm}{|\vec{r}|^{3}}\vec{r} \end{equation}  \]</span></p>
+                    <p><span>\[\begin{equation}M \ddot{\vec{r}}_{2} = \dfrac{GMm}{|\vec{r}|^{3}}\vec{r}  \end{equation}\]</span></p>
+                    <p><span>\[(1)/m + (2)/M \Rightarrow \ddot{\vec{r}} = − \dfrac{G(M + m)}{|\vec{r}|^{3}}\vec{r} \]</span></p>
+
+                    <p>
+                    So, assuming <span class="math">\(M \gg m\)</span>, the given equation confirms our initial hypothesis that the Sun's motion may be omitted. Hence, under all assumptions made above, the motion of the planet around a static point-like gravitational center can be described using the following expression:
+                    </p>
+
+                    <span class="math">\[\begin{equation} \ddot{\vec{r}} = − \dfrac{GM}{|\vec{r}|^{3}}\vec{r}   \end{equation}\]</span>
+
+                    <p>
+                    It's intuitively clear that during such motion, both the length <span class="math">\(r \equiv |\vec{r}|\)</span><a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> of position vector <span class="math">\(\vec{r}\)</span> and its direction are being changed. The direction can be described by the polar angle <span class="math">\(\varphi\)</span> between <span class="math">\(\vec{r}\)</span> and some fixed direction <span class="math">\(SP\)</span>:
+                    </p>
+
+                    <div>
+                    <img src="images/pic_2.png" alt style>
+                    </div>
+
+                    <p>
+                    One wonders how we can use that to simplify <span class="math">\((3)\)</span>? It turns out that it is not as difficult as it seems at first glance. All we need to do is take into account some geometric considerations. As stated above, it is more convenient to consider the motion in <a href="https://en.wikipedia.org/wiki/Polar_coordinate_system">polar coordinates</a> <span class="math">\((r, \varphi)\)</span>, which has two perpendicular basis vectors <span class="math">\(\vec{e}_{r}\)</span> (along <span class="math">\(\vec{r}\)</span>) and  <span class="math">\(\vec{e}_{\varphi}\)</span> (perpendicular to <span class="math">\(\vec{e}_{r}\)</span>), so <span class="math">\(\vec{r} = r\vec{e}_{r}\)</span>. 
+                    </p>
+                    <p>
+                    <span class="math">\((3)\)</span> uses the second derivative for <span class="math">\(\vec{r}\)</span>. In order to be able to represent it in a useful form, we need to establish a connection between how changes in polar vectors (the planet's actual moving) in time can be related to each other. Furthermore, everyone's favorite unit circle is the well-known "tool" that can help us out:
+                    </p>
+
+                    <div>
+                    <img src="images/pic_3.png" alt style>
+                    </div>
+
+                    <p>
+                    As it indicated in the above illustration, we can expand these two polar basis vectors using the Cartesian coordinate system basis vectors <span class="math">\(\vec{i}\)</span> and <span class="math">\(\vec{j}\)</span>:
+
+                    <span class="math">\[ \vec{e}_{r} = \vec{e}_{rx} + \vec{e}_{ry} =  \vec{i} \cdot \cos{\varphi} +  \vec{j} \cdot \sin{\varphi}; \qquad \vec{e}_{\varphi} = −\vec{i} \cdot \sin{\varphi} +  \vec{j} \cdot \cos{\varphi}\]</span>
+
+
+                    It means that for constant <span class="math">\(\vec{i}\)</span> and <span class="math">\(\vec{j}\)</span> basis vectors, we get the following partial derivatives of <span class="math">\(\vec{e}_{r}\)</span> and <span class="math">\(\vec{e}_{\varphi}\)</span> with the respect to <span class="math">\(\varphi\)</span><a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>:
+
+                    <span class="math">\[\begin{equation} \dfrac{\partial \vec{e}_{r}}{\partial\varphi} = \vec{i} \cdot \dfrac{d\cos{\varphi}}{d\varphi} +  \vec{j} \cdot \dfrac{d\sin{\varphi}}{d\varphi}  = −\vec{i} \cdot \sin{\varphi} +  \vec{j} \cdot \cos{\varphi} =  \vec{e}_{\varphi}\end{equation}\]</span>
+                    
+                    <span class="math">\[\begin{equation} \dfrac{\partial \vec{e}_{\varphi}}{\partial\varphi} = −\vec{i} \cdot \dfrac{d\sin{\varphi}}{d\varphi} +  \vec{j} \cdot \dfrac{d\cos{\varphi}}{d\varphi}  = −\vec{i} \cdot \cos{\varphi} −  \vec{j} \cdot \sin{\varphi} = − \vec{e}_{r} \end{equation}\]</span>
+
+                    Perfect! Now, recalling the derivatives <a href="https://en.wikipedia.org/wiki/Chain_rule">chain rule</a> and the derivatives <a href="https://en.wikipedia.org/wiki/Product_rule">product rule</a>, we can calculate <span class="math">\(\ddot{\vec{r}}\)</span>. So, firstly:
+
+                    <span class="math">\[\vec{v} \equiv \dot{\vec{r}} = \dfrac{d(r\cdot \vec{e}_{r})}{dt} = \dot{r}\vec{e}_{r} + r\dfrac{d\vec{e}_{r}}{dt} = \dot{r}\vec{e}_{r} + r\dfrac{\partial\vec{e}_{r}}{\partial\varphi}\dfrac{d\varphi}{dt} = \dot{r}\vec{e}_{r} + r\dot{\varphi}\vec{e}_{\varphi} \]</span>
+
+                    , where <span class="math">\( v_{r} = |\vec{v}_{r}| = \dot{r}\)</span> and <span class="math">\(v_{\tau} = |\vec{v}_{\tau}| = \omega =r\dot{\varphi}\)</span> are radial and angular velocities respectively. Of course, it was possible to get an expression for <span class="math">\(\dot{\vec{r}}\)</span> using purely physical considerations. However, for more clarity, I guess that aforementioned calculations might be pretty useful. Next, by doing the same and using equations <span class="math">\((4)\)</span> and <span class="math">\((5)\)</span>, we have:
+
+                    <span class="math">\[\vec{a} \equiv \ddot{\vec{r}} = \dfrac{d\dot{\vec{r}}}{dt} = \dfrac{d}{dt} \left(\dot{r}\vec{e}_{r} + r\dot{\varphi}\vec{e}_{\varphi} \right) = (\ddot{r}\vec{e}_{r} + \dot{r}\dot{\varphi}\vec{e}_{\varphi}) + (-r\dot{\varphi}^{2}\vec{r}+\dot{r}\dot{\varphi}\vec{e}_{\varphi} + r\ddot{\varphi}\vec{e}_{\varphi}) = \]</span>
+
+                    <span class="math">\[\begin{equation} = (\ddot{r}-r\dot{\varphi}^{2})\vec{e}_{r} + (2\dot{r}\dot{\varphi} + r\ddot{\varphi})\vec{e}_{\varphi} \end{equation}\]</span>
+
+                    So finally, leveraging the fact that two vectors are equal <a href="https://en.wikipedia.org/wiki/Euclidean_vector#Equality">if and only if</a> their corresponding coordinates are equal, we can divide equation <span class="math">\((3)\)</span> into two vector-independent ones. Thus, we've got two second-order differential equations for functions <span class="math">\(r=r(t)\)</span>, and <span class="math">\(\varphi=\varphi(r)\)</span> which depend on time <span class="math">\(t\)</span>:
+
+                    <span class="math">\[\begin{equation} 
+                    (3) \Leftrightarrow
+                    (\ddot{r}-r\dot{\varphi}^{2})\vec{e}_{r} + (2\dot{r}\dot{\varphi} + r\ddot{\varphi})\vec{e}_{\varphi} = -\dfrac{GM}{r^{3}}(r\vec{e}_{r} + 0\vec{e}_{\varphi}) \Leftrightarrow
+
+                    \begin{cases}
+                    \ddot{r}-r\dot{\varphi}^{2} = -\dfrac{GM}{r^{2}}
+                    \\
+                    2\dot{r}\dot{\varphi} + r\ddot{\varphi} = 0
+                    \end{cases}
+                    \end{equation}\]</span>
+
+                    We are halfway to the solution!
+                    </p>
+
+                    <h3>The Solution</h3>
+                    <p>
+                    Well, what should we do to solve the system <span class="math">\((7)\)</span>? It is a very good question. However, this system contains products of functions and their derivatives, i.e., the equations are nonlinear. It is not a secret that solving nonlinear differential equations is much more complex than solving the linear ones. Moreover, the equations have second order terms, and the presence of two closely related functions <span class="math">\(r=r(t)\)</span> and <span class="math">\(\varphi=\varphi(r)\)</span> sufficiently complicates things. So what are we going to do?
+                    </p>
+
+
+                    <p>
+                    The key to the solution is to take a look at the system <span class="math">\((7)\)</span> from another point of view. Let's forget for a moment about the dependency of our functions from time and try to focus on the actual planet's trajectory: <span class="math">\(r=r(\varphi)\)</span>. In order to figure that out, we have to exclude <span class="math">\(t\)</span> from the system. How? It is not that difficult: the only thing we have to do is just to recall the fact that every small change in time produces the change of the angle, or that, in other words, based on the chain rule, we have:
+
+                    <span class="math">\[
+                    \dfrac{dr}{dt} \equiv \dfrac{d}{dt}(r(\varphi(t)) = \dfrac{\partial r}{\partial\varphi} \cdot \dfrac{\partial\varphi}{\partial t}
+                    \]</span> 
+
+                    Using this expression and assuming by default that all derivatives are actually partial, after transformation of the first and second equations in the system <span class="math">\((7)\)</span>:
+
+                    <span class="math">\[\ddot{r} = \dfrac{d}{dt} \left (\dfrac{d r}{d\varphi} \cdot \dfrac{d\varphi}{dt} \right ) = \dfrac{d}{dt}\left(\dfrac{dr}{d\varphi} \right) \cdot \dfrac{d\varphi}{dt}  + \dfrac{dr}{d\varphi} \cdot \dfrac{d}{dt}\left(\dfrac{d\varphi}{dt} \right) = \dfrac{d}{d\varphi}\left(\dfrac{dr}{d\varphi}\right) \cdot \dfrac{d\varphi}{dt} \cdot \dfrac{d\varphi}{dt} + \]</span>
+                    <span class="math">\[ + \dfrac{dr}{d\varphi} \cdot \dfrac{d^{2}\varphi}{dt^{2}} = \left(\dfrac{d\varphi}{dt} \right)^{2} \cdot \dfrac{d^{2}r}{d\varphi^{2}} + \dfrac{dr}{d\varphi}\cdot \dfrac{d^{2}\varphi}{dt^{2}} \Rightarrow \]</span>
+                    </p>
+
+                    <span class="math">\[\begin{equation} 
+                    (7) \Leftrightarrow
+
+                    \begin{cases}
+                    r_{\varphi\varphi} \dot{\varphi}^{2}  + r_{\varphi}\ddot{\varphi}-r\dot{\varphi}^{2} = -\dfrac{GM}{r^{2}}
+                    \\
+                    2r_{\varphi}\dot{\varphi}^{2} + r\ddot{\varphi} = 0
+                    \end{cases}
+                    \end{equation}\]</span>
+
+                    <p>
+                    Unfortunately, here, we see again that <span class="math">\((8)\)</span> still contains time as an explicit variable. Therefore, we need to find out some additional considerations. Let's try and think back to the original task and consider the way how the gravitational force acts on our planet:
+                    </p>
+
+                    <div>
+                    <img src="images/pic_4.png" alt style>
+                    </div>
+
+                    <p>
+                    Since the gravitational force is central force, i.e., it is directed along the position vector <span class="math">\(\vec{r}\)</span>, we can use the conservation of the angular momentum <a href="https://en.wikipedia.org/wiki/Angular_momentum#Conservation_of_angular_momentum">law</a>. Alternatively, more formally, assuming that <span class="math">\(L\)</span> is an initial value of the planet's angular momentum:
+
+                    <span class="math">\[
+                    \vec{r} \uparrow\uparrow \vec{F} \Leftrightarrow \vec{r} \times \vec{F} = 0; \, \vec{r} \times \vec{F} = \dfrac{d}{dt}\left(\vec{r} \times \vec{p}\right) = 
+                    \dfrac{d\vec{L}}{dt} \Rightarrow \dfrac{d\vec{L}}{dt} = 0 \Rightarrow |\vec{L}| = \text{const} = L
+                    \]</span>
+
+                    On the other hand, initial momentum can be calculated using the expression for the planet's angular velocity <span class="math">\(v_{\tau} = r\dot{\varphi}\)</span>: 
+
+                    <span class="math">\[\begin{equation}
+                    L = | \vec{r} \times \vec{p} | = mr \cdot |\vec{v}_{\tau}| = mr^{2} \cdot \dot{\varphi} \Rightarrow \dot{\varphi} = \dfrac{L}{mr^{2}}
+                    \end{equation}\]</span>
+
+                    Now we know how the angle changes are connected with the distance <span class="math">\(\vec{r}\)</span>. Perfect! This is the last piece of the puzzle! By the way, there's one more detail related to the equation we just got. For a small amount of time <span class="math">\(dt\)</span>, the planet sweeps out a small triangle with an area that equals to:
+
+                    <span class="math">\[
+                    dS = \dfrac{1}{2}r\cdot(r + dr)\cdot\sin{d\varphi} \approx \dfrac{1}{2}r^{2}d\varphi
+                    \]</span>                    
+
+                    So, <span class="math">\(dS/dt \propto L/m = \text{const}\)</span>. This equation is known as <a href="https://en.wikipedia.org/wiki/Kepler%27s_laws_of_planetary_motion#Second_law_of_Kepler">Kepler's Second Law</a>, which will help us continue solving the system <span class="math">\((8)\)</span>.
+                    </p>
+
+                    <p>
+                    Now, we need to exclude the derivative <span class="math">\(\ddot{\varphi}\)</span> from the first equation of the system <span class="math">\((8)\)</span> using the expression <span class="math">\((9)\)</span> to substitute <span class="math">\(\dot{\varphi}\)</span>:
+
+
+                    <span class="math">\[
+                    \left(\dfrac{L}{mr^{2}}\right)^{2} \cdot (r_{\varphi\varphi} - r) + \left[-\dfrac{2}{r} \cdot r_{\varphi} \left(\dfrac{L}{mr^{2}}\right)^{2} \right]\cdot r_{\varphi}= -\dfrac{GM}{r^{2}} \Leftrightarrow
+                    \]</span>
+
+                    <span class="math">\[\begin{equation}
+                    \Leftrightarrow r_{\varphi\varphi} - \dfrac{2}{r}r_{\varphi}^{2} - r = -\dfrac{GM(mr)^{2}}{L^{2}}
+                    \end{equation}\]</span>
+
+                    That's exactly what we wanted: an equation whose solution is the desired trajectory <span class="math">\(r(\varphi)\)</span>. This equation is non-linear, has the second order and it just cannot be easily integrated. Everything is not that simple... but there's a trick! Let's see if we can use the variable substitution approach here. We can try out the following substitution: <span class="math">\(u(\varphi) = 1 / r(\varphi)\)</span>, then:
+
+                    <span class="math">\[
+                    r_{\varphi} = \dfrac{d}{d\varphi}\left(\dfrac{1}{u}\right) = -\dfrac{1}{u^{2}}u_{\varphi}; r_{\varphi\varphi} = \dfrac{d}{d\varphi}\left(-\dfrac{1}{u^{2}}u_{\varphi}\right) = \dfrac{2}{u^{3}}u_{\varphi}^{2} - \dfrac{1}{u^{2}}u_{\varphi\varphi}
+                    \]</span>               
+
+                    Plugging it into <span class="math">\((10)\)</span> yields:
+
+                    <span class="math">\[
+                    \dfrac{2}{u^{3}}u_{\varphi}^{2} - \dfrac{1}{u^{2}}u_{\varphi\varphi} - 2u\left(-\dfrac{1}{u^{2}}u_{\varphi}\right)^{2} - \dfrac{1}{u} + \dfrac{GMm^{2}}{L^{2}}\dfrac{1}{u} = 0
+                    \]</span>               
+                
+                    Do you see that?! Lo and behold! The terms with <span class="math">\(u_{\varphi}^{2}\)</span> have been canceled out, giving:
+
+                    <span class="math">\[
+                    \dfrac{d^{2}u}{d{\varphi}^{2}} + u = \dfrac{GMm^{2}}{L^{2}}
+                    \]</span>           
+
+                    It's a well-known <a href="https://en.wikipedia.org/wiki/Simple_harmonic_motion">heterogeneous harmonic oscillator equation</a> and its general solution looks as follows:
+
+                    <span class="math">\[
+                    u(\varphi) =  \dfrac{GMm^{2}}{L^{2}} + C_{1} \cdot \cos(\varphi + C_{2})
+                    \]</span>           
+
+                    Lastly, coming back to the planet's trajectory <span class="math">\(r(\varphi)\)</span>, let's define more convenient constants <span class="math">\(A \equiv C_{1}\)</span> and <span class="math">\(-\varphi_{0} \equiv C_{2}\)</span>:
+
+                    <span class="math">\[\begin{equation}
+                    r(\varphi) =  \dfrac{1}{(GMm^{2}/L^{2}) + A \cos(\varphi-\varphi_{0})} \equiv \dfrac{p}{1 + e \cdot \cos(\varphi-\varphi_{0})},
+                    \end{equation}\]</span>
+
+                    where, by the definition:
+
+                    <span class="math">\[
+                    p = \dfrac{L^{2}}{GMm^{2}}, \quad e = A \cdot \dfrac{L^{2}}{GMm^{2}}
+                    \]</span>
+
+                    Here, <span class="math">\(e\)</span> is not Euler's number <span class="math">\(2.71...\)</span> but it is the so-called <a href="https://en.wikipedia.org/wiki/Eccentricity_(mathematics)">eccentricity</a> and <span class="math">\(p\)</span> is the semi-latus rectum or the focal parameter. And if <span class="math">\(0 < e < 1\)</span>, we get, yes, the equation of the ellipse!
+                    </p>
+
+                    <p>
+                    We have just accomplished our goal! We have proven that under certain conditions, planets are rotated around their stars by elliptical orbits. We only need to determine these conditions. Don't worry, it is much easier than what we have already done above. It's required to recall the energy conservation law and use some geometrical properties of an ellipse.
+                    </p>
+
+                    <p>
+                    Let's count the angle <span class="math">\(\varphi\)</span> in terms of when the planet is at the closest point to the Sun (<span class="math">\(r_{p}\)</span> - the perigee), then <span class="math">\(\varphi = 0\)</span> and respectively, in the most distant point (<span class="math">\(r_{a}\)</span> the apogee) <span class="math">\(\varphi = \pi\)</span>, in that case <span class="math">\(\varphi_{0} = 0\)</span>. Thus,
+
+                    <span class="math">\[
+                    r_{p} = \dfrac{1}{1 + e}, \quad  r_{a} = \dfrac{1}{1 - e}
+                    \]</span>
+
+                    So, if our planet has velocity <span class="math">\(v_{a}\)</span> and <span class="math">\(v_{p}\)</span> in the apogee and the perigee respectively, the energy conservation law may be written as follows:
+
+                    <span class="math">\[
+                    E = \dfrac{m{v_{a}}^2}{2} - \dfrac{GMm}{r_{a}} =  \dfrac{m{v_{p}}^2}{2} - \dfrac{GMm}{r_{p}} = \text{const}
+                    \]</span>
+
+                    Of course, the angular momentum is preserved as well:
+
+                    <span class="math">\[L = mv_{a}r_{a} = mv_{p}r_{p} = \text{const} \]</span>                   
+
+                    I don't want to bore you with the details, and I hope you can understand the same easily. So, combining these two equations together, and using <span class="math">\(p\)</span> from <span class="math">\((11)\)</span>, we have:
+
+                    <span class="math">\[e = \sqrt{1 + 2mE\left(\dfrac{L}{GMm^{2}}\right)^{2}}\]</span>                   
+
+                    Thus, finally, the aforementioned curve's parameters are entirely determined by the initial planet-and-the-Sun system's energy <span class="math">\(E\)</span>, its angular momentum <span class="math">\(L\)</span>, and their masses. 
+                    </p>
+
+                    <p>
+                    Analyzing the given expression for <span class="math">\(e\)</span>, in order to get an elliptical orbit, we need to impose the following constraints: <span class="math">\(0 \le e < 1\)</span>. This is possible if and only if:
+
+                    <span class="math">
+                        \[-\dfrac{1}{2m}\left(\dfrac{GMm^{2}}{L}\right)^{2} \le E < 0\]</span>  
+
+                    And if <span class="math">\(e = 0\)</span>, then the planet would move along the circular trajectory.
+                    </p>
+
+                    <p>
+                    In total, the limited motion is possible only with negative energy: <span class="math">\(E < 0\)</span><a href="#fn4" class="footnoteRef" id="fnref5"><sup>5</sup></a>. Using the expression for the planet's energy, we can reformulate this condition:
+
+
+                    <span class="math">
+                        \[E < 0 \Leftrightarrow v_{a} < \sqrt{\dfrac{2GM}{r_{a}}} \]</span>  
+                    </p>
+
+                    <p>
+                    This condition is known as the <a href="https://en.wikipedia.org/wiki/Escape_velocity">escape velocity</a>. Moreover, elementary math <a href="https://www.wolframalpha.com/input/?i=sqrt(2*1.988435%C3%9710%5E30*6.674%C3%9710%5E-11++%2F+1.488%C3%9710%5E11)">shows</a> that for the Earth-Sun system escape velocity is about <span class="math">\(42 km/s\)</span>. However, the Earth's orbital speed is close to <span class="math">\(29 km/s\)</span>, Therefore, as you've already noticed, this condition is satisfied. Likewise, it is not hard to check that the expression above is true for all other planets in the Solar System.
+
+                    <p>
+                    Moreover, if <span class="math">\(E = 0\)</span>, then <span class="math">\(e = 1\)</span> and, consequently, the planet will be moving along the <a href="https://en.wikipedia.org/wiki/Parabolic_trajectory">parabolic</a> trajectory. In this case, of course, such an object could not have been a planet. Therefore, this is most likely an <a href="https://en.wikipedia.org/wiki/Interstellar_object">interstellar object</a>. Lastly, in the case when <span class="math">\(E > 0\)</span>, <span class="math">\(e > 1\)</span>, then the object will be moving along the <a href="https://en.wikipedia.org/wiki/Hyperbolic_trajectory">hyperbolic</a> trajectory.
+                    </p>
+
+                    <p>
+                    Congratulations! Today, we theoretically got the laws experimentally established by Kepler and mathematically figured out by Newton. Thus, we finally determined all the terms under which a planet will be moving along the limited trajectory: an ellipse. 
+                    </p>
+
+                    <h3>Notes</h3>
+
+                    <section class="footnotes">
+                        <hr>
+                        <ol>
+                            <li id="fn1">
+                                There is a very informative Wikipedia <a href="https://en.wikipedia.org/wiki/Ellipse">page</a> describing an ellipse. <a href="#fnref1">↩</a>
+                            </li>
+                            <li id="fn2">
+                                A dot above a symbol means the derivative with respect to time. <a href="#fnref2">↩</a>
+                            </li>
+                            <li id="fn3">
+                                For brevity, all vectors without the arrow signs mean their length. <a href="#fnref3">↩</a>
+                            </li>
+                            <li id="fn4">
+                                The partial derivative symbol <span class="math">\(\partial\)</span> is used to highlight that the functions, which are used for some particular derivative calculation, depend only on the single corresponding variable. See <a href="../2018-12-9-Math-Part-2/index.html">this</a> post about derivatives as well as <a href="https://en.wikipedia.org/wiki/Differential_of_a_function">these</a> and <a href="https://en.wikipedia.org/wiki/Partial_derivative">these</a> Wikipedia notes. <a href="#fnref4">↩</a>
+                            </li>
+                            <li id="fn5">
+                                Don't be afraid of negative energy values. Energy is a relative measure of the interaction between bodies. In our case, it is the gravitational force, and its field is the <a href="https://en.wikipedia.org/wiki/Conservative_force">conservative</a> force field with a potential considered negative only for convenience. You can read more about it <a href="https://en.wikipedia.org/wiki/Gravitational_potential">here</a> <a href="#fnref5">↩</a>
+                            </li>
+                        </ol>
+                        <hr>
+                    </section>
+
+                    <div id="disqus_thread"></div>
+
+                </div>
+            </div>
+
+            <div class="button"></div>
+
+    </main>
+    <div class="footer">
+    </div>
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script src="../../js/jquery-3.0.0.min.js"></script>
+    <script src="../../js/main.js"></script>
+    <script src="../../js/go.up.js"></script>
+    <script src="../../js/footnotes.js"></script>
+    <script src="../../js/progress.bar.js"></script>
+    <script src="../../comments/inlineDisqussions.js"></script>
+    <script src="../../js/disqus.js"></script>
+
+</body>
+
+</html>

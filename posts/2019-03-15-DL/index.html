@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=David+Libre|Hind:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="../../fonts/Serif/cmun-serif.css" />
+    <link rel="stylesheet" href="../../fonts/Serif-Slanted/cmun-serif-slanted.css" />
+
+    <link rel="stylesheet" href="../../css/reset.css">
+    <link rel="stylesheet" href="../../css/default.css">
+    <link rel="stylesheet" href="../../css/nav_bar.css">
+    <link rel="stylesheet" href="../../css/post.css">
+    <link rel="stylesheet" href="../../comments/inlineDisqussions.css">
+    <link rel="stylesheet" href="../../css/progress_bar.css">
+    <link rel="stylesheet" href="../../css/go_up.css">
+    <link rel="stylesheet" href="../../css/footer.css">
+    <link rel="stylesheet" href="../../css/tags.css">
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143270978-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-143270978-1');
+    </script>
+
+    <link rel="shortcut icon" href="../../data/icons/Icon.ico" />
+    <title>Blog | Igor Poletaev</title>
+
+    <link href="../../prism/prism.css" rel="stylesheet" />
+    <script src="../../prism/prism.js"></script>
+
+</head>
+
+<body>
+
+    <header class="header">
+
+        <div class="home">
+            <a href="../../index.html" title="Home">
+                <img src="../../data/vector/logo.svg" alt="Home">
+            </a>
+        </div>
+
+        <nav class="navigation">
+            <a href="#navigation" class="nav-trigger">
+                <span><em aria-hidden="true"></em></span>
+            </a>
+
+            <ul>
+                <li><a href="../../archives.html">Archives</a></li>
+                <li><a href="../../about.html">About</a></li>
+            </ul>
+
+        </nav>
+
+    </header>
+    <main>
+
+        <div id="wrap">
+
+            <progress value="0" id="progressBar">
+                <div class="progress-container">
+                    <span class="progress-bar"></span>
+                </div>
+            </progress>
+
+            <div class="content">
+                <div class="container">
+
+                    <h1>What Is Deep Learning?</h1>
+                    <div class="time">March 15, 2019</div>
+                    <div class="post_tags">
+                        <a href="../../tags/ml/index.html" class="tag">machine learning</a>
+                        <a href="../../tags/nn/index.html" class="tag">neural networks</a>
+                        <a href="../../tags/dl/index.html" class="tag">deep learning</a>
+                    </div>
+                    </br>
+
+                    <p>
+                    This is a really fascinating question! In this small overview post, I will try to answer it as clearly as possible. However, first things first. To start with, why did I decide to write about deep learning? It is simple: firstly, this topic is extremely interesting. Secondly, I couldn't get a satisfactory answer to a similar question several years ago. And even now, after so long, there is still no clear definition of what the “deep learning” actually stands for. Anyway, let’s ask Wikipedia and it will dryly tell you that deep learning “... is part of a broader family of <em>machine learning</em> methods”. OK. Then what is "machine learning"? Here, we have fallen into recursion, trying to dive deeper and deeper, following dozens of links and forgetting what we’ve been originally looking for… sounds sad, doesn't it?! Therefore, let’s try to take a look at the question from a different angle...
+                    </p>
+
+                    <h3>Artificial Intelligence</h3>
+                    <p>
+                    It is not an exaggeration to say that during recent years, the Internet has been flooded with the phrase "Artificial Intelligence" or simply, AI. I am sure that many of you have already dealt with it: headlines reporting that AI-powered <a href="https://www.newscientist.com/article/2132086-deepminds-ai-beats-worlds-best-go-player-in-latest-face-off/">system</a> has won the world's best Go player, the <a href="https://www.forbes.com/sites/insights-intelai/2019/02/11/how-machine-learning-is-crafting-precision-medicine/#58a224465941">computer</a> learned to predict cancer better than the human, or that <a href="https://www.theverge.com/circuitbreaker/2018/5/10/17341400/boston-dynamics-atlas-spotmini-robots-videos-autonomous-navigation">robots</a> are quietly running through the forest... 
+                    </p>
+
+                    <p>
+                    All these are examples of <em>computer programs that can perform some specific tasks defined by the programmers</em>. Some definitions state that it is exactly what AI means. However, other, more exact definitions may say that AI is technology (built upon some specific hardware and software) that can (without human intervention) learn and perform creative functions, which are traditionally inherent in man, such as speech. But as of today, for instance, the system, that was designed to drive an autonomous car, cannot just start answering arbitrary questions. It seems that such tasks can only be done by very strong artificial intelligence like the human one. In general, in modern realities, one can argue for a long time about what artificial or even natural intelligence is. And, honestly speaking, clarifying this broad term is of no particular practical use, and although this topic is incredibly interesting, today it is not about that at all. Having started this conversation from AI, I wanted to emphasize that the question of artificial intelligence has been at the origin of modern deep learning and its most widely known technology: artificial neural networks, which is why it would be better to start with the history.
+                    </p>
+
+                    <h3>The Beginning of Artificial Neural Networks</h3>
+                    <p>
+                    For an overwhelming number of people, the concept of intelligence, whether or not artificial, is directly associated with the brain. It is not a secret, that this extremely important organ makes us human, endowing us with the special gift to think and realize ourselves as living and independent<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> beings. This is why the brain has always been a subject of scientific research. The study of how brain cells - <a href="https://en.wikipedia.org/wiki/Neuron">neurons</a> - work, inspired two scientists Warren S. McCulloch and Walter Pitts to research, thanks to which, in the midst of World War II in 1943, their famous <a href="http://www.cs.cmu.edu/~./epxing/Class/10715/reading/McCulloch.and.Pitts.pdf">article</a> introduced the concept of an artificial neural network (or NN). Such an artificial network was implemented using the connection of many elementary logical units or so-called artificial neurons. An artificial neuron behaves as a simplified version of its live analogue:
+
+                    <div>
+                    <img src="images/neuron.png">
+                    <div class="source">An <a href="https://en.wikipedia.org/wiki/Artificial_neuron">artificial neuron</a> is an adder that transmits the sum of the input signals through the activation function towards its single output.</div>
+                    </div>
+                    </p>
+
+                    <p>
+                    In 1950, Alan Turing, - the famous English computer scientist and mathematician - published a <a href="https://www.csee.umbc.edu/courses/471/papers/turing.pdf">paper</a> "Computing Machinery and Intelligence" in the philosophical journal "Mind". Turing described a <a href="https://en.wikipedia.org/wiki/Turing_test">test</a>, where the computer must successfully impersonate a person in a written dialog between the judge-person, this computer and the third person. In other words, the goal itself was to determine whether the machine can think. This famous test marked the beginning of a discussion about the skills that a computer must master in order to behave like a person. This contributed to the fact that soon, in 1956, in a <a href="https://en.wikipedia.org/wiki/Dartmouth_workshop">workshop</a> at Dartmouth, the term AI would appear and its main tasks would be formulated.
+                    </p>
+
+                    <p>
+                    Only one year later, in 1957, the young outstanding cognitive systems researcher at Cornell Aeronautical Laboratory, Frank Rosenblatt, developed an <a href="https://en.wikipedia.org/wiki/Perceptron">algorithm</a> called "the perceptron". This algorithm was the first version of a single-layer <a href="https://en.wikipedia.org/wiki/Feedforward_neural_network">feedforward neural network</a> designed to independently study how to recognize handwritten letters. As such, the first steps were taken to teach the computer to see.
+                    </p>
+
+                    <p>
+                    Unfortunately, single-layer perceptrons turned out to be ineffective in solving more complex problems with more data as well as classes to be classified. In addition, due to the lack of powerful computing resources, researchers did not even have the opportunity to appreciate the potential of this discovery, because the training procedure of even a simple network took a tremendous amount of time. These two main factors became crucial, and, the excessive optimism thriving in the academic and technical community ultimately frustrated experts as a result which of most NN research projects were suspended for several decades to come. Nevertheless, it was the perceptron that formed the basis of the technologies that help people today order coffee from Starbucks via smartphones, using a virtual assistant, or choose an interesting movie for Friday evening through Netflix.
+                    </p>
+
+                    <h3>Machine Learning</h3>
+                    <p>
+                    It should be noted that in parallel with the development of neural networks, many other research directions in the field of classification, regression, and clustering of data have evolved. In addition to neural networks, other widely known and useful algorithms have been developed, such as <a href="https://en.wikipedia.org/wiki/Support-vector_machine">Support Vector Machine</a>, <a href="https://en.wikipedia.org/wiki/K-means_clustering">k-Means Clustering</a>, <a href="https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm">k-Nearest Neighbors</a> or <a href="https://en.wikipedia.org/wiki/Principal_component_analysis">Principal Component Analysis</a>. All these approaches, - including, of course, NNs themselves as well as the theoretical background behind them - soon began to be grouped by a common term: <em>machine learning</em>. In a sense, although the name speaks for itself, I would like to give a definition, which, in my opinion, is most capacious:
+                    </p>
+
+                    <p class="note">
+                    Machine learning is a field of computer science that studies how computer programs learn to perform certain strictly defined tasks.
+                    </p>
+
+                    <p>
+                    The word "learn" in this context, in general, means that such algorithms are being programmed (hence, tasks are "strictly defined") to automatically process and understand the data they work with. In other words, they are trained on the data to do something specific without being explicitly programmed. Let's talk a little about it. 
+                    </p>
+
+                    <h3>The Training</h3>
+
+                    <p>
+                    It is necessary to train NNs to make them capable of performing classification tasks. Therefore, in order to understand how it is done, it would be great to begin by taking a look at how the simplest network is arranged, at least superficially<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>.
+                    </p>
+                    <p>
+                    The aforementioned perceptron, or a feedforward NN, in other words, like any other kind of neural networks (yes, there are a lot of them, in fact, but we'll talk about it a little later on), from the mathematical point of view, is a regular multivariable function<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> <span class="math">\(\overline{Y}\)</span>. This function processes some input <span class="math">\(\overline{X}\)</span> and depends on the set of weights <span class="math">\(\lbrace \textbf{W} \rbrace\)</span> of the connections between artificial neurons making it, so <span class="math">\(\overline{Y} = f_{\lbrace \textbf{W} \rbrace}(\overline{X})\)</span>.
+                    </p>
+
+                    <p>
+                    We may take a look at this formal approach from a different angle. In this case, we can imagine a neural network as a set of interconnected artificial neurons (circles in the figure), which, like the brain, pass signals through themselves while interplaying. In a feedforward NN depicted below, these signals pass from the so-called input layer through the hidden layers (in the figure, there's only one hidden layer, highlighted in yellow) up to the uppermost, output layer. Under the signals and network weights (arrows in the figure), in most cases, the real numbers are meant.
+                    </p>
+
+                    <div>
+                    <img src="images/ff.png">
+                    <div class="source">Any neural network is just a mathematical function!</div>
+                    </div>
+                    
+                    <p>
+                    During classification, a network can make a mistake, at least because the network weights are usually initialized randomly. So, these weights are working as parameters regulating the output signals, which is their only purpose. And, as you have probably already guessed, all that is needed in order to force the neural network to produce the correct signals while processing specific data is to somehow adjust the weights. These weights can be obviously configured manually if you have only a few neurons in the network, but what if there are several million neurons? So the problem is, how to do it? Let's go back to history.
+                    </p>
+
+                    <p>
+                    Several decades after the perceptron invention, thanks to a series of works in the early and mid-80s, the backpropagation <a href="https://en.wikipedia.org/wiki/Backpropagation">algorithm</a> was developed. This algorithm was just an automated approach of searching specific values of the network weights, which were making it produce output signals as close to the desired ones as possible. The search for these weights occurs during the processing of previously prepared data, which is usually called the training data. This is why the process of neural network weights adjustment for brevity is simply called <em>"the training"</em>. 
+                    </p>
+                    <p>
+                    Thus, having some training data, after running the backpropagation procedure for some time if all the parameters and settings were selected correctly, you will get a network that can classify previously unknown data with certain accuracy. This ability is the most valuable property of neural networks, which is often called <em>"the generalization"</em> ability. To understand why this occurs this way, it is useful to draw an analogy with a student studying mathematics. The student should probably remember how to solve certain problems that were given in the lectures. However, the most important thing is how, during the exam, this student will be able to apply this knowledge to solve a completely new task. Similarly, with NNs, - the practical "usefulness" appears only when the generalization ability of a particular architecture is sufficiently high.
+                    </p>
+
+                    <p>
+                    In summary of this section, I want to say that neural networks are just an abstract representation of some mathematical model that can be algorithmically tuned to produce specific output. Thus, generally speaking, the task of machine learning is to develop architectures and training approaches, that will allow the achievement of maximum possible generalization ability. So this is just programming and math. There is no magic. This is an essential detail worth paying attention to. Let's take a closer look at some important types of architectures.
+                    </p>
+
+                    <h3>Convolutional Neural Networks</h3>     
+                    <p>
+                    Last quarter of the twentieth century, computational technologies have been developed at an incredibly rapid pace — the first personal computers with operating systems appeared, equipped with multi-megahertz central processors. Some of those computers were even equipped with the <a href="https://en.wikipedia.org/wiki/Graphics_processing_unit">graphics processing units</a> designed specifically for parallel processing of the (at that time, only graphic) data. All this rapid progress, both in computer science and in computational technologies, did not take long to wait. An incredibly important event took place: a real revolution in technology! Inspired by an idea of weights sharing introduced in 1986 by David Rumelhart, Geoffrey Hinton, and Ronald Williams in their <a href="http://www.cs.toronto.edu/~hinton/absps/naturebp.pdf">article</a> "Learning representations by back-propagating errors", after several years of continuous development<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>, researchers from AT&T Bell Laboratories led by Yann LeCun <a href="http://yann.lecun.com/exdb/publis/pdf/lecun-95b.pdf">suggested</a> a new image-processing NN architecture called <a href="https://en.wikipedia.org/wiki/Convolutional_neural_network">"convolutional neural network"</a> (or simply CNN). This architecture became the most advanced technology for image classification, and it remains so to this day.
+                    </p>
+
+                    <p>
+                    The key feature of CNN is that it passes information through the special hierarchical layers<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>, where each layer performs its specific task:
+
+                    <li><em>Convolutional</em> layer: produces the so-called feature map by the <a href="https://en.wikipedia.org/wiki/Convolution">convolution</a> of a specific weight matrix with different parts of the original image. An ordinary CNN has a lot of such matrices, usually named kernels, which encode various features of the image, such as the presence of an oblique line in a specific place. These kernels are not provided in advance; they are being formed independently during the regular process of the network’s training using the backpropagation algorithm.</li>
+
+                    <div>
+                    <img src="images/conv.gif" class="centered_image">
+                    <div class="source">An example of a convolution operation. Pixels of the original image are multiplied by the kernel element-wise and the sum result is recorded in a feature map.</div>
+                    </div>
+
+                    <li><em>Pooling</em> layer: reduces the size of feature maps formed by the convolutional layers. The pooling operation takes several neighboring pixels of a feature map and returns the maximum value among these pixels. By accelerating the further calculations, pooling additionally helps a network become more invariant to the scale of an input image.</li>
+
+                    <div>
+                    <img src="images/pooling.gif" class="centered_image">
+                    <div class="source">An example of a pooling operation. Each pooling window just extracts the maximum pixel value.</div>
+                    </div>
+
+
+                    <li><em>Fully-connected</em> layer: this layer, in most cases, is just a feedforward NN that operates on the uppermost pooling or convolutional layer. The only purpose of this final layer is to collect signals (or features) obtained by the underlaying layers and use them to make a final prediction.</li>
+                    </p>
+
+                    <p>
+                    All these layers are usually combined into many consecutive cascades of convolution-then-pooling pairs, which finally make a pretty large architecture. And besides, these convolutional architectures, despite having much fewer trainable parameters, quite often significantly outperform feedforward NNs in almost all types of image classification tasks. Given below is a simple example of a CNN architecture that can be used for the classification of handwritten digits from the MNIST <a href="http://yann.lecun.com/exdb/mnist/">database</a>:
+                    </p>
+
+                    <div>
+                    <img src="images/cnn.png">
+                    <div class="source">A schematic illustration of how CNN may look like with several alternating layers of convolution and pooling. The last layer is usually a perceptron that takes as input all the resulting pixel values ​​of the last layer of feature maps.</div>
+                    </div>
+
+                    <p>
+                    During CNN evolution, architectures were getting more and more <em>deep</em>. For example, some of them, like <a href="https://arxiv.org/pdf/1409.1556.pdf">VGGNet</a> with 16 layers, even won the famous ILSVRC <a href="http://www.image-net.org/challenges/LSVRC/">contest</a> in 2014. Today, CNNs with more than 100 (!) layers, are used to achieve state-of-the-art performance. In addition, it's impossible not to note that nowadays, CNNs are the basis of computer vision algorithms used in production. For example, modern self-driving cars use CNNs to look at the world, and thanks to it, they can navigate on roads.
+                    </p>
+                    <p>
+                    In conclusion of this section, I want to say that we are now pretty close to the point, where we can finally formulate what deep learning actually is. But before doing that, let's sum up the intermediate results: it is because of the number of layers in such neural networks that they were named "deep", hence the name <em>deep learning</em>. Now, let's talk a little bit about another kind of neural networks, without which today, it would be impossible to imagine deep learning.
+                    </p>
+
+                    <h3>Recurrent Neural Networks</h3>     
+                    <p>
+                    So far, we have been talking about architectures that are able to process data only in a single element at a time. For example, a neural network trained to classify images cannot process video directly. Alternatively, as another example, you say something to a virtual assistant and it somehow understands you. How is this neural network made? All this is possible thanks to the so-called <a href="https://en.wikipedia.org/wiki/Recurrent_neural_network">recurrent neural networks</a> (RNNs), or specific networks for processing sequences<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a>. When processing the current sequence element <span class="math">\(x_{t}\)</span>, such NNs use information obtained after processing the previous elements of the sequence: <span class="math">\(x_{t-1}, x_{t-2},\ldots\)</span> and hence the name, "recurrent".
+                    </p>
+
+                    <div>
+                    <img src="images/rec_neuron.gif">
+                    <div class="source">An illustration of how a simple recurrent neuron (highlighted in blue.) works. It keeps some hidden inner state <span class="math">\(s\)</span> within itself. The state is usually a vector of numbers. At each processing step, the previous output and state are used to update the current one.</div>
+                    </div>
+
+                    <p>
+                    RNNs, in a sense, are capable of "memorizing" what they've just seen, thereby making the sequence processing much more efficient. It is important to note that from the algorithmic point of view, operation of the perceptron and the way it learns, is very similar to what happens with recurrent networks. The main differences are that firstly, the recurrent neurons are a bit more complicated and, secondly, instead of the pairs "expected input" - "expected output", the training process is modified to work with pairs of the "expected input sequence" - "expected output sequence" type. Usually, at the top of RNN, identical to convolutional networks, a few fully connected layers are used for the final classification. This makes convolutional and recurrent networks very similar in some way, but we will come back to this a little later.
+                    </p>
+
+                    <p>
+                    Some types of recurrent neural networks are even able to memorize enough to process <a href="https://en.wikipedia.org/wiki/Natural_language">natural language</a> sentences and translate them. For example, from English to French. Unfortunately, simple recurrent networks are not suitable for such a task. But the situation changed dramatically, thanks to a breakthrough made by two computer scientists, Sepp Hochreiter and Jürgen Schmidhuber. In 1997, their <a href="https://www.researchgate.net/publication/13853244_Long_Short-term_Memory">article</a>, entitled "Long Short Term Memory" was published. This article described a new, advanced RNN <a href="https://en.wikipedia.org/wiki/Long_short-term_memory">architecture</a> (LSTM) that became a significant event in the development of NNs and machine learning as a whole. The main advantage of LSTM neurons - usually called cells - over ordinary recurrent neurons, is their ability to learn what needs to be remembered and what needs to be "forgotten" during signal processing. In fact, LSTMs impacted the entire industry, having made speech recognition, machine translation, and other AI systems worldwide accessible.
+                    </p>
+
+                    <p>
+                    In the example about talking to a virtual assistant, your speech is continuously recorded by a smartphone. It splits the sound signal by short time frames, which are further processed and directed right into the trained RNN, predicting the most possible sound or letter you've just pronounced within this frame. The sequence of predicted letters and sounds is thus transformed into the text you may see on the screen. 
+                    </p>
+
+                    <div>
+                    <img src="images/speech.gif">
+                    <div class="source">Simplified operation scheme of the LSTM RNN for speech recognition. Each frame of the audio signal is converted into a vector of features (shown in gray), which is fed to the input of the neural network. In the figure, the blue rectangle stands for the multiple layers of the LSTM cells. See, for example, <a href="http://proceedings.mlr.press/v32/graves14.pdf">this</a> article for details.</div>
+                    </div>
+
+                    <p>
+                    Some RNNs might be really large and <em>deep</em>, i.e., similar to perceptrons or CNNs, recurrent networks can have multiple hidden layers. Some of them may even be bidirectional, in that, they process the sequences in two directions simultaneously, like <a href="https://arxiv.org/pdf/1609.08144.pdf">BERT</a>. This approach allows slight improvement in the performance. Exactly as in the case for other architectures, increasing the size of a network generally slows down its training, and at the same time, increases its ability to memorize more and better. 
+                    <p>
+             
+                    <h3>Advanced Architectures</h3>
+                    <p>Nowadays, neural networks are not just used separately. Very often, different architectures are combined into sophisticated systems to solve very difficult tasks, for example, generating descriptions for images, leveraging LSTMs and CNNs at once, as described in <a href="https://arxiv.org/pdf/1411.4555.pdf">this</a> article.
+                    </p>
+                    <p>
+                    Architectures capable of recognizing various objects in images or even tracking them in real time have particular practical value. See <a href="https://arxiv.org/pdf/1510.07945v2.pdf">this</a>, <a href="http://papers.nips.cc/paper/5638-faster-r-cnn-towards-real-time-object-detection-with-region-proposal-networks.pdf">this</a> or <a href="http://openaccess.thecvf.com/content_cvpr_2014/papers/Girshick_Rich_Feature_Hierarchies_2014_CVPR_paper.pdf">this</a> article for more details.
+                    </p>
+
+                    <div>
+                    <img src="images/cat.png">
+                    <div class="source">An example of how object-detection NN recognizes my cat in photos, using the pretrained <a href="https://arxiv.org/pdf/1610.02357.pdf">Xception</a> CNN trained on the PASCAL VOC <a href="http://host.robots.ox.ac.uk/pascal/VOC/">dataset</a>.</div>
+                    </div>
+
+                    <p>
+                    NNs can also be used for <a href="https://en.wikipedia.org/wiki/Semi-supervised_learning">semi-supervised</a> and <a href="https://en.wikipedia.org/wiki/Unsupervised_learning">unsupervised</a> tasks. A great example is generative adversarial <a href="https://en.wikipedia.org/wiki/Generative_adversarial_network">networks</a> or GANs (take a look at <a href="http://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf">this</a> and <a href="https://arxiv.org/pdf/1511.06434.pdf">this</a> article to dive deeper). In this approach, two neural networks, combined into a single system, train each other: one network - also known as the generator - generates fake data, and the second network - the discriminator - learns to distinguish fake data from real data. After such training, the generator will generate samples that may be very similar to the real ones. Perhaps, <a href="https://www.youtube.com/watch?v=kSLJriaOumA">you have already seen</a> some of the extremely realistic faces created by a GAN that was trained on the images with people's faces. This seemingly funny way of applying deep learning in real life can be very useful for science. As an example, see <a href="https://arxiv.org/pdf/1812.01114.pdf">this</a> article describing the usage of GANs for understanding the evolution of galaxies.
+                    </p>
+
+                    <p>
+                    I don’t know why, but people often forget about the wonderful application of neural networks: an <a href="https://en.wikipedia.org/wiki/Autoencoder">autoencoder</a>. Autoencoders have great potential as well as practical value for image processing. For example, using pairs of "clean-noisy" images, it is possible to teach the network to remove noise from images (see <a href="http://www.cs.toronto.edu/~larocheh/publications/icml-2008-denoising-autoencoders.pdf">this</a> article to know how it works in detail). Similarly, autoencoders can be used, for example, to remove some objects from images or even to color a black and white movie. It is really interesting, and maybe I will soon write about autoencoders in a separate post. 
+                    </p>
+
+                    <p>
+                    Of course, it is impossible to ignore NNs' application for natural language understanding (NLU). Today, this area is also booming due to the fact that people are talking to various voice interfaces using their smartphones. In addition to the regular LSTM networks and their modifications, progress has generated new architectures. A new technology, called the <em>attention mechanism</em>, has become indispensable in all modern NN-based NLU systems. This algorithm allows neural networks to automatically determine the most important parts of the sequences to be processed, thereby helping the networks to perform better. Most of today's state-of-the art NLU tasks - such as text classification, question answering, and translation - use the attention mechanism in various forms. To learn more about it, pay attention to <a href="https://arxiv.org/pdf/1409.0473.pdf">this</a> article.
+                    </p>
+
+
+                    <h3>Deep Learning</h3>
+                    <p>
+                    Somehow, quite imperceptibly, our conversation transmogrified into a discussion of various structures of neural networks. Well, today the term "deep learning" is, in some sense, directly associated with neural networks. Nevertheless, let's slow down a bit and finally try to formulate what deep learning is. 
+                    </p>
+
+                    <p>
+                    Consider convolutional and recurrent networks for a classification problem. Do you remember how we have been discussing that these two architectures are somewhat similar? We have discussed the addition of a fully connected layer on the top of both these neural network types. Accordingly, fully connected layers are mainly used to transform the internal <em>representations</em> formed by the networks into the probabilities, suggesting which particular class this or that processed example belongs to. Actually, that's the point. Such deep (i.e., with many layers) neural networks are able to <em>"form an idea"</em> of the data they are trained on. Moreover, they can do it effectively and independently. And it is not necessary to explicitly explain to them, during image processing, that cats have two pointy ears or that in text processing, it is common in English for questions to put the auxiliary verb first. Such architectures are designed to retrieve and interpret this kind of information on their own.
+                    </p>
+
+                    <p>
+                    Another example: have you ever thought what actually makes a table a table? It might be wooden, steel or glass. It has four legs in most cases. But how to teach a computer to deal with it directly? How to explicitly explain that some object in an image is a table? In fact, there is simply no way to do that. We, as people, understand this subconsciously, without even having to think about it. About the same way the training of deep neural networks takes place in a similar manner. No one, anywhere, explicitly says that this is the table or its legs. No. There are just thousands of images and labels for them. It is the task of the networks themselves, during the training, to process these images and learn how to understand whether there is a table in an image. Thus, the weights of a neural network during the training were configured to effectively evaluate the properties of an image. And these weights form <em>representations</em>, which participate in the classification<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a>.
+                    </p>
+
+                    <p>
+                    So, definitely, <em>deep learning is a part of machine learning</em>. And according to the above, in contrast to the approach when a specialized algorithm is explicitly trained to perform some specific task, deep learning algorithms are capable of learning data patterns and specific features which are mostly hidden. So there is a brief and general definition that I stand by:
+                    </p>
+
+                    <p class="note">
+                    Deep learning studies algorithms (mostly multilayer neural networks), which can learn various data representations.
+                    </p>
+
+                    <p>
+                    Here, I would also like to point out that deep learning has gained popularity only in recent years, because only modern training approaches and computational technologies have made deep learning useful in practice. More specifically, the time for training a deep neural network has become much more adequate. However, in fairness, some large networks are still trained for many days even on distributed systems.
+                    </p>
+   
+
+                    <h3>Isn't That Wonderful?</h3>
+                    <p>
+                    At the very beginning of our conversation, I mentioned that AI is developing extremely rapidly and there are more and more useful applications for it, which is definitely great. However, is everything as wonderful as it seems at first glance? We will not dive deep into this difficult question today, since I just want you, as a reader, to have an idea about all aspects: positive and negative. I would like to point out just a few basic problems.
+
+                    <li><em>Ethics</em>. You've definitely heard that because of the explosive growth of AI, many people might lose their jobs soon. And this judgment is gradually gaining popularity in society. For a lot of people, this naturally causes concern. At the same time, supporters of the progress say that artificial intelligence, on the contrary, will ultimately increase the efficiency of labor and thereby improve the quality of human life.</li>
+
+                    <li><em>Interpretability</em>. Let's take a look at the regular NN. As we have figured out above, neural networks are trained using algorithms which do not guarantee that using the same data and the same settings will result in a trained NN working similarly in all possible conditions. What does that mean? That basically means that in the case of an error, it will be almost impossible to answer what exactly went wrong, i.e. why this particular NN didn't correctly understand the given input. This may lead to very difficult issues in the production, and a good example of this is who should be responsible for the accidents with self-driving cars?</li>
+
+                    </p>
+                    <p>
+                    Indeed, as it usually happens, what works fine in theory is sometimes not easy to put into practice.
+                    </p>
+
+
+                    <h3>What's Next?</h3>
+                    <p>
+                    It is important to note that modern deep learning is not only neural networks being used to classify some data. There are many other essential research directions which aren't less important. I would like to highlight only several major directions of current research:
+
+                    <li><em>Deep reinforcement learning.</em> Speaking of deep learning, we must mention <a href="https://en.wikipedia.org/wiki/Reinforcement_learning">this</a> field of ​​machine learning. Reinforcement learning studies how machine learning algorithms can learn to not only correctly classify the data, but also take specific actions in order to maximize a defined reward in different situations. As an example, in <a href="https://arxiv.org/pdf/1312.5602.pdf">this</a> article, the authors describe how deep learning can be used for training a computer to play the Atari games. Another essential application - robotics. Deep reinforcement learning is one of the most efficient methods of teaching robots to move like humans automatically. Perhaps, in some distant future, robots will be able to entirely independently define the tasks they can do without human intervention<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a>.</li>
+
+                    <li><em>General theory.</em> It is very important that in recent years, research in the mathematical theory of neural networks has been actively gaining popularity. The fundamental research works dedicated to understanding the principles of why neural networks generally work is particularly noteworthy. See <a href="https://arxiv.org/pdf/1703.00810.pdf">this</a> article for an example.</li>
+                    
+                    <li><em>Computational methods.</em> As long as neural networks keep getting larger and deeper, the training methods must also become more advanced and effective. Many researchers are working now to speed up the training of very large and deep architectures. For example, the study of how to effectively train networks on many computers simultaneously is gaining momentum. See <a href="http://papers.nips.cc/paper/4687-large-scale-distributed-deep-networks.pdf">this</a> article as an example.</li>
+                    
+                    <li><em>Hardware</em>. Conventional CPUs are poorly suited to work with neural networks because they are not designed to work with a large number of numbers (namely, matrices) simultaneously. Modern graphics chips have become a good alternative to CPUs during the last 10-15 years, but the ever-increasing size of the networks and their complexity require special approaches. Today, many technology companies are working on the creation of specialized processor architectures which can overtake GPUs by dozens of times in performance while serving NNs.</li>
+                    
+                    <li><em>Advanced architectures.</em> Needless to say, architectures are becoming more and more complex to satisfy the demand for the quality of the tasks they perform. But the industry also dictates its own conditions, demanding, at the same time, high-quality and performance in terms of resource consumption. This leads to the creation of new schemes and architectures that should be faster, lighter, and smarter than their predecessors. A great example is <a href="https://arxiv.org/pdf/1706.03762.pdf">the Transformer</a>.</li>
+                    </p>
+
+                    <p>
+                    Thus, in the nearest future, we, of course, will not see robots making some really funny jokes by themselves, but will definitely see that AI technologies will be introduced into different areas of our lives more rapidly and deeply.
+                    </p>
+
+
+                    <h3>Epilogue</h3>
+                    <p>
+                    The post turned out not as small as I had initially assumed. Indeed, the topic of deep learning is so extensive that even a book is not enough to embrace it. Nonetheless, I hope that after our conversation today, you have got a general idea of ​​what deep learning is and that there is no magic behind it at all. Thanks for reading this.
+                    </p>
+
+                    <h3>References</h3>
+                    <p>Here is a small list of sources, the reading of which inspired me to write this post:
+                    <li><a href="http://karpathy.github.io/">Andrej Karpathy's Blog</a></li>    
+                    <li><a href="https://www.benfrederickson.com/blog/">Ben Frederickson's Blog</a></li>                
+                    <li><a href="http://colah.github.io/">Christopher Olah's Blog</a></li>
+                    <li><a href="https://www.deeplearningbook.org/">"Deep Learning Book"</a></li>
+                    <li><a href="https://www.deeplearningweekly.com/blog?category=blog">"Deep Learning Weekly" Blog</a></li>
+                    <li><a href="https://ai.googleblog.com/">Google AI Blog</a></li>
+                    <li><a href="https://machinelearningmastery.com/">"Machine Learning Mastery" Blog</a></li>  
+                    <li><a href="https://mitpress.mit.edu/books/machine-learning-1">"Machine Learning: A Probabilistic Perspective"</a></li>
+                    <li><a href="https://dl.acm.org/citation.cfm?id=521706/">"Neural Networks: A Comprehensive Foundation"</a></li>
+                    <li><a href="https://blog.openai.com/">OpenAI Blog</a></li>
+                    <li><a href="https://sebastianraschka.com/blog/">Sebastian Raschka's Blog</a></li>
+                    </p>
+
+                    <h3>Notes</h3>
+                    <section class="footnotes">
+                        <hr>
+                        <ol>
+                            <li id="fn1">
+                            Take a look at the book “The Domesticated Brain” by Bruce M. Hood, if you’re interested in the question why it is so.<a href="#fnref1">↩</a>
+                            </li>
+                            <li id="fn2">
+                            See <a href="../2019-04-11-MLP-Part-1/index.html">this</a> post for details.<a href="#fnref2">↩</a>
+                            </li>                            
+                            <li id="fn3">
+                            Check out <a href="../2018-12-9-Math-Part-2/index.html">this</a> article to remind yourself what it is.<a href="#fnref3">↩</a>
+                            </li>
+                            </li>                            
+                            <li id="fn4">
+                            However, the idea originated in 1989 and proposed in <a href="http://yann.lecun.com/exdb/publis/pdf/lecun-89e.pdf">this</a> article.<a href="#fnref4">↩</a>
+                            </li>
+                            <li id="fn5">
+                            See <a href=" http://neuralnetworksanddeeplearning.com/chap6.html#introducing_convolutional_networks">this</a> marvelous guide explaining CNNs in more detail.<a href="#fnref5">↩</a>
+                            </li>
+                            <li id="fn6">
+                            This question deserves a separate discussion and I will definitely try to write a separate post about it. But as of now, we will touch it only superficially. <a href="#fnref6">↩</a>
+                            </li>
+                            <li id="fn7">
+                            For more examples, I do recommend you take a look at <a href="https://distill.pub/2017/feature-visualization/">this</a> wonderful article talking about CNNs and how they build their internal representations of the data they were trained on. <a href="#fnref7">↩</a>
+                            <li id="fn8">See <a href="https://www.alexirpan.com/2018/02/14/rl-hard.html">this</a> article to know why this future still far away.<a href="#fnref8">↩</a></li>
+                        </ol>
+                        <hr>
+                    </section>
+
+                    <div id="disqus_thread"></div>
+
+                </div>
+            </div>
+
+            <div class="button"></div>
+
+    </main>
+    <div class="footer">
+    </div>
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script src="../../js/jquery-3.0.0.min.js"></script>
+    <script src="../../js/main.js"></script>
+    <script src="../../js/go.up.js"></script>
+    <script src="../../js/footnotes.js"></script>
+    <script src="../../js/progress.bar.js"></script>
+    <script src="../../comments/inlineDisqussions.js"></script>
+    <script src="../../js/disqus.js"></script>
+
+</body>
+
+</html>

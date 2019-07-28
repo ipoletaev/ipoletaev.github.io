@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=David+Libre|Hind:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="../../fonts/Serif/cmun-serif.css" />
+    <link rel="stylesheet" href="../../fonts/Serif-Slanted/cmun-serif-slanted.css" />
+
+    <link rel="stylesheet" href="../../css/reset.css">
+    <link rel="stylesheet" href="../../css/default.css">
+    <link rel="stylesheet" href="../../css/nav_bar.css">
+    <link rel="stylesheet" href="../../css/post.css">
+    <link rel="stylesheet" href="../../comments/inlineDisqussions.css">
+    <link rel="stylesheet" href="../../css/progress_bar.css">
+    <link rel="stylesheet" href="../../css/go_up.css">
+    <link rel="stylesheet" href="../../css/footer.css">
+    <link rel="stylesheet" href="../../css/tags.css">
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: { autoNumber: "AMS" } }
+    });
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143270978-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-143270978-1');
+    </script>
+
+    <link rel="shortcut icon" href="../../data/icons/Icon.ico" />
+    <title>Blog | Igor Poletaev</title>
+
+    <link href="../../prism/prism.css" rel="stylesheet" />
+    <script src="../../prism/prism.js"></script>
+
+</head>
+
+<body>
+
+    <header class="header">
+
+        <div class="home">
+            <a href="../../index.html" title="Home">
+                <img src="../../data/vector/logo.svg" alt="Home">
+            </a>
+        </div>
+
+        <nav class="navigation">
+            <a href="#navigation" class="nav-trigger">
+                <span><em aria-hidden="true"></em></span>
+            </a>
+
+            <ul>
+                <li><a href="../../archives.html">Archives</a></li>
+                <li><a href="../../about.html">About</a></li>
+            </ul>
+
+        </nav>
+
+    </header>
+
+    <main>
+
+        <div id="wrap">
+
+            <progress value="0" id="progressBar">
+                <div class="progress-container">
+                    <span class="progress-bar"></span>
+                </div>
+            </progress>
+
+            <div class="content">
+                <div class="container">
+
+                    <h1>Multilayer Perceptron.</h1>
+                    <h1>Part II: Training.</h1>
+                    <div class="time">May 20, 2019</div>
+                    <div class="post_tags">
+                        <a href="../../tags/ml/index.html" class="tag">machine learning</a>
+                        <a href="../../tags/nn/index.html" class="tag">neural networks</a>
+                    </div>
+                    </br>
+
+                    <p>
+                    Now that we have figured out <a href="../2019-04-11-MLP-Part-1/index.html">how to</a> formulate the goal of the neural network training mathematically, we need to understand how to achieve this goal from the practical point of view. As well as last time, the multilayer perceptron will be used as an example.
+                    </p>
+
+                    <h3>What Is the Problem?</h3>
+                    <p>
+                    In the previous post, the theoretical justification of the loss function (or cost function) began with the thought, let me repeat it, that using a neural network, we want to estimate the empirical data-generating distribution <span class="math">\(p_{d}(\mathcal{D})\)</span>. In other words, it is equivalent to setting up the model in order to most accurately classify examples from the training data. We figured out, that the best estimate is given by the neural network weights <span class="math">\(\textbf{w}^{*}\)</span>, which maximize the data likelihood, denoted by <span class="math">\(\mathcal{L}\)</span>. By its definition, for a fixed set of weights <span class="math">\(\textbf{w}\)</span>, the likelihood is equal to the probability <span class="math">\(p_{\textbf{w}}(\mathcal{D})\)</span><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> of observing the data set <span class="math">\(\mathcal{D}\)</span>. We also determined that under certain conditions, the training goal is equivalent to the minimization of the cross-entropy between the empirical and model-produced distributions. Thus, we may consider the cross-entropy as the loss function <span class="math">\(L\)</span>:
+
+                    <span class="math">\[ \textbf{w}^{*}  = \operatorname*{argmax}_{\textbf{w}} p_{\textbf{w}}(\mathcal{D}) \approx \operatorname*{argmin}_{\textbf{w}} H(p_{d}, p_{\textbf{w}}) \equiv \operatorname*{argmin}_{\textbf{w}} L \]</span>
+                    </p>
+
+                    <p>
+                    So, we somehow need to <em>find the loss function global minimum algorithmically</em>. This is the training problem formulation. That's all. This is the basic idea of neural networks...
+                    </p>
+
+                    <p>
+                    How to find this minimum? How to find it without spending a couple of months? How to make the search sufficiently accurate and useful in practice? These are the very questions, which are now "fashionable", and which, in my subjective opinion, make up most of modern machine learning research. It is important that these issues, although with varying success, have been studied for more than seven-eight decades. Throughout all these years, increasingly complex and efficient algorithms have been developed in order to solve the optimization problem described above. There are dozens of different approaches. That is why we can discuss this for a very long time, which we certainly won't be doing here today. It is fundamental, that all these studies, in fact, are nothing more than "experimental mathematics that uses programming as a tool". Therefore, in this particular material, it makes sense to consider only the basics, taking as an example one of the most popular approaches, which has become such thanks to its simplicity.
+                    </p>
+
+                    <h3>Gradient-Based Optimization</h3>
+                    <p>
+                    So, in order to find the loss function global minimum, we first need to understand what this function represents from a mathematical point of view. This is the multivariable function that depends on all NN's weights, all training data examples, and, obviously, the network's structure. The loss function, being a composite function, can be considered <a href="https://en.wikipedia.org/wiki/Smoothness">smooth</a> if and only if it is made of other composite functions. Thus, if only smooth activation functions are used, the loss function will also be smooth. The most popular functions used in neural networks are sigmoidal function, hyperbolic tangent, and <a href="https://en.wikipedia.org/wiki/Rectifier_(neural_networks)">rectifier</a>. The choice is often made experimentally based on measurements of the speed and quality of training. We will elaborate on this a bit later.
+                    </p>
+
+                    <p>
+                    So more formally, assuming that the loss function <span class="math">\(L\,: \Omega \rightarrow \mathbb{R}\)</span> is at least twice smooth (i.e., <span class="math">\(L \in C^{2}(\Omega)\)</span>), then at every point <span class="math">\(\textbf{w}_{0}\)</span> of its domain <span class="math">\(\Omega\)</span>, we can approximate <span class="math">\(L\)</span> using <a href="https://en.wikipedia.org/wiki/Taylor%27s_theorem">Taylor's theorem</a> (see <a href="../2018-12-9-Math-Part-2/index.html">this</a> post for details):
+
+                    <span class="math">\[ \begin{equation}
+
+                    L(\textbf{w}_{0} + \Delta \textbf{w}) \approx L(\textbf{w}_{0}) + \nabla L(\textbf{w}_{0})^{\mathsf{T}} \cdot \Delta \textbf{w} + \dfrac{1}{2} \Delta \textbf{w}^{\mathsf{T}} \cdot \mathbf{H}_{\textbf{w}_{0}} \cdot \Delta \textbf{w}
+
+                    \end{equation}
+                    \]</span>  
+                    </p>
+
+                    <p>
+                    Let's say that the neural network was initialized with weights <span class="math">\(\textbf{w}_{0}\)</span>. Thus, to find <span class="math">\(L\)</span>'s minimum, we need to move along <span class="math">\(\Delta \textbf{w}\)</span> in such a way, that the next value <span class="math">\(L(\textbf{w}_{0} + \Delta \textbf{w})\)</span> will be lower than the previous one: <span class="math">\(L(\textbf{w}_{0})\)</span>, i.e., <span class="math">\(L(\textbf{w}_{0}) > L(\textbf{w}_{0}+ \Delta \textbf{w})\)</span>. 
+                    </p>
+
+                    <p>
+                    For brevity, it is convenient to denote <span class="math">\(L(\textbf{w}_{0})\)</span> and <span class="math">\(L(\textbf{w}_{0}+\Delta \textbf{w})\)</span> as <span class="math">\(L(\textbf{w}^{t})\)</span> and <span class="math">\(L(\textbf{w}^{t+1})\)</span> respectively. In other words, these two values represent the loss function computed "at the current moment" (<span class="math">\(t\)</span>-th iteration) and "at the next moment" (<span class="math">\(t+1\)</span>-th iteration):
+                    </p>
+
+                    <div>
+                    <img src="images/gradient.png">
+                    <div class="source">Illustration of the basic principles of gradient descent..</div>
+                    </div>
+
+                    <p>
+                    Since in practice <span class="math">\(L\)</span> depends on millions of different arguments, it is difficult and expensive to compute its second derivatives (although some algorithms do that for more precise convergence), so we can omit them in <span class="math">\((1)\)</span>. Thus, using aforementioned notation we can simplify <span class="math">\(L\)</span> to the following expression:
+
+                    <span class="math">\[
+
+                    L(\textbf{w}^{t+1}) \approx L(\textbf{w}^{t}) + \nabla L(\textbf{w}^{t})^{\mathsf{T}} \cdot \Delta \textbf{w}^{t}; \quad \Delta \textbf{w}^{t} = \textbf{w}^{t+1} - \textbf{w}^{t}
+                    \]</span>  
+
+
+                    Then, the above condition <span class="math">\(L(\textbf{w}_{0}) > L(\textbf{w}_{0}+ \Delta \textbf{w}) \Leftrightarrow L(\textbf{w}^{t}) > L(\textbf{w}^{t+1})\)</span> can be expressed as follows:
+
+                    <span class="math">\[
+                    \Delta L = L(\textbf{w}^{t}) - L(\textbf{w}^{t+1}) = - \nabla L(\textbf{w}^{t})^{\mathsf{T}} \cdot \Delta \textbf{w}^{t} > 0
+                    \]</span>
+
+                    How to make something to be always positive? Correct! This something should be equal to something else squared! Therefore, if we assume that <span class="math">\(\Delta \textbf{w} = - \eta \nabla L(\textbf{w}^{t}) \)</span> with some <span class="math">\( \eta \in (0, +\infty) \)</span>, then the previous expression becomes:
+
+                    <span class="math">\[
+                    \Delta L = - \nabla L(\textbf{w}^{t})^{\mathsf{T}} \cdot (- \eta \nabla L(\textbf{w}^{t})) = \eta \cdot ||\nabla L(\textbf{w}^{t})||_{2}^{2} > 0 \quad \blacksquare
+                    \]</span>  
+
+                    So it is exactly what we want! Combining everything together, we have:
+                    </p>
+
+                    <p class="note">
+                    <span class="math">\[ \begin{equation}
+                    \Delta \textbf{w}^{t} = - \eta \nabla L(\textbf{w}^{t}) \Rightarrow \textbf{w}^{t+1} = \textbf{w}^{t} - \eta \nabla L(\textbf{w}^{t})
+                    \end{equation}
+                    \]</span>         
+                    </p>
+
+                    <p>
+                    This expression stands for the so-called <a href="https://en.wikipedia.org/wiki/Gradient_descent">gradient descent</a> iterative optimization algorithm. The hyperparameter <span class="math">\( \eta \)</span> is called the <a href="https://en.wikipedia.org/wiki/Learning_rate">learning rate</a>, because it regulates the <em>speed</em> how fast we move towards the minimum.
+                    </p>
+                    
+                    <p>
+                    This method is simple in that it only suggests moving in the opposite direction of the gradient without requiring any additional computations. However, in extreme cases, the algorithm does not behave appropriately: namely, it gets stuck in local minima and slowly converges on the “flat” sections of the loss function. To help gradient descent avoid these problematic situations, the so-called <em>momentum</em> <span class="math">\( \alpha \in [0, 1) \)</span> is introduced. This approach adds into <span class="math">\((2)\)</span> an additional term that takes into account the previous weights decrement <span class="math">\(\Delta \textbf{w}^{t-1}\)</span>:
+
+                    <span class="math">\[ \begin{equation}
+                    \Delta \textbf{w}^{t} \equiv \textbf{w}^{t+1} - \textbf{w}^{t} = - \eta \nabla L(\textbf{w}^{t}) + \alpha \Delta \textbf{w}^{t-1}
+                    \end{equation}
+                    \]</span> 
+
+                    Thus, for example, when the loss function is flat over some region, we may assume that <span class="math">\(\Delta \textbf{w}^{t} \approx \Delta \textbf{w}^{t-1}\)</span>, so:
+
+
+                    <span class="math">\[ 
+                    \Delta \textbf{w}^{t}(1-\alpha) \approx - \eta \nabla L(\textbf{w}^{t}) \Rightarrow \eta_{\text{effective}} \approx \dfrac{\eta}{1-\alpha} \gg \eta \quad \forall \alpha \in [0, 1)
+                    \]</span>            
+
+                    So the effective learning rate is <em>accelerated</em> by the momentum, in this case, helping the algorithm to descend faster:
+                    </p>
+
+                    <div>
+                    <img src="images/alpha.gif">
+                    <div class="source">Gradient descent with momentum.</div>
+                    </div>
+
+                    <h3>Stochastic Gradient Descent</h3>
+                    <p>
+                    Obviously, having a large amount of training data, gradient descent will work too slowly, because every single iteration requires the loss function in <span class="math">\((2)\)</span> to be computed against all training examples. Therefore, in practice, the network's weights are often updated after processing each training example one by one, so the gradient value is approximated by a gradient of the loss function calculated on only one training example. This approach is called <a href="https://en.wikipedia.org/wiki/Stochastic_gradient_descent">stochastic gradient descent</a>. The theory of <a href="https://en.wikipedia.org/wiki/Stochastic_approximation">stochastic approximations</a> proves that, by observing certain requirements, the aforementioned approach converges and can be used in practice.
+                    </p>
+    
+                    <p>
+                    As a kind of compromise between the speed of convergence and the algorithm performance, the so-called <em>mini-batch</em> approach is often used in the industry. In this case the gradient value is computed over a small set of randomly selected training examples called batch or simply <span class="math">\(\pi\)</span>, so the data set is divided into batches <span class="math">\(\mathcal{D} = \lbrace \pi_{1}, \ldots, \pi_{t}, \ldots \rbrace\)</span>. With that said, the gradient averaged for a batch is used to update the weights. Further, this process should be repeated for a new batch of examples:
+
+                    <span class="math">\[
+                    \Delta \textbf{w}^{t} = -\eta \nabla L(\textbf{w}^{t}); \quad \nabla L(\textbf{w}^{t}) = \dfrac{1}{|\pi_{t}|} \sum_{i\in \pi_{t}} \nabla L_{i}(\textbf{w}^{t})
+                    \]</span>   
+
+                    , where <span class="math">\(|\pi_{t}|\)</span> is <span class="math">\({\pi}_{t}\)</span>-th batch size and <span class="math">\(\nabla L_{i}\)</span> is the gradient computed for <span class="math">\(i\)</span>-th training example from this batch.
+                    </p>
+
+                    <h3>Gradients Calculation</h3>
+                    <p>
+                    Now that we know everything that is needed regarding the theoretical part, nothing prevents us from putting this knowledge into practice and delineate the sketch of the neural network weights update algorithm. As we discussed in the section above, we first need to compute the respective gradients. All calculations below are based on processing only one input example.
+                    </p>
+
+                    <h4>Output Layer</h4>
+                    <p>
+                    Let's start with the output layer, which is made of <span class="math">\(n\)</span> neurons. For simplicity, let's consider some <span class="math">\(m\)</span>-th neuron with an activation function <span class="math">\(\varphi_{l}\)</span><a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> located in between of the layer. In the previous post, we decided to denote the output signal of this neuron <span class="math">\(y_{l}^{m}\)</span> as follows:
+
+                    <span class="math">\[
+                    y_{l}^{m} = \varphi_{l} (z_{l}^{m}) = \varphi_{l}  \left (\sum_{j=1}^{n} w_{l}^{m,j} \cdot y_{l-1}^{j} + b_{l}^{m} \right )
+                    \]</span> 
+
+                    According to the same notation, this neuron's <span class="math">\(i\)</span>-th weight is denoted as <span class="math">\(w_{l}^{m,i}\)</span>:
+
+                    <div>
+                    <img src="images/output.png">
+                    <div class="source">The NN's output layer neuron.</div>
+                    </div>  
+                    </p>
+
+                    <p>
+                    Based on expression <span class="math">\((2)\)</span>, we have to compute the gradient with respect to the corresponding weight. Utilizing the chain rule and the neuron's activation formula above, we have:
+
+                    <span class="math">\[
+                    \nabla w_{l}^{m,i} = \dfrac{\partial L}{\partial w_{l}^{m,i}} =  \underbrace{\left. \dfrac{\partial L}{\partial y} \right |_{y=y_{l}^{m}}}_{L'} \cdot \underbrace{\left. \dfrac{\partial y_{l}^{m}}{\partial z} \right |_{z=z_{l}^{m}}}_{\varphi'} \cdot \left. \dfrac{\partial z_{l}^{m}}{\partial w} \right |_{w=w_{l}^{m,i}}
+                    \]</span> 
+
+                    Since <span class="math">\(z_{l}^{m}\)</span> is a linear function, it is not hard to compute the last term:
+
+                    <span class="math">\[
+                    \left. \dfrac{\partial z_{l}^{m}}{\partial w} \right |_{w=w_{l}^{m,i}} = y_{l-1}^{i}
+                    \]</span>           
+
+                    After combining everything together we finally have:
+
+                    <span class="math">\[  \begin{equation}
+                    \nabla w_{l}^{m,i} = L' \cdot \varphi' \cdot y_{l-1}^{i}; \, \nabla b_{l}^{m,i} = L' \cdot \varphi'  \end{equation}
+                    \]</span>  
+
+                    Thus, the gradient <span class="math">\(\nabla w_{l}^{m,i}\)</span> is proportional to the underlying neuron's output signal <span class="math">\(y_{l-1}^{i}\)</span>. This is why to calculate gradients for all weights of the output layer, we have first to calculate the output signals of all neurons of the network. For example, in the case of a quadratic loss function and the sigmoid activation function we'll get (omitting the layer index <span class="math">\(l\)</span>):
+
+                    <span class="math">\[ \begin{equation}
+                    L^{m} = \dfrac{1}{2}||y^{m}-t^{m}||_{2}^{2}; \, \varphi(x) = \sigma (x) \Rightarrow \nabla w^{m,i} = (y^{m}-t^{m}) (1-y^{m}) y^{m} y_{l-1}^{i} \end{equation}
+                    \]</span>     
+
+                    If the last layer is a softmax layer, using the equality <span class="math">\(\sum_{i}t^{i} = 1\)</span>, it is not hard to verify that: 
+
+                    <span class="math">\[
+                    L = \vec{t} \log{\vec{y}}; \, \varphi(x) = \text{softmax} (x) \Rightarrow L = \sum_{i=1}^{n} t^{i} \log{y^{i}}; \, y^{i} = \dfrac{e^{z^{i}}}{e^{z^{m}}+\epsilon}; \, \epsilon = \sum_{i \ne m}^{n} e^{z^{i}} \Rightarrow
+                    \]</span>        
+
+                    <span class="math">\[
+                    \dfrac{\partial L}{\partial z^{m}} = t^{m} \dfrac{\epsilon}{\epsilon + e^{z^{m}}} - \sum_{i \ne m}^{n} t^{i} \dfrac{e^{z^{m}}}{\epsilon + e^{z^{m}}} = t^{m} \dfrac{\epsilon}{\epsilon + e^{z^{m}}} - e^{z^{m}} \dfrac{1 - t^{m}}{\epsilon + e^{z^{m}}} = t^{m} - y^{m} \Rightarrow
+                    \]</span>  
+
+                    <span class="math">\[ \begin{equation} \nabla w_{l}^{m,i} = (y^{m}-t^{m}) y_{l-1}^{i} \end{equation} \]</span>     
+
+                    Here is the answer to the question why softmax and cross-entropy works better for classification rather than sigmoid and quadratic loss function. Comparing <span class="math">\((5)\)</span> and <span class="math">\((6)\)</span>, it is easy to see, that for <span class="math">\(y^{m} \approx 0\)</span> or for <span class="math">\(y^{m} \approx 1\)</span> <span class="math">\(\rightarrow \nabla w_{l}^{m,i} \approx 0\)</span>. This is one of the manifestations of the so-called <a href="https://en.wikipedia.org/wiki/Vanishing_gradient_problem">vanishing gradient problem</a>. In the case of the softmax activation, regardless of <span class="math">\(y^{m}\)</span> value, gradient value <span class="math">\(\nabla w_{l}^{m,i}\)</span> depends only on the absolute difference between the expected and the produced signals. This property of the softmax, of course, helps the training to be more efficient in terms of convergence speed.
+                    </p>
+
+                    <h4>Hidden Layers</h4>
+                    <p>
+                    What about the underlying hidden layers' neurons? Actually - nothing changes. We need to compute their gradients absolutely similarly to the calculations we've just done above. For brevity, in <span class="math">\((4)\)</span>, let's denote neuron-specific term <span class="math">\(L' \varphi'\)</span> as <span class="math">\(\delta^{m}_{l}\)</span>: <span class="math">\((4) \Leftrightarrow \nabla w^{m,i}_{l} = \delta^{m}_{l} y^{i}_{l-1}\)</span>. Now, let's take a look at the <span class="math">\(i\)</span>-th neuron from the penultimate <span class="math">\(l-1\)</span>-th layer:
+
+                    <div>
+                    <img src="images/hidden.png">
+                    <div class="source">Weights update for the hidden layers' neurons.</div>
+                    </div>  
+                    </p>
+
+
+                    <p style="text-indent: 0%">
+                    From the point of view of its operation, this neuron is no different from its neighbors above, therefore the expression for its activation function is equal to:
+
+
+                    <span class="math">\[
+                    y^{i}_{l-1} = \varphi_{l-1} \left (\sum_{k=1}^{n} w_{l-1}^{i,k} \cdot y_{l-2}^{k} + b^{k}_{l-1} \right )
+                    \]</span>  
+                    
+
+                    Thus, the gradient for this neuron's <span class="math">\(k\)</span>-th weight <span class="math">\(w_{l-1}^{i,k}\)</span> is given as follows:
+
+
+                    <span class="math">\[
+                    \nabla w_{l-1}^{i,k} = \dfrac{\partial L}{\partial  w_{l-1}^{i,k}} = \sum_{j}^{n} \left ( \left. \dfrac{\partial L}{\partial y } \right |_{y=y_{l}^{j}} \cdot \left. \dfrac{\partial y_{l}^{j}}{\partial z} \right |_{z=z_{l}^{j}} \cdot \left. \dfrac{\partial z_{l}^{j}}{\partial w} \right |_{w=w_{l-1}^{i,k}} \right )
+                    \]</span>
+
+                    The first two elements of the product inside the parentheses are just introduced term <span class="math">\(\delta^{m}_{l}\)</span>, so:
+
+
+                    <span class="math">\[
+                    \nabla w_{l-1}^{i,k} = \sum_{j}^{n} \left ( \delta_{l}^{j} \cdot \left. \dfrac{\partial z_{l}^{j}}{\partial w} \right |_{w=w_{l-1}^{i,k}} \right )
+                    \]</span>
+
+                    Writing down the expression for <span class="math">\(z_{l}^{j}\)</span>, we immediately get:
+
+                    <span class="math">\[
+                      z_{l}^{j} = \sum_{s=1}^{n_{l-1}} w_{l}^{j,s} \cdot y_{l-1}^{s} + b^{j}_{l} \Rightarrow \nabla w_{l-1}^{i,k} = \sum_{j}^{n} \left ( \delta_{l}^{j} \cdot w_{l}^{j,i} \cdot \left. \dfrac{\partial y_{l-1}^{i}}{\partial w} \right |_{w=w_{l-1}^{i,k}} \right )
+                    \]</span>
+
+
+                    Now, since <span class="math">\(w_{l-1}^{i,k}\)</span> belongs only to neuron <span class="math">\(y_{l-1}^{i}\)</span>, the last element of the product also depends only on this neuron. Therefore, we can factor it out giving:
+
+                    <span class="math">\[ 
+                    \nabla w_{l-1}^{i,k} = \left ( \sum_{j}^{n} \delta_{l}^{j}  \cdot w_{l}^{j,i} \right ) \cdot \left. \dfrac{\partial y_{l-1}^{i}}{\partial w} \right |_{w=w_{l-1}^{i,k}} 
+                    \]</span>
+                    
+                    , where the last derivative can be computed similarly to the case of the output neurons explained above, so there is nothing new:
+
+                    <span class="math">\[ \begin{equation}
+                    \left. \dfrac{\partial y_{l-1}^{i}}{\partial w} \right |_{w=w_{l-1}^{i,k}} = \varphi_{l-1}' \cdot y_{l-2}^{k} \Rightarrow  \nabla w_{l-1}^{i,k} = \left ( \sum_{j}^{n} \delta_{l}^{j}  \cdot w_{l}^{j,i} \right ) \cdot \varphi_{l-1}' \cdot y_{l-2}^{k} 
+
+                    \end{equation}
+                    \]</span>
+
+                    Here comes the pattern...
+                    </p>
+
+                    <h3>Backpropagation</h3>
+                    <p>
+                    If you look closely at <span class="math">\((4)\)</span> and <span class="math">\((7)\)</span>, you'll notice that they're similar enough. They both are made of the following three terms:
+
+                    <span class="math">\[   \begin{equation}
+                    \nabla w_{l}^{m,i} = \Delta_{l}^{m} \cdot \varphi_{l}' \cdot y_{l-1}^{i} \end{equation}
+                    \]</span>  
+
+                    They both are proportional to the following two terms:
+
+                    <li><span class="math">\(\Delta_{l}^{m}\)</span> - <em>aggregated error</em>. This error doesn't depend on the weight, which is being considered. As we just found out, in the case of the output layer neurons, <span class="math">\(\Delta_{l}^{m}\)</span> equals to <span class="math">\(L'\equiv \partial L / \partial y_{l}^{m} \)</span>. For the hidden neurons, this term equals to the sum of errors from the overlying neurons, multiplied by the weights of their connections with the considered neuron: <span class="math">\(\Delta_{l}^{m} = \sum_{j}^{n} \delta_{l}^{j}  \cdot w_{l}^{j,m}\)</span>.</li>
+                    <li><span class="math">\(\varphi_{l}'\)</span> - <em>neuron-specific error</em>. Depends only on the neuron's activation function value.</li>
+                    <li><span class="math">\(y_{l-1}^{i}\)</span> - <em>connection-specific error</em>. The term that corresponds to the input signals, which are passed through the respective connection. For the input layer this term is equal to the respective input signal: <span class="math">\(y_{0}^{i} \equiv x^{i}\)</span>.</li>
+                    </p>
+
+                    <p>
+                    So, we've just connected everything that happens during the calculation of the gradient: from the moment of receiving the input signal and computing the loss function value for in this example, to the moment when this error, starting from the output layer, is <em>propagated back down</em> the network transforming from layer to layer. Hence the name - <a href="https://en.wikipedia.org/wiki/Backpropagation">backpropagation</a> algorithm. The history of this algorithm was described in <a href="../2019-03-15-DL/index.html">this</a> post.
+                    </p>
+
+                    <p>
+                    This series of posts, describing the theoretical foundations of neural networks, as I said earlier, won't deal with purely practical questions, such as the implementation of the training algorithm. Because, first of all, it is already beautifully described in many other sources. Thus is a matter of taste. And secondly, it does not change the basic essence of how neural networks are trained. That is why, as an intermediate result of our conversation today, I would like to present the general scheme of training using the backpropagation algorithm in tandem with SGD. This algorithm is a summary of all calculations, which were given above:
+                    </p>
+
+                    <div class="note">
+                    <ol>
+                        <li>Let <span class="math">\(E\)</span> and <span class="math">\(B\)</span> be the number of training epochs and batches respectively;</li>
+                        <li>Randomly initialize all NN's weights and biases <span class="math">\(\textbf{w}\)</span>;</li>
+                        <li><b>for</b> each epoch <span class="math">\(e \in [1, \ldots, E]\)</span> <b>do</b>:</li>
+                        <li>&emsp;<b>for</b> each randomly selected same-size batch <span class="math">\(\pi \in [1, \ldots, B]\)</span> <b>do</b>:</li>
+                        <li>&emsp;&emsp;<b>for</b> each weight <span class="math">\(w\)</span> initialize its gradient to zero: <span class="math">\(\nabla L = [0,\ldots,0]\)</span>;</li>
+                        <li>&emsp;&emsp;<b>for</b> each training pair <span class="math">\((\vec{x}, \vec{t})\)</span> in <span class="math">\(\pi\)</span> <b>do</b>:</li>
+                        <li>&emsp;&emsp;&emsp;Compute all neurons' <span class="math">\(y\)</span> and <span class="math">\(z\)</span> function values;</li>
+                        <li>&emsp;&emsp;&emsp;<b>for</b> each layer <span class="math">\(l \in [n, n-1, \ldots, 1]\)</span> <b>do</b>:</li>
+                        <li>&emsp;&emsp;&emsp;&emsp;<b>for</b> each neuron <span class="math">\(m\)</span> in the <span class="math">\(\text{layer}\)</span> compute <span class="math">\(\Delta^{m}_{l}\)</span> and <span class="math">\(\varphi_{l}'\)</span>;</li>
+                        <li>&emsp;&emsp;&emsp;<b>for</b> each weight <span class="math">\(w\)</span> compute <span class="math">\(\nabla w_{l}^{m,i}\)</span> in accordance with <span class="math">\((8)\)</span>;</li>
+                        <li>&emsp;&emsp;&emsp;<b>for</b> each weight <span class="math">\(w\)</span> increment the gradient: <span class="math">\(\nabla L_{l}^{m,i} \mathrel{+}= \nabla w_{l}^{m,i}\)</span>;</li>
+                        <li>&emsp;&emsp;<b>for</b> each weight <span class="math">\(w\)</span> compute the average gradient: <span class="math">\(\nabla L_{l}^{m,i}\mathrel{/}= |\pi|\)</span>;</li>
+                        <li>&emsp;&emsp;<b>for</b> each weight <span class="math">\(w\)</span> compute its update: <span class="math">\(\Delta w_{l}^{m,i} = -\eta \nabla L_{l}^{m,i}\)</span>;</li>
+                        <li>&emsp;&emsp;Update each weight <span class="math">\(w\)</span>: <span class="math">\(w_{l}^{m,i} := w_{l}^{m,i} + \Delta w_{l}^{m,i}\)</span>;</li>
+                    </ol>
+                    </div>
+
+                    <p>
+                    Almost all feedforward neural networks are trained this way. Algorithms differ in implementation and in multiple optimizations, which are needed to speed up computations and save the resources.
+                    </p>  
+
+                    <p>
+                    ...
+                    </p>  
+
+                    <p>
+                    This is all I wanted to highlight in this post. Thank you! See you next time, when we'll be talking about another important aspect of the neural networks training - regularization.
+                    </p>                    
+
+
+                    <h3>Notes</h3>
+                    <section class="footnotes">
+                        <hr>
+                        <ol>
+                            <li id="fn1">
+                            Another way to denote <span class="math">\(p_{\textbf{w}}(\mathcal{D})\)</span> is <span class="math">\(p(\mathcal{D}|\textbf{w})\)</span>, but we will use the first option in this post for consistency.<a href="#fnref1">↩</a>
+                            </li>
+
+                            <li id="fn2">We assume, that every <span class="math">\(l\)</span>-th layer has <span class="math">\(n_{l}\)</span> neurons with the same activation function <span class="math">\(\varphi_{l}\)</span>.<a href="#fnref2">↩</a></li>
+                        </ol>
+                        <hr>
+                    </section>
+
+                    <div id="disqus_thread"></div>
+
+                </div>
+            </div>
+
+            <div class="button"></div>
+
+    </main>
+    <div class="footer">
+    </div>
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script src="../../js/jquery-3.0.0.min.js"></script>
+    <script src="../../js/main.js"></script>
+    <script src="../../js/go.up.js"></script>
+    <script src="../../js/footnotes.js"></script>
+    <script src="../../js/progress.bar.js"></script>
+    <script src="../../comments/inlineDisqussions.js"></script>
+    <script src="../../js/disqus.js"></script>
+
+</body>
+
+</html>

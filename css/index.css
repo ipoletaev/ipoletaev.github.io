@@ -1,0 +1,161 @@
+body {
+  overflow-y:scroll;
+  overflow-x:hidden;
+  margin: 0;
+}
+
+.gallery {
+  padding-top: 100px;
+  padding-bottom: 45px;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+
+  margin: auto;
+  max-width: 1150px;
+  display: block;
+/*  text-align: none;
+*/
+/*  text-align: center;
+*/}
+
+
+.gallery li {
+  display: none;
+  margin-left: 0;
+  text-align: left;
+  margin: 1.1em 0.8em 1.1em 0.8em;
+}
+
+.gallery .fail-message {
+  display: none;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  font-size: 150%;
+}
+
+.gallery .fail-message a {
+  color: #2c3e4e;
+  text-decoration: none;
+}
+
+.gallery .fail-message a:link {
+  color: #9da0a0;
+}
+
+.gallery .fail-message a:visited {
+  color: #9da0a0;
+}
+
+.gallery .fail-message a:hover {
+  color: #9da0a0;
+  text-decoration: underline;
+}
+
+.gallery .fail-message a:active {
+  color: #9da0a0;
+}
+
+
+/* -------------------------------- 
+Post cover design
+-------------------------------- */
+
+.post a:link {
+  text-decoration: none;
+}
+
+.post a:visited {
+  text-decoration: none;
+}
+
+.post a:hover {
+  text-decoration: none;
+}
+
+.post a:active {
+  text-decoration: none;
+}
+
+.post {
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translateZ(0) scale(1.0, 1.0);
+  transform: translateZ(0);
+  -webkit-font-smoothing: subpixel-antialiased;
+  backface-visibility: hidden;
+  transform-origin: 0 0;
+  background-color: white;
+  width: 350px;
+  height: 550px;
+  display: inline-block;
+  box-shadow: 0 20px 8px -8px rgba(61, 63, 65, .2);
+  transition: all .15s ease-in-out;
+  border-radius: 7px;
+  text-decoration: none;
+}
+
+.post:hover {
+  -ms-transform: scale(1.015);
+  -webkit-transform: scale(1.015);
+  transform: scale(1.015);
+  box-shadow: 0 25px 9px -9px rgba(61, 63, 65, .3);
+}
+
+.post-body {
+  height: 100px;
+  padding: 0 2em 2em;
+}
+
+.post h3 {
+  margin-top: 10px;
+  height: 70px;
+  color: black;
+  font-size: 2.5rem;
+  text-decoration: none;
+}
+
+.post p {
+  height: 70px;
+  color: #9A9AA6;
+  line-height: 1.5;
+  font-size: 1.6rem;
+}
+
+.post img {
+  width: 350px;
+  height: 350px;
+  border-radius: 7px 7px 0px 0px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+/*  border-bottom: 2px solid #f2f2f2;
+*/}
+
+.top-left {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  font-size: 3.5rem;
+  color: black;
+  font-style: italic;
+}
+
+
+@media only screen and (min-width: 375px) {
+  .post img {
+    width: 330px;
+    height: 330px;
+  }
+  .post {
+    width: 330px;
+   height: 530px;
+  }
+}

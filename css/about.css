@@ -1,0 +1,158 @@
+body {
+  overflow-x:hidden;
+}
+
+.about-header {
+  font-family: 'CMS', 'Droid Serif', Georgia, Times, serif;
+  width: 100%;
+  background-color: #557088;
+  height: 340px;
+  position: absolute;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: transform;
+  display: block;
+}
+
+.about-header h1 {
+  font-weight: bold;
+  margin-top: 150px;
+  color: white;
+  margin-left: 20px;
+  text-align: center;
+  font-size: 200%;
+}
+
+.about-header h4 {
+  margin-top: 5px;
+  color: #dbdbdb;
+  margin-left: 20px;
+  text-align: center;
+  font-size: 150%;
+}
+
+.photo {
+  background-color: white;
+  position: absolute;
+  width: 194px;
+  height: 194px;
+  margin-top: 250px;
+  left: 50%;
+  margin-left: -97px;
+  z-index: 1;
+  display: block;
+  border-radius: 50%;
+  padding: 5px;
+  box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.photo .background {
+  background: url("../data/images/photo.png") center center no-repeat;
+  background-size: 180px 180px;
+  position: absolute;
+  margin-top: 2px;
+  width: 180px;
+  border-radius: 50%;
+  margin-left: -90px;
+  display: block;
+  left: 50%;
+  height: 180px;
+}
+
+.about {
+  margin-top: 360px;
+  position: absolute;
+  left: 15%;
+  width: 70%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: white;
+  text-decoration: none;
+  overflow-x:hidden;
+  overflow-y:hidden;
+  margin-bottom: 50px;
+}
+
+.socials {
+  padding-top: 100px;
+  text-align: center;
+  margin-left: calc(35vw - 70px);
+}
+
+@media (max-width: 400px) {
+  .socials {
+    margin-left: 20px;
+  }
+}
+
+.socials ul li {
+  width: 48px;
+  height: 48px;
+  padding-right: 0px;
+  float: left;
+  transition: all 0.3s ease;
+}
+
+.socials ul li .fa {
+  color: #dbdbdb;
+  margin-top: 17px;
+  transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.socials ul li .fa:hover {
+  color: grey;
+}
+
+.text {
+  width: 70%;
+  color: black;
+  line-height: 1.6;
+  margin: 80px auto;
+  margin-bottom: 30px;
+  font-size: 150%;
+  text-align: center;
+}
+
+.text a:link {
+  color: #9da0a0;
+  text-decoration: none;
+}
+
+.text a:visited {
+  color: #9da0a0;
+}
+
+.text a:hover {
+  color: #9da0a0;
+  text-decoration: underline;
+}
+
+.text a:active {
+  color: #9da0a0;
+}
+
+.buttons {
+  width: 100%;
+  margin: 30px auto;
+  text-align: center;
+}
+
+.button {
+  text-align: center;
+  text-decoration: none;
+  background-color: #dbdbdb;
+  margin-bottom: 5px;
+  color: white;
+  padding-top: 10px;
+  border-radius: 10px;
+  font-size: 150%;
+  display: inline-block;
+  width: 200px;
+  height: 40px;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  background-color: grey;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}

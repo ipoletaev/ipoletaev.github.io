@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=David+Libre|Hind:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="../../fonts/Serif/cmun-serif.css" />
+    <link rel="stylesheet" href="../../fonts/Serif-Slanted/cmun-serif-slanted.css" />
+
+    <link rel="stylesheet" href="../../css/reset.css">
+    <link rel="stylesheet" href="../../css/default.css">
+    <link rel="stylesheet" href="../../css/nav_bar.css">
+    <link rel="stylesheet" href="../../css/post.css">
+    <link rel="stylesheet" href="../../comments/inlineDisqussions.css">
+    <link rel="stylesheet" href="../../css/progress_bar.css">
+    <link rel="stylesheet" href="../../css/go_up.css">
+    <link rel="stylesheet" href="../../css/footer.css">
+    <link rel="stylesheet" href="../../css/tags.css">
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143270978-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-143270978-1');
+    </script>
+
+    <link rel="shortcut icon" href="../../data/icons/Icon.ico" />
+    <title>Blog | Igor Poletaev</title>
+
+</head>
+
+<body>
+
+    <header class="header">
+
+        <div class="home">
+            <a href="../../index.html" title="Home">
+                <img src="../../data/vector/logo.svg" alt="Home">
+            </a>
+        </div>
+
+        <nav class="navigation">
+            <a href="#navigation" class="nav-trigger">
+                <span><em aria-hidden="true"></em></span>
+            </a>
+
+            <ul>
+                <li><a href="../../archives.html">Archives</a></li>
+                <li><a href="../../about.html">About</a></li>
+            </ul>
+
+        </nav>
+
+    </header>
+    <main>
+
+        <div id="wrap">
+
+            <progress value="0" id="progressBar">
+                <div class="progress-container">
+                    <span class="progress-bar"></span>
+                </div>
+            </progress>
+
+            <div class="content">
+                <div class="container">
+
+                    <h1>Applied Math.</h1>
+                    <h1>Part II: Derivative.</h1>
+                    <div class="time">December 9, 2018</div>
+                    <div class="post_tags">
+                        <a href="../../tags/math/index.html" class="tag">math</a>
+                    </div>
+                    </br>
+
+                    <h3>Foreword</h3>
+                    <p>
+                    In the previous <a href="../2018-10-20-Math-Part-1/index.html">post</a> we started talking about applied mathematics, and touched upon some basic concepts, and today our topic is derivatives.
+                    </p>
+                    <p>
+                    By the end of XVII century, Isaac Newton discovered laws of mechanics, found the law of universal gravitation and built the mathematical theory, helping reduce "uneven to uniform" and "heterogeneous to homogeneous". Simultaneously with Newton, the German mathematician Gottfried Wilhelm Leibniz was studying how to draw tangents to curves. Independently of each other, almost at the same time, Leibniz and Newton discovered calculus. Leibniz used the notation that turned out to be so convenient, that it is still used to this day.
+                    </p>
+
+                    <p>
+                    The new math created by Newton and Leibniz consisted of two major parts: differential and integral calculus. The first part in its basis has a straightforward idea: any small changes in continuous functions can be approximated as linear. The idea of integral calculus is based on the approach of using these small linear approximations to work with some complex, irregularly varying functions. 
+                    </p>
+
+                    <p>
+                    In this post, I would like to talk only about the two most essential parts of the differential calculus: derivative and differential. To be more precise, we will define the derivative and explain its geometric meaning, find out what the differential is and how it differs from the derivative. We also will be talking about how derivatives work for functions of several variables and will thoroughly consider how all this can be used for real-life applications.  
+                    </p>
+
+                    <p>
+                    The material will become more difficult from section to section, therefore feel free to skip what you think is unnecessary or too complicated. Further, all the same principles will be used for the notation which were described in the first part of this series of posts. So, let's get started!
+                    </p>
+
+                    <h4>The Idea and Definition</h4>
+                    <p><a href="https://en.wikipedia.org/wiki/Nikolai_Lobachevsky">Nikolai Lobachevsky</a> said: <em>"There is no branch of mathematics, however abstract, which may not some day be applied to phenomena of the real world"</em>. So does derivative. The concept of the derivative pervades all modern science, including physics, chemistry, economics and whatever you can imagine, so let's consider the following example. A car moving on a straight road from point <span class="math">\(A\)</span> to point <span class="math">\(B\)</span> with a distance of 100 kilometers between them. The question: "What was the average car speed if it finished the trip within 2 hours?" Of course, you have already answered the question: <span class="math">\(\overline{v} = \dfrac{S}{t} = \dfrac{100}{2} = 50\)</span> km/h. But what if we would like to study the average speed of the car at each point of its path? Well, as you might have guessed, we need to know the car coordinate function <span class="math">\(s(t)\)</span>: the dependency of the coordinate <span class="math">\(s\)</span> on time <span class="math">\(t\)</span>. Thus, more formally, between any two points <span class="math">\(s_{1},s_{2}\)</span>, where the car was at the moment of time <span class="math">\(t_{1}\)</span> and <span class="math">\(t_{2}\)</span> respectively, the average speed can be estimated using the next approximation:
+
+                    <span class="math">\[\overline{v} = \dfrac{s_{2} - s_{1}}{t_{2} - t_{1}}\]</span>
+                    </p>
+
+                    <p>
+                    The smaller the difference between these two time points - the better the above approximation is. So, finally, the <em>instant</em> car speed is becoming equal to the limit: 
+
+                    <span class="math">\[v(t) = \lim_{\Delta t \rightarrow 0} \dfrac{\Delta s}{\Delta t}\]</span>
+                    </p>
+
+                    <p>
+                    That was an illustration of how an idea of the derivative had apparently appeared in Newton's mind, when he was studying the laws of kinematics. Therefore, the derivative is just a name for the following limit:
+                    </p>
+
+                    <p class="note">
+                    Consider a function <span class="math">\(f \, : \, [a, \, b] \rightarrow \mathbb{R}\)</span> and a point <span class="math">\(x_{0} \in [a, \, b]\)</span>. If the following finite limit exists:
+
+                    <span class="math">\[\lim_{x\rightarrow x_{0}} \dfrac{f(x)-f(x_{0})}{x-x_{0}}\]</span>
+
+                    , then this limit is called the derivative of the function <span class="math">\(f(x)\)</span> at <span class="math">\(x_{0}\)</span> and denoted by the prime symbol <span class="math">\(f'(x_{0})\)</span>.
+                    </p>
+
+                    <p style="text-indent: 0%">
+                    If the above limit exists at each point of the interval <span class="math">\([a, \, b]\)</span>, then the mapping <span class="math">\(x\mapsto f'(x)\)</span> appears. This new function is also called the derivative and denoted similarly: <span class="math">\(f'(x)\)</span>.
+                    </p>
+
+                    <p>
+                    As you've just noticed, the denominator of the above expression, the argument increment <span class="math">\(\Delta x\)</span> tends to zero, therefore, for the limit to exist, its numerator must tend to zero as well. It means that <span class="math">\(f(x_{0}) = \lim_{x \to x_{0}} f(x)\)</span> and this, in turn, guarantees, that the function is <a href="https://en.wikipedia.org/wiki/Continuous_function">continuous</a> at <span class="math">\(x_{0}\)</span>. However, the converse of this fact is false, it just does not work backwards: the fact that the function is continuous <a href="https://en.wikipedia.org/wiki/Derivative#Continuity_and_differentiability">does not necessarily lead</a> to the derivative existence. Here is an <a href="https://en.wikipedia.org/wiki/Absolute_value#Derivative">example</a>: the absolute value function <span class="math">\(|x|\)</span> at <span class="math">\(0\)</span>.
+                    </p>
+
+                    <p>
+                    Using this definition, formulas for all basic function derivatives can be <a href="https://en.wikipedia.org/wiki/Differentiation_rules">obtained</a>.
+                    </p>
+
+                    <h4>Geometrical Meaning</h4>
+                    <p>
+                    Another way to understand what the derivative is and how it works is to consider a geometric example of tangent of curves<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>.
+                    </p>
+
+                    <div>
+                    <img src="images/pic_1.gif" alt style>
+                    </div>
+
+                    <p>
+                    The figure above depicts the so-called tangent <span class="math">\(\tau\)</span> and secant <span class="math">\(s\)</span> lines for some function <span class="math">\(f\)</span> at some point <span class="math">\(x_{0}\)</span>. There are also shown the increments of the function and argument: <span class="math">\(\Delta f\)</span> and <span class="math">\(\Delta x\)</span> respectively.
+                    </p>
+
+                    <p>
+                    In the general two-dimensional case, the tangent line equation is represented as follows: 
+
+                    <span class="math">\[\tau(x)=A(x-x_{0})+B\]</span>
+                    </p>
+
+                    <p style="text-indent: 0%">
+                    Since by the definition of the tangent line <span class="math">\(\tau(x_{0}) = f(x_{0})\)</span>, then, plugging it into the expression above, we get: <span class="math">\(B = f(x_{0})\)</span>. Moreover, using purely geometric considerations, we can calculate the <a href="https://en.wikipedia.org/wiki/Slope">slope</a> coefficient <span class="math">\(A\)</span> of the secant line: <span class="math">\(A = \tan(\alpha) = (f(x)-f(x_{0}))/(x-x_{0}) = \Delta f / \Delta x\)</span>; this slope is equivalent to the angle <span class="math">\(\alpha\)</span> that is shown in grey in the figure. The same figure also shows, that in the extreme case, when <span class="math">\(\Delta x \to 0\)</span>, the function increment also tends to zero <span class="math">\(\Delta f \to 0\)</span>. Thus, the ratio between function and argument increments, following the definition, approaches the value of the derivative at <span class="math">\(x_{0}\)</span>: 
+
+                    <span class="math">\[A \xrightarrow[]{} \lim_{\Delta x\rightarrow 0} \dfrac{\Delta f}{\Delta x} = f'(x_{0})\]</span>
+                    </p>
+
+                    <p style="text-indent: 0%">
+                    Voila! On the two-dimensional plane, the derivative of a function of one variable<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> at a point equals to the angle of inclination of the tangent line to this function at that point.
+                    </p>
+                    <p>
+                    Thus, in the case with the car from the example above, where speed is the derivative of the coordinate function, we have that the instant speed <span class="math">\(v(t)\)</span> is equal to the slope of the coordinate function <span class="math">\(s(t)\)</span> at the same moment of time. Consequently, the steeper the slope, the greater the speed.
+                    </p>
+
+
+                    <h4>Differential</h4>
+                    <p>
+                    The concept of the derivative is closely intertwined with the concept of the differential of a function. To understand what the differential is, firstly, it is better to recall what linear mappings are, and, secondly, what a little-o function is. 
+                    </p>
+                    <p>
+                    Let's start from linear mappings. In simple words, it is a <a href="https://en.wikipedia.org/wiki/Linear_map">generalization</a> of linear function to extend its properties on more domains and objects such a function may operate on. In terms of geometry, linear mappings are those mappings, which stretch and/or rotate vectors, preserving the dot product. Linear mappings are usually denoted as <span class="math">\(L\)</span>. In one-dimensional case, <span class="math">\(L\)</span> is a linear continuous function <span class="math">\(x \mapsto \alpha \cdot x\)</span>, where <span class="math">\(\alpha \in \mathbb{R}\)</span> is a number.
+                    </p>
+                    <p>
+                    What does little-o notation mean? If we have two functions <span class="math">\(f\)</span> and <span class="math">\(g\)</span>, then <span class="math">\(f\)</span> is little-o of <span class="math">\(g\)</span> for <span class="math">\(x \rightarrow x_{0}\)</span>, if <span class="math">\(g\)</span> decreases much slower then <span class="math">\(f\)</span>, while approaching <span class="math">\(x_{0}\)</span>. This is usually denoted as follows: <span class="math">\(f(x) = o(g(x))\)</span>. Often, mathematicians read it as <em>"<span class="math">\(f\)</span> is infinitesimal with respect to <span class="math">\(g\)</span>"</em>. More formally, the definition is always considered at some point <span class="math">\(x_{0}\)</span>, which belongs to both functions' domains, so the expression <span class="math">\(f(x) = o(g(x))\)</span> can be easily substituted by the following limit: 
+                    </p>
+
+                    <span class="math">\[\lim_{x \rightarrow x_{0}} \dfrac{f(x)}{g(x)} = 0 \Leftrightarrow f(x) = o(g(x)),\, x \rightarrow 0\]</span>
+                    
+                    <p style="text-indent: 0%">
+                    For instance, <span class="math">\(x^3 = o(x)\)</span> when <span class="math">\(x \to 0\)</span>. Usually, this notation is used, when functions are being approximated. For example, near zero, sine behaves like a linear function, and this fact might be written like this: 
+                    <span class="math">\(\sin(x) = x + o(x), \,\, x \rightarrow 0\)</span>. This is it! Now we can move forward to the differential.
+                    </p>
+                    <p>
+                    The concept of the differential of a function appeared, when mathematicians were trying to strictly define the idea of function differentiability. Under what conditions can we be sure, that some function has the derivative at some point? In fact, after a lot of research, it was shown that in order for a function to have a derivative, it suffices, that it can be linearly approximated at this point. It means that the function should have a tangent at that point. Thus, more formally: 
+                    </p>
+
+                    <p class="note">
+                    A function <span class="math">\(f \, : \, U(x_{0}) \rightarrow \mathbb{R}\)</span>, defined on some neighborhood of a point <span class="math">\(x_{0} \in \mathbb{R}\)</span>, is called differentiable at this point, if there exists a linear mapping <span class="math">\(L \, : \, \mathbb{R} \rightarrow \mathbb{R}\)</span>, that for the neighborhood <span class="math">\(U(x_{0})\)</span>, the following is correct:
+
+                    <span class="math">\[f(x_{0}+h) = f(x_{0}) + L(h) + o(h), \qquad h \rightarrow 0 \]</span>
+
+                    , where <span class="math">\(h \in \mathbb{R}\)</span> is a small argument increment. If such a mapping exists, it is called the <em>differential</em> of the function <span class="math">\(f\)</span> at the point <span class="math">\(x_{0}\)</span>.
+                    </p>
+
+                    <p style="text-indent: 0%">
+                    The differential is a function, or more precisely - a linear mapping - and this is extremely important. There are many ways to denote the differential, but I prefer the following one: <span class="math">\(df(x_{0},h)\)</span>. Why? First of all, because it highlights that the differential is a function, and secondly that this function depends on both point and argument increment value. But for brevity, we will use just <span class="math">\(df\)</span>: the shortest and probably the most popular way of doing this.
+                    </p>
+                    <p>
+                    How is this related to the derivative? There is a theorem, connecting all these three definitions: differential, derivative, and differentiability:
+                    </p>
+
+                    <p class="note">
+                    Assume <span class="math">\(f \, : \, [a, \, b] \rightarrow \mathbb{R}\)</span> and a point <span class="math">\(x_{0} \in [a, \, b]\)</span>. Function <span class="math">\(f(x)\)</span> has a derivative <span class="math">\(f'(x_{0})\)</span> at <span class="math">\(x_{0}\)</span> if and only if there exists the differential <span class="math">\(df\)</span> (i.e., <span class="math">\(f\)</span> is differentiable), in so doing, <span class="math">\(df(x_{0},h) \equiv df  = f'(x_{0})h\)</span>. 
+                    </p>
+
+                    <p>
+                    The argument increment <span class="math">\(h\)</span> is usually considered arbitrary. The differential, being a linear mapping, changes these increments as follows: it stretches them in proportion to the value of the derivative at a given point.
+                    </p>
+
+                    <p>
+                    If <span class="math">\(h\)</span> is small enough and we can neglect the error <span class="math">\(o(h)\)</span>, then the differential of a linear function <span class="math">\(y=x\)</span> is given by: <span class="math">\(dx \equiv d(y) = d(x) = (x)'h = 1\cdot h\)</span>. Thus, this differential is equal to its argument increment <span class="math">\(h\)</span>. Therefore, the above expression for the differential of an arbitrary function <span class="math">\(f\)</span> can be easily rewritten: <span class="math">\(df  = f'(x)h \Leftrightarrow df = f'(x)dx\)</span>, which is why, sometimes the derivative is denoted by: 
+
+                    <span class="math">\[f'(x) = \dfrac{df}{dx}\]</span>
+                    </p>
+
+                    <p style="text-indent: 0%">
+                    Although it is not a strict definition and it can lead to the erroneous conclusions, so I do advise you to use this only as a notation and not as a formula. This is how more than 300 hundred years ago the Leibniz's <a href="https://en.wikipedia.org/wiki/Leibniz%27s_notation">notation</a> appeared. 
+                    </p>
+
+                    <p>
+                    To summarize, the differential is a linear part of the function increment, connecting it with the argument increment through the derivative of this function: <span class="math">\(df = f'(x)dx\)</span>.
+                    </p>
+
+                    <h4>Higher-order Derivatives</h4>
+                    <p>
+                    Of course, it is absolutely fine, being functions, for some derivatives to have their own derivatives as well. The definition of the derivative of an arbitrary order is defined recurrently: 
+                    
+                    <p class="note">
+                    <span class="math">\(n\)</span>-th-order derivative is defined through the <span class="math">\(n-1\)</span>-th derivative, i.e., <span class="math">\(f^{(n)}(x) = (f^{(n-1)})'(x)\)</span>. 
+                    </p>
+
+                    <p>
+                    For example, for a cubic function <span class="math">\(y = x^{3}\)</span>, its <em>third</em>-order derivative is given by:<span class="math">\(y''' = (x^{3})'''=(3x^{2})''=(6x)'=6\)</span>. In Leibniz's notation <span class="math">\(n\)</span>-th-order derivative symbol is written as follows: <span class="math">\(\dfrac{d^{n}f}{dx^{n}}\)</span>.
+                    </p>
+
+                    <p>
+                    Bearing in mind the same logic, one can introduce the concept of the higher-order differential. For example, the second-order differential is defined by the following expression:
+                    
+                    <span class="math">\[d^{2}f(x_{0}) = f''(x_{0})(dx)^{2} = f''(x_{0})dx^{2}, \quad dx^2 \equiv (dx)^2 \]</span>
+
+                    Thus, for example, for a linear function <span class="math">\(y = x\)</span>, its second differential equals zero: <span class="math">\(d^{2}y = d^{2}x = 0 \cdot (dx)^{2} = 0\)</span>.
+                    </p>
+
+                    <p>
+                    Just like most things in math, higher-order derivatives also carry the physical meaning. For example, in the case of a car, its speed is the derivative of the car's distance function. So, the car's <a href="https://en.wikipedia.org/wiki/Acceleration">acceleration</a> is the derivative of the speed, that is, the second-order derivative of the distance function. We will discuss that later in this post. Such connections between different concepts are incredibly important for physics. It is also impossible to overemphasize the importance of the second-order derivatives for the convex analysis, where the derivatives can be used, for instance, to determine whether a given function is <a href="https://en.wikipedia.org/wiki/Convex_function">convex</a>.
+                    </p>
+
+                    <h4>Multivariable Functions and the Partial Derivatives</h4>
+                    <p>
+                    The world is not limited only by single-variable functions: many things may depend on many other things. For example, the indoor temperature of your house depends on the outside temperature, the materials of walls, floors, ceilings and so on. Such complex dependencies are called multivariable functions or functions of several variables.
+                    </p>
+
+                    <p>
+                    Speaking rigorously: 
+                    </p>
+
+                    <p class="note">
+                    Consider two <a href="https://en.wikipedia.org/wiki/Euclidean_space">Euclidean spaces</a> <span class="math">\(\mathbb{R}^{n}\)</span> and <span class="math">\(\mathbb{R}^{m}\)</span>. If there exists an <a href="https://en.wikipedia.org/wiki/Open_set">open</a> <a href="https://en.wikipedia.org/wiki/Connected_space">connected</a> set (usually called a <a href="https://en.wikipedia.org/wiki/Region_(mathematics)">region</a>) <span class="math">\(\mathcal{D} \subset \mathbb{R}^{n}\)</span>, then a mapping <span class="math">\(f \, : \, \mathcal{D} \rightarrow \mathbb{R}^{m}\)</span> is called a <em>multivariable</em> function, that maps each point <span class="math">\(\mathbf{x} \in \mathcal{D}\)</span> to its <span class="math">\(m\)</span>-dimensional image.
+                    </p>
+
+                    <p style="text-indent: 0%">
+                    That is, such a function transfers points from the <span class="math">\(n\)</span>-dimensional space to the <span class="math">\(m\)</span>-dimensional one. No more, no less.
+                    </p>
+
+                    <li><em>Example 1</em>. Vector function. <span class="math">\(f \, : \, \mathbb{R} \rightarrow \mathbb{R}^{3}:\)</span>
+
+                    <span class="math">\[
+
+                    f: \,\, x \rightarrow \begin{bmatrix} -x\\-x\\x^{2} \end{bmatrix}
+
+                    \]</span>
+                    </li>
+
+                    <li><em>Example 2</em>.  Scalar function. <span class="math">\(f \, : \, \mathbb{R}^{3} \rightarrow \mathbb{R}: \,\, f(x,y,z) = x^{2}+y^{2}+z^{2}\)</span>.</li>
+
+                    <li><em>Example 3</em>.<a href="#fn3" class="footnoteRef" id="fnref3"></a> 3D graph. <span class="math">\(f \, : \, \mathbb{R}^{2} \rightarrow \mathbb{R}^{3}:\)</span>
+
+                    <span class="math">\[
+
+                    f: \,\, \begin{bmatrix} x\\y \end{bmatrix} \rightarrow \begin{bmatrix} x\\y\\\sqrt{x^{2}+y^{2}+1} \end{bmatrix}
+
+                    \]</span>
+                    </li>
+
+                    <div>
+                    <img src="images/pic_2.png" alt style>
+                    </div>
+
+                    <p>
+                    Almost all the definitions/ideas/notations/theorems in single-variable function theory might be applied for the multivariable functions. Moreover, even notation will not change much. For example, all modulus signs <span class="math">\(||\)</span> should be replaced with the respective Euclidean <a href="https://en.wikipedia.org/wiki/Norm_(mathematics)">norm</a> <span class="math">\(\lVert \cdot \rVert\)</span>.
+                    </p>
+                    
+                    <p>
+                    The definition of the derivative for multivariable functions can be introduced through the definition of the partial derivative. Usually, a scalar-valued function <span class="math">\(f \, : \, \mathbb{R}^{n} \rightarrow \mathbb{R}\)</span> is considered for simplicity. In this context, the word "partial" means that all function arguments are fixed at some point <span class="math">\(\mathbf{x}_{0} = (x_{1}, x_{2}, \dots, x_{n}) \in \mathbb{R}^{n}\)</span> (multidimensional objects will be further highlighted in bold) except for a single argument <span class="math">\(x_{i}\)</span>, which is changed. Thus, similarly to the single-variable derivative definition, we have:
+                    </p>
+
+                    <p class="note">
+                    If the following limit exists:
+
+                    <span class="math">\[\lim_{\Delta x_{i} \rightarrow 0} \dfrac{f(x_{1}, \dots , x_{i}, \dots  x_{n})-f(x_{1}, \dots,x_{i} + \Delta x_{i} , \dots, x_{n})}{\Delta x_{i}}\]</span>
+                    
+                    , then this limit is called the derivative of the function <span class="math">\(f(\mathbf{x})\)</span> at <span class="math">\(\mathbf{x}_{0}\)</span> with respect to the variable <span class="math">\(x_{i}\)</span> and denoted by the following symbol: <span class="math">\(\dfrac{\partial f}{\partial x_{i}}\)</span>. 
+                    </p>
+
+                    <p>
+                    That is, in simple words, the partial derivative is a regular derivative, but computed for the multivariable function, whose arguments are "frozen" except for a single considered variable.
+                    </p>
+
+                    <p>
+                    Let's consider function <span class="math">\(f\)</span> from the above illustration: 
+
+                    <span class="math">\[f \, : \, (x,y) \mapsto (x,y,\sqrt{x^{2}+y^{2}+1}) \]</span> 
+                    </p>
+
+                    <p style="text-indent: 0%">
+                    For example, let's assume <span class="math">\(x = 1\)</span>, i.e., "fix" variable <span class="math">\(x\)</span>. Geometrically it means that we need to draw a plane <span class="math">\(x = 1\)</span>. Then, the intersection of that plane and the function surface will "cut out" a curve <span class="math">\(y \mapsto (1,y,\sqrt{y^{2}+2})\)</span> (the red curve in the figure below). Thus, for the <span class="math">\(y\)</span>-partial derivative of <span class="math">\(f\)</span>, we have to consider a function <span class="math">\(\sqrt{y^{2}+2}\)</span>. For example, at point <span class="math">\((1,1)\)</span>, this partial derivative is given by:
+
+                    <span class="math">\[
+
+                    \dfrac{\partial f}{\partial y} = \left.\dfrac{d(\sqrt{y^{2}+2})}{dy}\right|_{y=1} = \left.\dfrac{y}{\sqrt{y^{2}+2}}\right|_{y=1}=\dfrac{\sqrt{3}}{3}
+
+                    \]</span>
+
+                    </p>
+
+                    <div>
+                    <img src="images/pic_3.png" alt style>
+                    </div>
+
+                    <p>
+                    Also, partial derivatives can be applied multiple times with respect to different variables; these derivatives are called <em>mixed</em> partial derivatives. Here is an example. Given a scalar-valued function <span class="math">\(f = x^{2} / y \)</span>, the mixed partial derivative with respect to the variables <span class="math">\(x\)</span> and <span class="math">\(y\)</span> will be:
+
+
+                    <span class="math">\[
+
+                    \dfrac{\partial^{2} f}{\partial x \partial y} =  \dfrac{\partial}{ \partial x} \dfrac{\partial (x^2/y)}{\partial y} = \dfrac{\partial (-x^{2}/y^{2})}{ \partial x} = \dfrac{-2x}{y^{2}}
+
+                    \]</span>
+
+
+                    </p>
+
+                    <h4>Differential of a Scalar Function</h4>
+
+                    <p>
+                    The question of the differentiability of functions of several variables, as in the one-dimensional case, is connected with the concept of the differential. The sufficient condition for the differentiability might be written as follows:
+                    </p>
+
+                    <p class="note">
+                    Assume <span class="math">\(\mathcal{D} \in \mathbb{R}^{n}\)</span> is a region, where a function <span class="math">\(f \, : \, \mathcal{D} \rightarrow \mathbb{R}\)</span> is defined. If all first-order partial derivatives exist and they are continuous at <span class="math">\(\mathbf{x}_{0}\)</span>, then this function is differentiable at this point.
+                    </p>
+
+                    <p style="text-indent: 0%">
+                    However, the necessary condition is the following:
+                    </p>
+
+                    <p class="note">
+                    If <span class="math">\(f\)</span> is differentiable at <span class="math">\(\mathbf{x}_{0}\)</span>, then all partial derivatives of <span class="math">\(f\)</span> exist, and the function increment can be expressed in the form:
+
+                    <span class="math">\[
+
+                    f(\mathbf{x}_{0}+\Delta\mathbf{x})-f(\mathbf{x}_{0})=\underbrace{\sum_{i=1}^{n}\dfrac{\partial f}{\partial x_{i}}(\mathbf{x}_{0}) \Delta x_{i}}_{=df(\mathbf{x}_{0}, \Delta \mathbf{x})} + o(\lVert \Delta \mathbf{x} \rVert), \qquad \Delta \mathbf{x} \rightarrow 0
+
+                    \]</span>         
+
+                    In the case when all variables are independent and the argument increment is infinitesimal, then all <span class="math">\(\Delta x_{i} = dx_{i}\)</span>.
+                    </p>
+
+                    <p>
+                    By the way, if all partial derivatives of <span class="math">\(f(\mathbf{x})\)</span> exist at some point <span class="math">\(\mathbf{x}_{0}\)</span>, then this function is called <a href="https://en.wikipedia.org/wiki/Smoothness">smooth</a>. 
+                    </p>
+
+                    <p>
+                    In the more general case, when <span class="math">\(\mathbb{R}^{n} \rightarrow \mathbb{R}^{m}\)</span> functions are considered, the differential, being a linear mapping, becomes a matrix operator, represented through the <a href="https://en.wikipedia.org/wiki/Jacobian_matrix_and_determinant">Jacobian matrix</a>, that acts on the argument increment vector <span class="math">\(\Delta \mathbf{x}\)</span>. Thus, it takes <span class="math">\(\Delta \mathbf{x}\)</span> as input and with some error <span class="math">\(o(\lVert \Delta \mathbf{x} \rVert)\)</span> produces as output a vector of the function increment: <span class="math">\[df_{\mathbf{x}_{0}}: \Delta \mathbf{x} \mapsto \Delta \mathbf{f}\]</span> The way how this transformation is performed also depends on the considered point <span class="math">\(\mathbf{x}_{0}\)</span>:
+                    </p>
+
+                    <div>
+                    <img src="images/pic_4.png" alt style>
+                    </div>
+
+                    <p>
+                    Moving too fast? Well, let's take a break and try to see how it works in practice. Let's consider as an example function <span class="math">\(f = 1 - 0.2\cdot(x^{2}+y^{2})\)</span> from the figure above. Since <span class="math">\(f\)</span> is a <span class="math">\(\mathbb{R}^{2} \rightarrow \mathbb{R}^{3}\)</span> function, its differential <span class="math">\(df\)</span> is a <span class="math">\(3 \times 2\)</span> linear operator:
+
+                    <span class="math">\[ f \equiv \begin{bmatrix} f_{1} \\ f_{2} \\ f_{3} \end{bmatrix} = \begin{bmatrix} x \\ y \\ 1 - 0.2\cdot(x^{2}+y^{2}) \end{bmatrix} \Rightarrow df =  \begin{pmatrix} \frac{\partial f_{1}}{\partial x} & \frac{\partial f_{1}}{\partial y} \\ \frac{\partial f_{2}}{\partial x} & \frac{\partial f_{2}}{\partial y} \\ \frac{\partial f_{3}}{\partial x} & \frac{\partial f_{3}}{\partial y} \end{pmatrix} = \begin{pmatrix} 1 & 0 \\ 0 & 1 \\ -0.4x & -0.4y \end{pmatrix}
+                    \]</span>         
+
+
+                    <span class="math">\[
+
+                    df_{(1,1)} \cdot \Delta \mathbf{x} \equiv df_{(1,1)} \cdot \begin{bmatrix} dx \\ dy \end{bmatrix} = \begin{bmatrix} dx \\ dy \\ -0.4(xdx+ydy) \end{bmatrix}
+
+                    \]</span> 
+
+                    What's this about? How should it work? Well, everything is shown in accordance with the definition: the differential, in this particular case, is taking an arbitrary increment vector <span class="math">\(\Delta \mathbf{x} = (dx,dy, 0)\)</span> from the <span class="math">\(XY\)</span>-plane and maps it onto the tangent space of the surface (hatched gray parallelogram in the figure) made by function <span class="math">\(f\)</span> in the <span class="math">\(3D\)</span>-space. 
+                    </p>
+
+                    <p>
+                    During this "mapping", the original vector's direction and initial point are preserved. Why? Because if you take a look at the first two rows of the differential, then you'll see that it has exactly the same <span class="math">\(x\)</span> and <span class="math">\(y\)</span> coordinates: <span class="math">\(dx\)</span> and <span class="math">\(dy\)</span>, whereas the argument increment's <span class="math">\(z\)</span>-component has became non-zero: <span class="math">\(-0.4(xdx+ydy)\)</span>. Thus, for example at <span class="math">\(\mathbf{x}_{0} = (0,1)\)</span>, vector <span class="math">\((-1,1,0)\)</span> will be moved and become equal to <span class="math">\((-1,1,-0.4)\)</span>, and it is the vector that represents an approximation of the function increment <span class="math">\(\Delta \mathbf{f}\)</span>. This is how the differentials work in the general case.
+                    </p>
+
+
+                    <h4>Gradient</h4>
+                    <p>
+                    The gradient is a widely spread term, which is used in calculus to represent a scalar-function derivative through all its partial derivatives being collected into a single vector. 
+                    </p>
+
+                    <p class="note">
+                    Consider a scalar function <span class="math">\(f \, : \, \mathbb{R}^{n} \rightarrow \mathbb{R}\)</span>. If at some point <span class="math">\(\mathbf{x}_{0}\in\mathbb{R}^{n}\)</span> all its partial derivatives <span class="math">\(\dfrac{\partial f}{\partial x_{i}}\)</span> exist and they are continuous, then the gradient at point <span class="math">\(\mathbf{x}_{0}\)</span> of the function <span class="math">\(f\)</span> is called the following vector: <span class="math">\((\dfrac{\partial f}{\partial x_{1}}, \dots, \dfrac{\partial f}{\partial x_{n}})\)</span>. This vector is denoted by <span class="math">\(\mathrm{grad}f\)</span> or <span class="math">\(\nabla f\)</span>. 
+                    </p>
+
+                    <p>
+                    The scalar multiplication of the function gradient and the argument increment, by definition, will give us an expression for the differential: <span class="math">\(df = \langle \mathrm{grad}f, \Delta \mathbf{x} \rangle\)</span>. 
+                    </p>
+
+                    <p>
+                    What is the gradient used for? This term was introduced in mathematics at the end of XIX century by the great Scottish physicist <a href="https://en.wikipedia.org/wiki/James_Clerk_Maxwell">J. C. Maxwell</a>. The gradient was used to simplify the description of the so-called <a href="https://en.wikipedia.org/wiki/Scalar_field">scalar fields</a>. The gradient is a handy tool, that might be used for studying different functions. For example - in order to find their extrema - because the gradient computed at each point indicates in its direction the greatest rate of increase of a function.
+                    </p>
+
+                    <p>
+                    Let's not change our traditions and consider an example of the vector gradient field for the function <span class="math">\(f = \sqrt{x^{2}+y^{2}+1}\)</span> defined on a square area <span class="math">\(X\times Y = [-1,1]\times[-1,1]\)</span>:
+                    </p>
+
+                    <div>
+                    <img src="images/pic_5.png" alt style>
+                    </div>
+
+                    <p style="text-indent: 0%">
+                    Here it is seen that starting from the origin <span class="math">\((0,0)\)</span>, the gradient vectors begin to grow, and they grow faster if they are farther from zero. This growth rate is shown through the norm (length) of the gradient vectors depicted.
+                    </p>
+
+                    <h4>The Hessian Matrix</h4>
+                    <p>
+                    There are a few more topics to be covered before proceeding to the conclusion of this post. In this section, I would like to discuss with you another important and undoubtedly convenient mathematical tool. If you need to calculate, for example, the <a href="https://en.wikipedia.org/wiki/Differential_of_a_function#Higher-order_differentials">second-order differential</a> of some multivariable function, then it is needed to apply the differential operator to the already calculated first-order, regular differential. In the scalar-valued function case, we have to compute all possible permutations of all partial derivatives: 
+
+                    <span class="math">\[
+
+                    d^{2}f(\mathbf{x}_{0}) = d(df)(\mathbf{x}_{0}) = \sum_{j=1}^{n}\sum_{i=1}^{n}\dfrac{\partial^{2}f}{\partial x_{j} \partial x_{i}}(\mathbf{x}_{0})\Delta x_{j} \Delta x_{i}
+
+                    \]</span> 
+
+                    This expression can be written way simpler using the so-called <a href="https://en.wikipedia.org/wiki/Hessian_matrix">Hessian matrix</a>:
+
+
+                    <span class="math">\[
+
+                    d^{2}f(\mathbf{x}_{0}) = \Delta \mathbf{x}^{\mathsf{T}} \cdot \mathbf{H}_{\mathbf{x}_{0}} \cdot \Delta \mathbf{x} = [\Delta x_{1}, \dots, \Delta x_{n}] \cdot \left. \begin{pmatrix}\frac{\partial^2f}{\partial x_1^{2}} & \cdots & \frac{\partial^2f}{\partial x_1 \partial x_n} \\ \vdots & \ddots & \vdots \\ \frac{\partial^2f}{\partial x_n \partial x_1} & \cdots & \frac{\partial^2f}{\partial x_n^{2}}\end{pmatrix} \right |_{\mathbf{x}_{0}} \cdot \begin{bmatrix} \Delta x_{1}\\ \vdots\\ \Delta x_{n} \end{bmatrix}
+
+                    \]</span> 
+
+                    This is a square-symmetric matrix with the size <span class="math">\(n\)</span> equal to the number of function's arguments: <span class="math">\(\mathbf{H} \in M_{n}(\mathbb{R})\)</span>.
+                    Do not be afraid of all these intricate and intimidating matrix-vector products: it is made just for convenience and brevity. At least, because it is much easier and much more efficient for the computers (or more precisely, algorithms they use) to operate with sets of numbers rather than with each number separately.
+                    </p>
+
+                    <p>
+                    Let's take a look at our beloved scalar function from the <a href="#fnref3">example 3</a>: <span class="math">\(f = \sqrt{x^{2}+y^{2}+1}\)</span>. Consider this function at the point <span class="math">\(\mathbf{x}_{0}=(1,1)\)</span>. Because <span class="math">\(f\)</span> uses two arguments, we get <span class="math">\(2 \times 2 \)</span> Hessian matrix<a href="#fn4" class="footnoteRef" id="fnref4"><sup>3</sup></a>. Usually, arguments <span class="math">\(x_{1}\)</span> and <span class="math">\(x_{2}\)</span> are considered as <span class="math">\(x\)</span> and <span class="math">\(y\)</span> variables respectively. Thus the hessian is given by:
+
+                    <span class="math">\[
+
+                    \mathbf{H}_{(1,1)} = \dfrac{1}{(x^{2}+y^{2}+1)^{3/2}} \cdot \left. \begin{pmatrix}y^2+1 & -xy \\ -xy & x^2+1 \end{pmatrix} \right |_{(1,1)} = \begin{pmatrix}\dfrac{2}{\sqrt{3}} & -\dfrac{1}{\sqrt{3}} \\ -\dfrac{1}{\sqrt{3}} & \dfrac{2}{\sqrt{3}}\end{pmatrix}
+
+                    \]</span> 
+
+                    The study of the Hessian matrices at a certain point is useful to determine the extrema of multivariable functions. Let's elaborate on this. 
+                    </p>
+
+                    <h4>Extremum of a Function</h4>
+                    <p>
+                    Despite all the beauty of the formalism of derivatives, I am deeply convinced that all this should be studied, first of all, as a tool. Furthermore, since the derivative of a function is a measure of the rate of change of this function at each point, the derivative can be used to find the special points of a function: the points at which the function takes its minimum or maximum values, or in other words, the extrema.
+                    </p>
+
+                    <p>
+                    Firstly, it'd be useful to have a formal definition of an extremum:
+                    </p>
+
+                    <p class="note">
+                    Assume a function <span class="math">\(f \, : \, \mathcal{D} \subset \mathbb{R}^{n} \rightarrow \mathbb{R}\)</span>. Then, this function has a local minimum (or maximum) at some point <span class="math">\(\mathbf{x}_{0} \in \mathcal{D}\)</span>, if there exists a sphere <span class="math">\(S(\mathbf{x}_{0}, \delta)\)</span> with some radius <span class="math">\(\delta\)</span>, that for any point inside this sphere <span class="math">\(\mathbf{y} \in\mathcal{D} \cap S(\mathbf{x}_{0}, \delta)\)</span>, it is correct, that <span class="math">\(f(\mathbf{y}) \ge f(\mathbf{x}_{0})\)</span> (or <span class="math">\(f(\mathbf{y}) \le f(\mathbf{x}_{0})\)</span>). Point <span class="math">\(\mathbf{x}_{0}\)</span> that is either a maximum or minimum is called an extremum.
+                    </p>
+
+
+                    <p>
+                    There exists the necessary (but not sufficient!) condition of a local extremum:
+                    </p>
+
+                    <p class="note">
+                    Assume a function <span class="math">\(f \, : \, \mathcal{D} \subset \mathbb{R}^{n} \rightarrow \mathbb{R}\)</span>, which has all its partial derivatives defined and they are continuous<a href="#fn5" class="footnoteRef" id="fnref5"><sup>4</sup></a>. If <span class="math">\(f\)</span> has a local extremum at some point <span class="math">\(\mathbf{x}_{0} \in \mathcal{D}\)</span>, then all the partial derivatives are equal to zero: <span class="math">\(\dfrac{\partial f}{\partial x_{i}} = 0 \,\, \forall i\)</span>.
+                    </p>
+
+                    <p style="text-indent: 0%">
+                    For a single-variable function this statement means, that if some function <span class="math">\(f(x)\)</span> has an extremum at <span class="math">\(x_{0}\)</span>, then <span class="math">\(f'(x_{0})=0\)</span>. But from the practical perspective, it is the conditions (and not consequences) under which a function may have an extremum is more useful subject to be figured out. Here comes Taylor's <a href="https://en.wikipedia.org/wiki/Taylor%27s_theorem">theorem</a> to help us: 
+
+
+                    <span class="math">\[
+
+                    \Delta f  = f(\mathbf{x}_{0} + \Delta \mathbf{x}) - f(\mathbf{x}_{0}) = \nabla f( \mathbf{x}_{0})^{\mathsf{T}} \cdot \Delta \mathbf{x} + \dfrac{1}{2!} \Delta \mathbf{x}^{\mathsf{T}} \cdot \mathbf{H}_{\mathbf{x}_{0}} \cdot \Delta \mathbf{x} + o({\lVert \Delta \mathbf{x} \rVert}^{2})
+
+                    \]</span>  
+
+                    Therefore, near the extrema, when all partial derivatives (in accordance with the criterion above) are close to zero, we can assume that<a href="#fn6" class="footnoteRef" id="fnref6"></a>:
+
+                     <span class="math">\[
+
+                    \Delta f  \approx \dfrac{1}{2} \cdot d^{2}f(\mathbf{x}_{0}) = \dfrac{1}{2} \cdot \Delta \mathbf{x}^{\mathsf{T}} \mathbf{H}_{\mathbf{x}_{0}} \Delta \mathbf{x}
+
+                    \]</span> 
+
+                    , and it gives us a hint: in order to find the extrema, it is required to study the Hessian matrix behavior... Thanks to mathematicians and their research, it turned out that the hint is correct! There is the necessary and sufficient condition for an extremum:
+                    </p>
+
+                    <p class="note">
+                    Assume a function <span class="math">\(f \, : \, \mathcal{D} \subset \mathbb{R}^{n} \rightarrow \mathbb{R}\)</span> and <span class="math">\(f \in C^{2}(\mathcal{D})\)</span>. Consider the Hessian matrix <span class="math">\(\mathbf{H}_{\mathbf{x}_{0}}\)</span> of the function <span class="math">\(f\)</span> at <span class="math">\(\mathbf{x}_{0}\in\mathcal{D}\)</span>: if <span class="math">\(\mathbf{H}_{\mathbf{x}_{0}}\)</span> is a <a href="https://en.wikipedia.org/wiki/Positive-definite_matrix">positive-definite</a> (negative-definite) matrix, then <span class="math">\(\mathbf{x}_{0}\)</span> is a local minimum (or a maximum). Otherwise, <span class="math">\(\mathbf{x}_{0}\)</span> is not an extremum.
+                    </p>
+
+                    <p style="text-indent: 0%">
+                    Sounds confusing? I'm here to help you! So first things first. The basic idea, in fact, is very logical and simple, although it is veiled by the sophisticated definition. If we consider a function near the extremum in a quadratic approximation, then this point is a local minimum if the function behaves similarly to the parabola, and a maximum, if this parabola is inverted. To better understand what is going on, let's take a look at the following example:
+
+                    <div>
+                    <img src="images/pic_6.png" alt style>
+                    </div>
+                    </p>
+
+                    <p style="text-indent: 0%">
+                    For the illustration purposes, it would be great to find all minimums and maximums of the function <span class="math">\(f=x^{2}e^{-x^{2}} + y^{2}e^{-y^{2}} + 1\)</span> step by step. Firstly, we need to determine the critical points, where the partial derivatives become equal to zero:
+
+
+                    <span class="math">\[
+
+                    \dfrac{\partial f}{\partial x} = 2x(1-x^{2})\cdot e^{-x^{2}} = 0 \Rightarrow x = {-1,0,1}
+
+                    \]</span> 
+
+                    <span class="math">\[
+
+                    \dfrac{\partial f}{\partial y} = 2y(1-y^{2})\cdot e^{-y^{2}} = 0 \Rightarrow y = {-1,0,1}
+
+                    \]</span> 
+
+                    Thus, we have 9 potential extrema at the points where <span class="math">\(x\)</span> and <span class="math">\(y\)</span> coordinates can be any number from <span class="math">\(-1,0\)</span> or <span class="math">\(1\)</span>. The next step is to investigate function behavior near the critical points. To do this, let's firstly calculate the Hessian matrix:
+
+                    <span class="math">\[
+
+                    \mathbf{H} = \begin{pmatrix} 2 e^{-x^{2}} (1 - 5 x^{2} + 2 x^{4}) & 0 \\ 0 & 2 e^{-y^{2}} (1 - 5 y^{2} + 2 y^{4}) \end{pmatrix}
+
+                    \]</span> 
+
+                    To study this matrix, we can use the definition of the function increment, which we gave earlier, but with a slight reservation: at the critical points linear approximation is not enough, the second-order approximation is needed. Using the <a href="#fnref6">expression</a> we've recently gotten for the second-order differential and denoting <span class="math">\(g(x) = 1 - 5x^{2}+2x^{4}\)</span> for brevity, we finally have:  
+
+                    <span class="math">\[
+
+                    \Delta f \approx \dfrac{1}{2} \cdot [dx\,\,dy] \cdot \begin{pmatrix}2e^{-x^{2}}g(x) & 0 \\ 0 & 2e^{-y^{2}}g(y) \end{pmatrix} \cdot \begin{bmatrix} dx \\ dy \end{bmatrix} = e^{-x^{2}}g(x)(dx)^{2} + e^{-y^{2}}g(y)(dy)^{2}
+
+                    \]</span>  
+
+                    In this way, the <a href="https://en.wikipedia.org/wiki/Quadratic_form">quadratic form</a> <span class="math">\(\Delta f\)</span> is negative-definite, if both <span class="math">\(x=\pm 1\)</span> and <span class="math">\(y=\pm 1\)</span>, because <span class="math">\(g(\pm 1) = -2\)</span> and therefore <span class="math">\(\Delta f \approx -2e^{-1}(dx^{2}+dy^{2}) < 0\,\, \forall dx,dy \ne 0 \)</span>. Similarly, if <span class="math">\(x = y = 0\)</span> <span class="math">\(g(0)=1\)</span>, then <span class="math">\(\Delta f\)</span> is a positive-definite form, and therefore <span class="math">\(\Delta f > 0\,\, \forall dx,dy \ne 0 \)</span>. 
+                    </p>
+
+                    <p>
+                    In accordance with the definition, point <span class="math">\((0,0)\)</span> is a local minimum, whereas four points <span class="math">\((1,1),\,(-1,-1),\,(-1,1),\,(1,-1)\)</span> are local maximums respectively. At the remaining points <span class="math">\((0,\pm 1)\)</span> and <span class="math">\((\pm 1, 0)\)</span> we cannot definitely say that <span class="math">\(\Delta f\)</span> is either positive or negative for all non-zero argument increment values. This means that these points are the so-called <a href="https://en.wikipedia.org/wiki/Saddle_point">saddle</a> points, that is clearly seen in the figure above. It is important to note, that instead of studying the Hessian matrix definiteness, it is possible to directly study how the function increment behaves, depending on the argument increment values. It's exactly what we've done.
+                    </p>
+
+                    <p>
+                    All the above considerations are valid only for functions with an infinite domain. If the domain is finite, then in the case when a function has no critical points, the extrema are located at the edge points of the domain. For example, in the case of a linear function <span class="math">\(y=x\)</span> defined on the positive half-plane <span class="math">\([0,+\infty)\)</span>, there would be a single global minimum on the left edge of the domain located at <span class="math">\(0\)</span>. 
+                    </p>
+
+                    <p>
+                    Summarizing the above, we can distinguish the following steps for the algorithm for finding extrema of a function:
+
+                    <ol>
+                        <li>Calculate the partial derivatives and solve all equations <span class="math">\(\dfrac{\partial f}{\partial x_{i}} = 0\)</span>. If this equation system has a solution, move to the next step.</li>
+                        <li>For each critical point <span class="math">\(\mathbf{x}_{j}\)</span> calculate the Hessian matrix <span class="math">\(\mathbf{H}_{\mathbf{x_{j}}}\)</span>.</li>
+                        <li>Having determined the matrix's definiteness using <a href="https://en.wikipedia.org/wiki/Sylvester%27s_criterion">Sylvester's criterion</a>, make a conclusion about the nature of the critical point <span class="math">\(\mathbf{x}_{j}\)</span>.</li>
+                    </ol>
+                    </p>
+
+                    <h4>Applications</h4>
+                    <p>
+                    In general, in addition to the geometric applications, the derivative is used to solve various optimization problems: problems where, under certain conditions, it is necessary to maximize or minimize something: reduce costs, maximize profits, build the most effective rocket nozzle, train neural networks to recognize faces, and many other similar examples. In this section, I want to illustrate, that the derivative is an incredibly powerful tool. Let's start with something simple.
+                    </p>
+
+                    <p><em>Example 1.</em> 
+                    Suppose we have enough building material to build a fence of length <span class="math">\(L\)</span> in order to enclose a rectangular area of ​​your country house's backyard. Of course, like anybody else, you'd like to make this area as large as possible. After all, otherwise you would not have had enough space to have a BBQ, right? So, how can we do that? Firstly, let's label both backyard's sides as <span class="math">\(a\)</span> and <span class="math">\(b\)</span>. Since we know the expression for the perimeter <span class="math">\(a + b = L/2\)</span>, we have the following expression for the total square: <span class="math">\(S(a) = ab = a(L/2-a)\)</span>. Secondly, we need to maximize this square, using the algorithm above: <span class="math">\(\dfrac{d S}{d a} = 0 \Leftrightarrow L/2 - 2a = 0 \Rightarrow a_{0} = L/4\)</span>. Let's check that critical point for being a maximum: <span class="math">\(\dfrac{d^{2} S}{d a^{2}} = -2 < 0 \Rightarrow a_{0} \)</span> is a global maximum, perfect! Thus, <span class="math">\(S_{max} = a_{0}(L/2-a_{0}) = L^{2}/16\)</span>, so, to make backyard as large as possible with the limited material for the fence - make it square-formed! Oh, had we all known that in advance...
+                    </p>
+                    
+                    <p><em>Example 2.</em>
+                    Imagine that a ferry runs between the mainland and the island. The ferry sails with average speed <span class="math">\(v\)</span>. Fuel consumption per hour can be approximated by a quadratic dependence with a fixed proportionality coefficient: <span class="math">\(\alpha v^{2}\)</span>. In addition, within an hour, the ferry spends another <span class="math">\(P\)</span> dollars for miscellaneous expenses. We need to figure out at what speed the ferry should chose to minimize the expenses per mile. So, total expenses per hour: <span class="math">\(E'=P +\alpha v^{2}\)</span>, then per-mile expenses are: <span class="math">\(E = \dfrac{E'}{v} = \dfrac{P}{v}+\alpha v\)</span>. Let's determine the critical points: <span class="math">\(\dfrac{dE}{dv} = \alpha - \dfrac{P}{v^{2}} = 0 \Rightarrow v_{0} = \sqrt{\dfrac{P}{\alpha}}\)</span>. Now we have to check that it is a global minimum: <span class="math">\(\dfrac{d^{2}E}{dv^{2}}=\dfrac{2P}{v^{3}} > 0\)</span>. Therefore, the second derivative is always positive, at least in our circumstances. Finally, with the optimal speed  <span class="math">\(v_{0}\)</span> average per-hour expenses are equal to <span class="math">\(E'=E'(v_{0})=2P\)</span>, i.e., double miscellaneous expenses. Thus, theoretically the ferry owner has to estimate the value of <span class="math">\(\alpha\)</span> to make the business more efficient.
+                    </p>
+
+                    <p>If you want something more interesting, take a look at <a href="../2018-09-23-Orbits/index.html">this</a> post for more sophisticated example from physics, where derivatives are widely used.</p>
+
+                    <p>...</p>
+
+                    <p>
+                    Well, we've finally made it! Thanks for getting to the end and I hope you enjoyed it! As always, if you have any questions or comments, leave them below. In the next, third post, let's talk about integrals.    
+                    </p>
+
+                    <h3>Notes</h3>
+
+                    <section class="footnotes">
+                        <hr>
+                        <ol>
+                            <li id="fn1">
+                                The <a href="https://en.wikipedia.org/wiki/Tangent">tangent</a> line is a line that passes through a point of the curve and coincides with it at this point up to the first order. <a href="#fnref1">↩</a>
+                            </li>
+                            <li id="fn2">
+                                Actually, the derivative is a tool for calculation tangents not only in the one-dimensional case: tangent planes, surfaces, <a href="https://en.wikipedia.org/wiki/Tangent_space">and so on</a> are also calculated using the derivatives. <a href="#fnref2">↩</a>
+                            </li>
+                            <li id="fn4">
+                                The second-order mixed partial derivatives are equal for the function if this function is <a href="https://en.wikipedia.org/wiki/Symmetry_of_second_derivatives">twice continuously differentiable</a>. <a href="#fnref4">↩</a>
+                            </li>
+                            <li id="fn5">
+                                <a href="https://en.wikipedia.org/wiki/Smoothness">Such</a> functions are usually denoted as <span class="math">\(f \in C^{1}(\mathbb{R}^{n})\)</span>. <a href="#fnref5">↩</a>
+                            </li>
+                        </ol>
+                        <hr>
+                    </section>
+
+                    <div id="disqus_thread"></div>
+
+                </div>
+            </div>
+
+            <div class="button"></div>
+
+    </main>
+    <div class="footer">
+    </div>
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script src="../../js/jquery-3.0.0.min.js"></script>
+    <script src="../../js/main.js"></script>
+    <script src="../../js/go.up.js"></script>
+    <script src="../../js/footnotes.js"></script>
+    <script src="../../js/progress.bar.js"></script>
+    <script src="../../comments/inlineDisqussions.js"></script>
+    <script src="../../js/disqus.js"></script>
+
+</body>
+
+</html>
+
+
+
+
+
