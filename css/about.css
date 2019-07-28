@@ -78,6 +78,12 @@ body {
   margin-left: calc(35vw - 70px);
 }
 
+@media (max-width: 400px) {
+  .socials {
+    margin-left: 20px;
+  }
+}
+
 .socials ul li {
   width: 48px;
   height: 48px;
