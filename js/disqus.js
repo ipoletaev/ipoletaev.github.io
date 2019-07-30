@@ -1,8 +1,4 @@
-var disqus_shortname = 'iepoletaev'; 
-// var disqus_identifier = 'iepoletaev'; 
-// var disqus_url = 'iepoletaev'; 
-
-
+var disqus_shortname = 'iepoletaev';
 (function() {
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
     dsq.src = 'http://iepoletaev.disqus.com/embed.js';
