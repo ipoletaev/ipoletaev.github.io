@@ -45,7 +45,6 @@ $(document).ready(function(){
 });
 
 
-
 $(document).ready(function(){
   
   $('#flat').addClass("active");
@@ -77,30 +76,6 @@ $(document).ready(function(){
     $('a').removeClass();    
     $(this).addClass('active');
     $(this).preventDefault();
-    alert('hello');
-  });
-
-  $(document).on('scroll', function(){
-
-      maxAttr = $('#progressBar').attr('max');
-      valueAttr = $('#progressBar').attr('value');
-      percentage = (valueAttr/maxAttr) * 100;
-      
-      if(percentage<49){
-        document.styleSheets[0].addRule('.semantic', 'color: red');
-        document.styleSheets[0].addRule('.semantic::-webkit-progress-value', 'background-color: red');
-        document.styleSheets[0].addRule('.semantic::-moz-progress-bar', 'background-color: red');
-      }
-      else if(percentage<98){
-        document.styleSheets[0].addRule('.semantic', 'color: orange');
-        document.styleSheets[0].addRule('.semantic::-webkit-progress-value', 'background-color: orange');
-        document.styleSheets[0].addRule('.semantic::-moz-progress-bar', 'background-color: orange');
-      }
-      else {
-        document.styleSheets[0].addRule('.semantic', 'color: green');
-        document.styleSheets[0].addRule('.semantic::-webkit-progress-value', 'background-color: green');
-        document.styleSheets[0].addRule('.semantic::-moz-progress-bar', 'background-color: green');
-      }      
   });
   
 });
