@@ -10,3 +10,14 @@ var disqus_shortname = 'iepoletaev';
   s.src = 'https://iepoletaev.disqus.com/count.js';
   (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
 }());
+
+jQuery(document).ready(function() {
+  jQuery("").inlineDisqussions({
+    identifier: 'disqussion',
+    displayCount: true,
+    highlighted: false,
+    position: 'right',
+    background: 'white',
+    maxWidth: 500,
+  });
+});
