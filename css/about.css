@@ -6,41 +6,36 @@ body {
   font-family: 'CMS', 'Droid Serif', Georgia, Times, serif;
   width: 100%;
   background-color: #557088;
-  height: 340px;
-  position: absolute;
+  padding-top: 60px;
+  height: 380px;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
   will-change: transform;
-  display: block;
+  color: white;
 }
 
 .about-header h1 {
+  padding-top: 110px;
   font-weight: bold;
-  margin-top: 150px;
-  color: white;
-  margin-left: 20px;
   text-align: center;
   font-size: 200%;
 }
 
 .about-header h4 {
-  margin-top: 5px;
-  color: #dbdbdb;
-  margin-left: 20px;
   text-align: center;
+  padding-top: 5px;
   font-size: 150%;
 }
 
 .photo {
   background-color: white;
-  position: absolute;
+  margin-top: -90px;
+  position: relative;
   width: 194px;
   height: 194px;
-  margin-top: 250px;
   left: 50%;
   margin-left: -97px;
   z-index: 1;
-  display: block;
   border-radius: 50%;
   padding: 5px;
   box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.2);
@@ -49,19 +44,18 @@ body {
 .photo .background {
   background: url("../data/images/photo.png") center center no-repeat;
   background-size: 180px 180px;
-  position: absolute;
+  position: relative;
   margin-top: 2px;
   width: 180px;
   border-radius: 50%;
   margin-left: -90px;
-  display: block;
   left: 50%;
   height: 180px;
 }
 
 .about {
-  margin-top: 360px;
-  position: absolute;
+  position: relative;
+  margin-top: -80px;
   left: 15%;
   width: 70%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);

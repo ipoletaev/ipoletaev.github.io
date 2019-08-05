@@ -52,33 +52,4 @@ jQuery(document).ready(function($){
         }
       }, 200 );
   });
-
-  // var tags = document.getElementsByClassName('tag');
-  // for (var i = 0; i < tags.length; i++) {
-  //   var text = tags[i].innerText.toLowerCase();
-
-  //   tags[i].onclick = function() {
-         
-  //       var text = this.text.replace(/\s/g, '');
-  //       console.log(text);
-
-  //       var $matcher = $();
-  //       $('.mix').each(function() {
-  //         var $this = $(this);
-        
-  //         // add item to be filtered out if input text matches items inside the title   
-  //         if($this.attr('class').toLowerCase().match(text)) {
-  //             $matcher = $matcher.add(this);
-  //         } else {
-  //             // removes any previously matched item
-  //             $matcher = $matcher.not(this);
-  //         }
-  //       });
-       
-  //       $('.gallery ul').mixItUp('filter', $matcher);
-  //   }
-
-  // }
-
-  //////////////////////////////////////////////////////////////////////
 });
