@@ -4,6 +4,14 @@ body {
   margin: 0;
 }
 
+.mix {
+  visibility: hidden;
+}
+
+.mixitup-ready .mix {
+  visibility: visible;
+}
+
 .gallery {
   padding-top: 100px;
   -webkit-box-flex: 1;
@@ -17,9 +25,18 @@ body {
   display: block;
 }
 
+.gallery-list {
+  /*display: flex;*/
+  /*flex-direction: row;*/
+  /*flex-wrap: wrap;*/
+  /*align-content: flex-start;*/
+  /*justify-content: space-between;*/
+}
+
 
 .gallery li {
-  display: none;
+  /*display: none;*/
+  display: inline-block;
   margin-left: 0;
   text-align: left;
   margin: 1.1em 0.8em 1.1em 0.8em;

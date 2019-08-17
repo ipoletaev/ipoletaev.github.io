@@ -1,55 +1,76 @@
-jQuery(document).ready(function($){
-
+jQuery(document).ready(function ($) {
   /////////////////////// Gallery main page logic //////////////////////
-
-  $('.gallery ul').mixItUp({
-      controls: {
-        enable: false
+  var $mixitupContainer = $('.gallery-list');
+  var $failContainer = $('.fail-message');
+  var mixer = mixitup($mixitupContainer, {
+    controls: {
+      enable: false,
+    },
+    animation: {
+      effects: 'fade scale stagger(50ms)' // Set a 'stagger' effect for the loading animation
+    },
+    load: {
+      filter: 'none' // Ensure all targets start from hidden (i.e. display: none;)
+    },
+    callbacks: {
+      onMixStart: function () {
+        $failContainer.fadeOut(200);
       },
-      callbacks: {
-        onMixStart: function(){
-          $('.fail-message').fadeOut(200);
-        },
-        onMixFail: function(){
-            $('.fail-message').fadeIn(200);
-        }
-      }
+      onMixFail: function () {
+        $failContainer.fadeIn(200);
+      },
+    },
   });
+
+  // Add a class to the container to remove 'visibility: hidden;' from targets. This
+  // prevents any flickr of content before the page's JavaScript has loaded.
+  $mixitupContainer.addClass('mixitup-ready');
+
+  // Initial load
+  mixer.show()
+    .then(function() {
+      // Remove the stagger effect for any subsequent operations
+      mixer.configure({
+        animation: {
+          effects: 'fade scale'
+        }
+      });
+    });
 
   //search filtering
   var inputText;
   var $matching = $();
 
-  var delay = (function(){
+  var delay = (function () {
     var timer = 0;
-    return function(callback, ms){
-      clearTimeout (timer);
-        timer = setTimeout(callback, ms);
+    return function (callback, ms) {
+      clearTimeout(timer);
+      timer = setTimeout(callback, ms);
     };
   })();
 
-  $(".search input[type='search']").keyup(function(){
-      // Delay function invoked to make sure user stopped typing
-      delay(function(){
-        inputText = $(".search input[type='search']").val().toLowerCase();
-        // Check to see if input field is empty
-        if ((inputText.length) > 0) {
-            $('.mix').each(function() {
-              var $this = $(this);
-            
-              // add item to be filtered out if input text matches items inside the title   
-              if($this.attr('class').toLowerCase().match(inputText)) {
-                  $matching = $matching.add(this);
-              } else {
-                  // removes any previously matched item
-                  $matching = $matching.not(this);
-              }
-            });
-            $('.gallery ul').mixItUp('filter', $matching);
-        } else {
-            // resets the filter to show all item if input is empty
-            $('.gallery ul').mixItUp('filter', 'all');
-        }
-      }, 200 );
+  $('.search input[type=\'search\']').keyup(function () {
+    // Delay function invoked to make sure user stopped typing
+    delay(function () {
+      inputText = $('.search input[type=\'search\']').val().toLowerCase();
+      // Check to see if input field is empty
+      if ((inputText.length) > 0) {
+        $('.mix').each(function () {
+          var $this = $(this);
+
+          // add item to be filtered out if input text matches items inside the title
+          if ($this.attr('class').toLowerCase().match(inputText)) {
+            $matching = $matching.add(this);
+          } else {
+            // removes any previously matched item
+            $matching = $matching.not(this);
+          }
+        });
+        mixer.filter($matching);
+      } else {
+        // resets the filter to show all item if input is empty
+        mixer.show();
+      }
+    }, 200);
   });
 });
