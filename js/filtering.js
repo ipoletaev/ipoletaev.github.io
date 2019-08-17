@@ -7,19 +7,22 @@ jQuery(document).ready(function ($) {
       enable: false,
     },
     animation: {
-      effects: 'fade scale stagger(50ms)' // Set a 'stagger' effect for the loading animation
+      animateResizeTargets: true,
+      effects: 'fade scale stagger(50ms)', // Set a 'stagger' effect for the loading animation
     },
     load: {
-      filter: 'none' // Ensure all targets start from hidden (i.e. display: none;)
+      filter: 'none', // Ensure all targets start from hidden (i.e. display: none;)
     },
     callbacks: {
       onMixStart: function () {
+        $('.footer').hide();
         $failContainer.fadeOut(200);
       },
-      onMixEnd: function(state) {
+      onMixEnd: function (state) {
         if (state.totalMatching === 0) {
           $failContainer.fadeIn(200);
         }
+        $('.footer').fadeIn(200);
       },
       onMixFail: function () {
         $failContainer.fadeIn(200);
@@ -28,7 +31,7 @@ jQuery(document).ready(function ($) {
   });
 
   // trigger filter by tag
-  $('.tags button').on('click', function(e) {
+  $('.tags button').on('click', function (e) {
     e.preventDefault();
     var tag = $(this).text();
     mixer.filter('.' + tag);
@@ -40,12 +43,13 @@ jQuery(document).ready(function ($) {
 
   // Initial load
   mixer.show()
-    .then(function() {
+    .then(function () {
+      $('.footer').show();
       // Remove the stagger effect for any subsequent operations
       mixer.configure({
         animation: {
-          effects: 'fade scale'
-        }
+          effects: 'fade scale',
+        },
       });
     });
 

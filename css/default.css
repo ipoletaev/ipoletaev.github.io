@@ -20,10 +20,15 @@ body {
   overflow-x: hidden;
   margin:0;
   padding:0;
+
+  /*display: flex;*/
+  /*min-height: 100vh;*/
+  /*flex-direction: column;*/
 }
 
 main {
   margin-bottom: 40px;
+  /*flex: 1;*/
 }
 
 ::selection {
@@ -53,12 +58,6 @@ main {
   }
 }
 
-/*@media only screen and (min-width: 1024px) {*/
-/*  .container {*/
-/*    max-width: 960px;*/
-/*  }*/
-/*}*/
-
 @media only screen and (min-width: 1200px) {
   .container {
     max-width: 1140px;
@@ -79,4 +78,8 @@ img {
   max-width: 100%;
   height: auto;
   vertical-align: middle;
+}
+
+a, label{
+  -webkit-tap-highlight-color: transparent;
 }
