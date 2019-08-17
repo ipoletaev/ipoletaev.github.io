@@ -34,7 +34,10 @@ jQuery(document).ready(function ($) {
   $('.tags button').on('click', function (e) {
     e.preventDefault();
     var tag = $(this).text();
-    mixer.filter('.' + tag);
+    mixer.filter('.' + tag).then(function() {
+      var body = $("html, body");
+      body.stop().animate({scrollTop:0}, 200, 'swing');
+    })
   });
 
   // Add a class to the container to remove 'visibility: hidden;' from targets. This
