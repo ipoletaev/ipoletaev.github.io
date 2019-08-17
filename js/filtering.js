@@ -28,7 +28,8 @@ jQuery(document).ready(function ($) {
   });
 
   // trigger filter by tag
-  $('.tags button').on('click', function() {
+  $('.tags button').on('click', function(e) {
+    e.preventDefault();
     var tag = $(this).text();
     mixer.filter('.' + tag);
   });

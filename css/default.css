@@ -36,10 +36,33 @@ main {
 
 .container {
   width: 100%;
-  max-width: 1170px;
   margin: 0 auto;
   padding: 0 15px;
   text-align: center;
+}
+
+@media only screen and (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
 }
 
 button {
