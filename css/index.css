@@ -20,7 +20,6 @@ body {
 
 .gallery {
   padding-top: 110px;
-  -webkit-box-sizing: content-box;
   box-sizing: content-box;
 }
 
@@ -95,7 +94,6 @@ Post cover design
 
 .post {
   -webkit-backface-visibility: hidden;
-  -webkit-transform: translateZ(0);
   transform: translateZ(0);
   -webkit-font-smoothing: subpixel-antialiased;
   backface-visibility: hidden;
@@ -114,8 +112,6 @@ Post cover design
 }
 
 .post:hover {
-  -ms-transform: scale(1.015);
-  -webkit-transform: scale(1.015);
   transform: scale(1.015);
   box-shadow: 0 25px 9px -9px rgba(61, 63, 65, .3);
 }

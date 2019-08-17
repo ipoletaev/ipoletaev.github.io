@@ -31,6 +31,10 @@ main {
   /*flex: 1;*/
 }
 
+::-moz-selection {
+  background: #ffd0a8;
+}
+
 ::selection {
   background: #ffd0a8;
 }

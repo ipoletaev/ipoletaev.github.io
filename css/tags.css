@@ -20,8 +20,6 @@
   text-decoration: none;
   font-weight: 700;
   color: #3f64d3;
-  -webkit-transition: -webkit-transform 0.3s;
-  -moz-transition: -moz-transform 0.3s;
   transition: transform 0.3s;
 }
 

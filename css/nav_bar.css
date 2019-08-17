@@ -14,11 +14,8 @@
   height: 60px;
   max-width: 100%;
   background-color: #2c3e4e;
-  -webkit-transform: translateZ(0);
   transform: translateZ(0);
   will-change: transform;
-  -webkit-transition: -webkit-transform .5s;
-  transition: -webkit-transform .5s;
   transition: transform .5s;
 
   display: flex;
@@ -27,8 +24,6 @@
 }
 
 .header.is-hidden {
-  -webkit-transform: translateY(-100%);
-  -ms-transform: translateY(-100%);
   transform: translateY(-100%);
 }
 
@@ -42,8 +37,6 @@
   position: absolute;
   top: 30px;
   bottom: auto;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
 
@@ -56,8 +49,6 @@
   display: inline-block;
   height: 48px;
   width: 48px;
-  -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
-  -moz-transition: -moz-transform 0.3s, opacity 0.3s;
   transition: transform 0.3s, opacity 0.3s;
 }
 
@@ -92,7 +83,6 @@
 
 .header .nav-trigger em {
   margin: 6px auto 14px;
-  -webkit-transition: background-color .2s;
   transition: background-color .2s;
 }
 
@@ -101,21 +91,14 @@
   position: absolute;
   content: '';
   left: 0;
-  -webkit-transition: -webkit-transform .2s;
-  transition: -webkit-transform .2s;
   transition: transform .2s;
-  transition: transform .2s, -webkit-transform .2s;
 }
 
 .header .nav-trigger em::before {
-  -webkit-transform: translateY(-6px);
-  -ms-transform: translateY(-6px);
   transform: translateY(-6px);
 }
 
 .header .nav-trigger em::after {
-  -webkit-transform: translateY(6px);
-  -ms-transform: translateY(6px);
   transform: translateY(6px);
 }
 
@@ -134,14 +117,10 @@
 }
 
 .header.nav-open .nav-trigger em::before {
-  -webkit-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
 
 .header.nav-open .nav-trigger em::after {
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
 
@@ -157,8 +136,6 @@
   height: 100%;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
-  -moz-transition: -moz-transform 0.3s, opacity 0.3s;
   transition: transform 0.3s, opacity 0.3s;
 }
 
@@ -191,8 +168,6 @@
 .navigation a {
   color: #f2f2f2;
   font-size: 1.8rem;
-  -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
-  -moz-transition: -moz-transform 0.3s, opacity 0.3s;
   transition: transform 0.3s, opacity 0.3s;
 }
 

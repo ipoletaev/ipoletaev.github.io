@@ -8,7 +8,6 @@ body {
   background-color: #557088;
   padding-top: 60px;
   height: 380px;
-  -webkit-transform: translateZ(0);
   transform: translateZ(0);
   will-change: transform;
   color: white;
