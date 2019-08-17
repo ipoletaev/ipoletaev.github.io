@@ -13,7 +13,7 @@
 .tag {
   cursor: pointer;
   transform-origin: 0 0;
-  padding: 20px;
+  padding: 5px 20px;
   margin: .75em 0 0;
   background: url("../data/vector/tag.svg") left center no-repeat;
   background-size: 20px 20px;

@@ -1,11 +1,11 @@
 .search {
-  top: 7px;
-  right: 10px;
+  top: 8px;
+  right: 57px;
+  height: 40px;
+
   border: none;
   position: relative;
-  height: 50px;
   color: white;
-  float: right;
   -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
   -moz-transition: -moz-transform 0.3s, opacity 0.3s;
   transition: transform 0.3s, opacity 0.3s;
@@ -19,13 +19,12 @@
 
 .search .search-input {
   font-size: 1.6rem;
-  height: 60px;
   border: none;
   outline: none;
   color: #d1d1d1;
-  padding: 3px;
-  padding-right: 60px;
-  width: 0px;
+  padding: 3px 43px 3px 3px;
+  height: 40px;
+  width: 0;
   position: absolute;
   top: 3px;
   right: 0;
@@ -45,7 +44,7 @@
 }
 
 .search .search-input:focus {
-  width: 300px;
+  width: 200px;
   z-index: 1;
   border-bottom: 1px solid white;
   cursor: text;
@@ -53,11 +52,11 @@
 }
 
 .search input[type="submit"] {
-  height: 67px;
-  width: 63px;
+  height: 43px;
+  width: 43px;
   outline: none;
   background: url("../data/vector/magnifier.svg") center center no-repeat;
-  background-size: 28px 28px;
+  background-size: 25px 25px;
   text-indent: -10000px;
   border: none;
   color: #d1d1d1;
@@ -66,4 +65,27 @@
   right: 0;
   z-index: 2;
   transition: opacity .4s ease;
+}
+
+@media only screen and (min-width: 1024px) {
+  .search {
+    top: -7px;
+    right: 10px;
+    height: 50px;
+  }
+
+  .search input[type="submit"] {
+    height: 67px;
+    width: 63px;
+    background-size: 28px 28px;
+  }
+
+  .search .search-input {
+    height: 60px;
+    padding-right: 60px;
+  }
+
+  .search .search-input:focus {
+    width: 300px;
+  }
 }

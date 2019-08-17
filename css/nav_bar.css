@@ -20,13 +20,10 @@
   -webkit-transition: -webkit-transform .5s;
   transition: -webkit-transform .5s;
   transition: transform .5s;
-  transition: transform .5s, -webkit-transform .5s;
-}
 
-.header::after {
-  clear: both;
-  content: "";
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .header.is-hidden {
@@ -50,18 +47,15 @@
   transform: translateY(-50%);
 }
 
-.header .home img {
+.header .logo {
+  padding-left: 1%;
+}
+
+.header .logo img {
   color: #f2f2f2;
   display: inline-block;
-  left: 3%;
-  position: absolute;
-  top: 50%;
-  bottom: auto;
   height: 48px;
   width: 48px;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
   -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
   -moz-transition: -moz-transform 0.3s, opacity 0.3s;
   transition: transform 0.3s, opacity 0.3s;
@@ -126,6 +120,10 @@
 }
 
 @media only screen and (min-width: 1024px) {
+  .header .logo {
+    padding-left: 3%;
+  }
+
   .header .nav-trigger {
     display: none;
   }
@@ -157,7 +155,6 @@
   display: inline-block;
   float: right;
   height: 100%;
-  padding-right: 3%;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
@@ -171,6 +168,9 @@
   top: 60px;
   left: 0;
   width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
   background-color: #2c3e4e;
   display: none;
   box-shadow: 0 14px 20px rgba(0, 0, 0, 0.2);
@@ -198,11 +198,12 @@
 
 @media only screen and (min-width: 1024px) {
   .navigation {
-    display: table;
+    display: flex;
+    align-items: center;
+    padding-right: 3%;
   }
   .navigation > ul {
-    display: table-cell;
-    vertical-align: middle;
+    display: flex;
     position: relative;
     width: auto;
     top: 0;
@@ -210,14 +211,7 @@
     background-color: transparent;
     box-shadow: none;
   }
-  .navigation > ul::after {
-    clear: both;
-    content: "";
-    display: block;
-  }
   .navigation > ul li {
-    display: inline-block;
-    float: left;
     margin-right: 1.5em;
   }
   .navigation > ul li:last-of-type {

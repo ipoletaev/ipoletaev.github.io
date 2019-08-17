@@ -16,6 +16,11 @@ jQuery(document).ready(function ($) {
       onMixStart: function () {
         $failContainer.fadeOut(200);
       },
+      onMixEnd: function(state) {
+        if (state.totalMatching === 0) {
+          $failContainer.fadeIn(200);
+        }
+      },
       onMixFail: function () {
         $failContainer.fadeIn(200);
       },
