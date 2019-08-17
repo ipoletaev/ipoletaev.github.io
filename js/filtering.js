@@ -22,6 +22,12 @@ jQuery(document).ready(function ($) {
     },
   });
 
+  // trigger filter by tag
+  $('.tags button').on('click', function() {
+    var tag = $(this).text();
+    mixer.filter('.' + tag);
+  });
+
   // Add a class to the container to remove 'visibility: hidden;' from targets. This
   // prevents any flickr of content before the page's JavaScript has loaded.
   $mixitupContainer.addClass('mixitup-ready');
