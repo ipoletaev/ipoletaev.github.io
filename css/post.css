@@ -32,14 +32,16 @@ b {
 }
 
 .content {
-  max-width: 786px;
+  max-width: 746px;
   margin: 0 auto;
 }
 
 .content h1 {
   font-family: 'CMS', 'Droid Serif', Georgia, Times, serif;
   font-size: 300%;
+  margin: 0;
   line-height: 65px;
+  font-weight: 400;
   text-align: center;
 }
 

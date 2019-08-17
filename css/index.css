@@ -10,12 +10,16 @@ body {
   max-width: 380px;
 }
 
+.mix a {
+  text-decoration: none;
+}
+
 .mixitup-ready .mix {
   visibility: visible;
 }
 
 .gallery {
-  padding-top: 100px;
+  padding-top: 110px;
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
 }
@@ -98,8 +102,9 @@ Post cover design
   transform-origin: 0 0;
   background-color: white;
   height: 100%;
-  /*height: 550px;*/
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   box-shadow: 0 20px 8px -8px rgba(61, 63, 65, .2);
   transition: all .15s ease-in-out;
   border-radius: 7px;
@@ -115,11 +120,15 @@ Post cover design
 
 .post-body {
   padding: 0 32px 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .post h3 {
-  margin-top: 10px;
-  /*height: 70px;*/
+  flex-basis: 56px;
+  margin: 10px 0 0;
   color: black;
   font-weight: 400;
   font-size: 2.5rem;
@@ -130,6 +139,8 @@ Post cover design
   color: #9A9AA6;
   line-height: 1.5;
   font-size: 1.6rem;
+  flex-grow: 1;
+  flex-basis: 48px;
 }
 
 .post img {
@@ -137,6 +148,7 @@ Post cover design
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+  flex-shrink: 0;
   position: relative;
 }
 
@@ -160,7 +172,7 @@ Post cover design
   }
 }
 
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 1200px) {
   .mix {
     flex-basis: 33.333333%;
     max-width: 33.333333%;

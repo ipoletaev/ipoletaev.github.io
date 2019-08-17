@@ -1,6 +1,7 @@
 .tags {
-  margin-top: 15px;
-  /*height: 30px;*/
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
   text-align: left;
 }
 
