@@ -33,3 +33,11 @@ main {
 ::-moz-selection {
   background: #ffd0a8;
 }
+
+.container {
+  width: 100%;
+  max-width: 1170px;
+  margin: 0 auto;
+  padding: 0 15px;
+  text-align: center;
+}

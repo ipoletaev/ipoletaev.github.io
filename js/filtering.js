@@ -55,10 +55,12 @@ jQuery(document).ready(function ($) {
     };
   })();
 
-  $('.search input[type=\'search\']').keyup(function () {
+  var $searchInput = $('.search .search-input');
+
+  $searchInput.keyup(function () {
     // Delay function invoked to make sure user stopped typing
     delay(function () {
-      inputText = $('.search input[type=\'search\']').val().toLowerCase();
+      inputText = $searchInput.val().toLowerCase();
       // Check to see if input field is empty
       if ((inputText.length) > 0) {
         $('.mix').each(function () {
