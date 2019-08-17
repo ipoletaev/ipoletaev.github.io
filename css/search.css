@@ -34,6 +34,10 @@
   cursor: pointer;
 }
 
+.search .search-input::-ms-clear {
+  display: none;
+}
+
 ::-webkit-input-placeholder {
   color: #d1d1d1;
 }
