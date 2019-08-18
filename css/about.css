@@ -97,7 +97,7 @@ body {
   color: black;
   line-height: 1.6;
   margin: 35px auto 30px;
-  font-size: 150%;
+  font-size: 120%;
   text-align: center;
 }
 
@@ -144,6 +144,12 @@ body {
 .button:hover {
   background-color: grey;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+@media only screen and (min-width: 768px) {
+  .text {
+    font-size: 150%;
+  }
 }
 
 @media only screen and (min-width: 992px) {

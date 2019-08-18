@@ -30,6 +30,9 @@
   z-index: 3;
   transition: width .4s cubic-bezier(1.000, 0.795, 0.000, 1.000);
   cursor: pointer;
+  border-radius: 0;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .search .search-input::-ms-clear {

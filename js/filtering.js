@@ -73,6 +73,11 @@ jQuery(document).ready(function ($) {
     };
   })();
 
+  // prevent search form from submitting and default browser reload
+  $('.search form').submit(function (event) {
+    event.preventDefault();
+  });
+
   var $searchInput = $('.search .search-input');
 
   $searchInput.keyup(function () {

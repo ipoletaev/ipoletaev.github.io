@@ -12,7 +12,7 @@ body {
   min-height: 100%;
   height: 100%;
   overflow-x: hidden;
-  padding: 150px 0 90px;
+  padding: 100px 0 50px;
 }
 
 sup {
@@ -33,9 +33,8 @@ b {
 
 .content h1 {
   font-family: 'CMS', 'Droid Serif', Georgia, Times, serif;
-  font-size: 300%;
+  font-size: 230%;
   margin: 0;
-  line-height: 65px;
   font-weight: 400;
   text-align: center;
 }
@@ -180,5 +179,15 @@ pre code {
     overflow-x: auto;
     overflow-y: hidden;
     vertical-align: middle;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .post {
+    padding: 150px 0 90px;
+  }
+  .content h1 {
+    font-size: 240%;
+    line-height: 65px;
   }
 }

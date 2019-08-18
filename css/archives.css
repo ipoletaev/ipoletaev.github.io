@@ -1,5 +1,6 @@
 .archive {
   padding-top: 100px;
+  font-size: 120%;
 }
 
 .archive ul li {
@@ -15,6 +16,7 @@
 }
 
 .archive p {
+  font-size: 120%;
   margin-bottom: 10px;
 }
 
@@ -32,14 +34,9 @@
 @media only screen and (min-width: 768px) {
   .archive {
     padding-top: 130px;
-    font-size: 120%;
   }
 
   .archive h1 {
     font-size: 270%;
-  }
-
-  .archive p {
-    font-size: 120%;
   }
 }
