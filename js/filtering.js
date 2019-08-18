@@ -34,20 +34,25 @@ jQuery(document).ready(function ($) {
   $('.tags button').on('click', function (e) {
     e.preventDefault();
     var tag = $(this).text();
-    mixer.filter('.' + tag).then(function() {
-      var body = $("html, body");
-      body.stop().animate({scrollTop:0}, 200, 'swing');
-    })
+    mixer.filter('.' + tag).then(function () {
+      var body = $('html, body');
+      body.stop().animate({ scrollTop: 0 }, 200, 'swing');
+    });
   });
 
   // Add a class to the container to remove 'visibility: hidden;' from targets. This
   // prevents any flickr of content before the page's JavaScript has loaded.
   $mixitupContainer.addClass('mixitup-ready');
+  var passedFromSingle = sessionStorage.getItem('passedFromSingle');
+  var filter = passedFromSingle ? passedFromSingle : 'all';
 
   // Initial load
-  mixer.show()
+  mixer.filter(filter)
     .then(function () {
       $('.footer').show();
+      if (sessionStorage.length) {
+        sessionStorage.clear();
+      }
       // Remove the stagger effect for any subsequent operations
       mixer.configure({
         animation: {
