@@ -19,14 +19,13 @@
     <link rel="stylesheet" href="../../css/tags.css">
     <link rel="stylesheet" href="../../comments/inlineDisqussions.css">
 
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-    <script defer src="../../js/progress.bar.js"></script>
-
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
       TeX: { equationNumbers: { autoNumber: "AMS" } }
     });
+
 
     </script>
 
@@ -70,16 +69,12 @@
     </nav>
 
 </header>
+<div class="progress-container">
+    <div class="progress-bar" id="progress-bar"></div>
+</div>
 <main>
 
     <div class="post">
-
-        <progress value="0" id="progressBar">
-            <div class="progress-container">
-                <span class="progress-bar"></span>
-            </div>
-        </progress>
-
         <div class="content">
             <div class="container">
 
@@ -545,6 +540,7 @@
 <script src="../../js/main.js"></script>
 <script src="../../js/go.up.js"></script>
 <script src="../../js/footnotes.js"></script>
+<script src="../../js/progress-bar.js"></script>
 <script src="../../comments/inlineDisqussions.js"></script>
 
 </body>
