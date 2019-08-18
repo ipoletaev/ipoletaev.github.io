@@ -11,6 +11,10 @@
   overflow: hidden;
 }
 
+.home-page .footer {
+  display: none;
+}
+
 .footer h1 {
   font-size: 1.1rem;
   margin-right: 3%;

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../../fonts/Serif/cmun-serif.css" />
     <link rel="stylesheet" href="../../fonts/Serif-Slanted/cmun-serif-slanted.css" />
 
-    <link rel="stylesheet" href="../../css/reset.css">
+    <link rel="stylesheet" href="../../css/normalize.css">
     <link rel="stylesheet" href="../../css/default.css">
     <link rel="stylesheet" href="../../css/nav_bar.css">
     <link rel="stylesheet" href="../../css/post.css">
@@ -19,9 +19,8 @@
     <link rel="stylesheet" href="../../css/tags.css">
     <link rel="stylesheet" href="../../comments/inlineDisqussions.css">
 
-    <script type="text/javascript" async
-      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
-    </script>
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!--    <script defer src="../../js/progress.bar.js"></script>-->
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143270978-1"></script>
     <script>
@@ -40,7 +39,7 @@
 
     <header class="header">
 
-        <div class="home">
+        <div class="logo">
             <a href="../../index.html" title="Home">
                 <img src="../../data/vector/logo.svg" alt="Home">
             </a>
@@ -59,26 +58,21 @@
         </nav>
 
     </header>
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
     <main>
 
-        <div id="wrap">
-
-            <progress value="0" id="progressBar">
-                <div class="progress-container">
-                    <span class="progress-bar"></span>
-                </div>
-            </progress>
-
-            <div class="content">
-                <div class="container">
+        <div class="post">
+            <div class="container">
+                <div class="content">
 
                     <h1>Applied Math.</h1>
                     <h1>Part II: Derivative.</h1>
                     <div class="time">December 9, 2018</div>
-                    <div class="post_tags">
-                        <a href="../../tags/math/index.html" class="tag">math</a>
+                    <div class="post-tags">
+                        <a href="../../index.html" class="tag">math</a>
                     </div>
-                    </br>
 
                     <h3>Foreword</h3>
                     <p>
@@ -629,7 +623,7 @@
             </div>
 
             <div class="button"></div>
-
+        </div>
     </main>
     <div class="footer">
     </div>
@@ -639,7 +633,7 @@
     <script src="../../js/main.js"></script>
     <script src="../../js/go.up.js"></script>
     <script src="../../js/footnotes.js"></script>
-    <script src="../../js/progress.bar.js"></script>
+    <script src="../../js/progress-bar.js"></script>
     <script src="../../comments/inlineDisqussions.js"></script>
 
 </body>

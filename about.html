@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="./fonts/Serif/cmun-serif.css" />
     <link rel="stylesheet" href="./fonts/Serif-Slanted/cmun-serif-slanted.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/default.css">
     <link rel="stylesheet" href="css/nav_bar.css">
     <link rel="stylesheet" href="css/about.css">
@@ -19,7 +19,11 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143270978-1"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
       gtag('js', new Date());
       gtag('config', 'UA-143270978-1');
     </script>
@@ -29,49 +33,57 @@
 </head>
 
 <body>
-    <header class="header">
+<header class="header">
 
-        <div class="home">
-            <a href="./index.html" title="Home">
-                <img src="data/vector/logo.svg" alt="Home">
-            </a>
+    <div class="logo">
+        <a href="./index.html" title="Home">
+            <img src="data/vector/logo.svg" alt="Home">
+        </a>
+    </div>
+
+    <nav class="navigation">
+        <a href="#navigation" class="nav-trigger">
+            <span><em aria-hidden="true"></em></span>
+        </a>
+
+        <ul>
+            <li><a href="./archives.html">Archives</a></li>
+            <li><a href="./about.html">About</a></li>
+        </ul>
+
+    </nav>
+</header>
+
+<main>
+    <div class="about-header">
+        <h1>Igor Poletaev</h1>
+        <h4>Software Engineer, Machine Learning Enthusiast</h4>
+    </div>
+
+    <div class="photo">
+        <div class="background">
         </div>
-
-        <nav class="navigation">
-            <a href="#navigation" class="nav-trigger">
-                <span><em aria-hidden="true"></em></span>
-            </a>
-
-            <ul>
-                <li><a href="./archives.html">Archives</a></li>
-                <li><a href="./about.html">About</a></li>
-            </ul>
-
-        </nav>
-    </header>
-
-    <main>
-        <div class="about-header">
-            <h1>Igor Poletaev</h1>
-            <h4>Software Engineer, Machine Learning Enthusiast</h4>
-        </div>
-
-        <div class="photo">
-            <div class="background">
-            </div>
-        </div>
+    </div>
+    <div class="about-wrapper">
         <div class="about">
             <div class="socials">
                 <ul>
-                    <li class="twitter"><a href="https://twitter.com/iepoletaev"><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a></li>
-                    <li class="linkedin"><a href="https://www.linkedin.com/in/igor-poletaev-664101bb/"><i class="fa fa-linkedin fa-2x" aria-hidden="true"></i></a></li>
-                    <li class="github"><a href="https://github.com/ipoletaev"><i class="fa fa-github fa-2x" aria-hidden="true"></i></a></li>
+                    <li class="twitter">
+                        <a href="https://twitter.com/iepoletaev"><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+                    </li>
+                    <li class="linkedin">
+                        <a href="https://www.linkedin.com/in/igor-poletaev-664101bb/"><i class="fa fa-linkedin fa-2x" aria-hidden="true"></i></a>
+                    </li>
+                    <li class="github">
+                        <a href="https://github.com/ipoletaev"><i class="fa fa-github fa-2x" aria-hidden="true"></i></a>
+                    </li>
                 </ul>
             </div>
 
             <div class="text">
                 <p>
-                    I am a software engineer graduated from the <a href="https://english.nsu.ru/">NSU</a> Physics Department that occasionally publish posts about Machine Learning, Mathematics, Programming, Physics, or anything else that is interesting to me.
+                    I am a software engineer graduated from the
+                    <a href="https://english.nsu.ru/">NSU</a> Physics Department that occasionally publish posts about Machine Learning, Mathematics, Programming, Physics, or anything else that is interesting to me.
                 </p>
             </div>
 
@@ -79,12 +91,13 @@
                 <a href=mailto:poletaev.igor.phys@gmail.com class="button">Contact me</a>
             </div>
         </div>
+    </div>
+</main>
 
-        <div class="footer"></div>
-    </main>
+<div class="footer"></div>
 
-    <script src="js/jquery-3.0.0.min.js"></script>
-    <script src="js/main.js"></script>
+<script src="js/jquery-3.0.0.min.js"></script>
+<script src="js/main.js"></script>
 </body>
 
 </html>

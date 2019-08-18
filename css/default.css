@@ -20,10 +20,19 @@ body {
   overflow-x: hidden;
   margin:0;
   padding:0;
+
+  /*display: flex;*/
+  /*min-height: 100vh;*/
+  /*flex-direction: column;*/
 }
 
 main {
   margin-bottom: 40px;
+  /*flex: 1;*/
+}
+
+::-moz-selection {
+  background: #ffd0a8;
 }
 
 ::selection {
@@ -32,4 +41,53 @@ main {
 
 ::-moz-selection {
   background: #ffd0a8;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+@media only screen and (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .container {
+    max-width: 740px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+.content {
+  max-width: 746px;
+  margin: 0 auto;
+}
+
+button {
+  border: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+a, label{
+  -webkit-tap-highlight-color: transparent;
 }

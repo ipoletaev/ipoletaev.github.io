@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../../fonts/Serif/cmun-serif.css" />
     <link rel="stylesheet" href="../../fonts/Serif-Slanted/cmun-serif-slanted.css" />
 
-    <link rel="stylesheet" href="../../css/reset.css">
+    <link rel="stylesheet" href="../../css/normalize.css">
     <link rel="stylesheet" href="../../css/default.css">
     <link rel="stylesheet" href="../../css/nav_bar.css">
     <link rel="stylesheet" href="../../css/post.css">
@@ -19,9 +19,7 @@
     <link rel="stylesheet" href="../../css/tags.css">
     <link rel="stylesheet" href="../../comments/inlineDisqussions.css">
 
-    <script type="text/javascript" async
-      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
-    </script>
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143270978-1"></script>
     <script>
@@ -43,7 +41,7 @@
 
     <header class="header">
 
-        <div class="home">
+        <div class="logo">
             <a href="../../index.html" title="Home">
                 <img src="../../data/vector/logo.svg" alt="Home">
             </a>
@@ -62,27 +60,22 @@
         </nav>
 
     </header>
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
     <main>
 
-        <div id="wrap">
-
-            <progress value="0" id="progressBar">
-                <div class="progress-container">
-                    <span class="progress-bar"></span>
-                </div>
-            </progress>
-
-            <div class="content">
-                <div class="container">
+        <div class="post">
+            <div class="container">
+                <div class="content">
 
                     <h1>What Is Deep Learning?</h1>
                     <div class="time">March 15, 2019</div>
-                    <div class="post_tags">
-                        <a href="../../tags/ml/index.html" class="tag">machine learning</a>
-                        <a href="../../tags/nn/index.html" class="tag">neural networks</a>
-                        <a href="../../tags/dl/index.html" class="tag">deep learning</a>
+                    <div class="post-tags">
+                        <a href="../../index.html" class="tag">ml</a>
+                        <a href="../../index.html" class="tag">nn</a>
+                        <a href="../../index.html" class="tag">dl</a>
                     </div>
-                    </br>
 
                     <p>
                     This is a really fascinating question! In this small overview post, I will try to answer it as clearly as possible. However, first things first. To start with, why did I decide to write about deep learning? It is simple: firstly, this topic is extremely interesting. Secondly, I couldn't get a satisfactory answer to a similar question several years ago. And even now, after so long, there is still no clear definition of what the “deep learning” actually stands for. Anyway, let’s ask Wikipedia and it will dryly tell you that deep learning “... is part of a broader family of <em>machine learning</em> methods”. OK. Then what is "machine learning"? Here, we have fallen into recursion, trying to dive deeper and deeper, following dozens of links and forgetting what we’ve been originally looking for… sounds sad, doesn't it?! Therefore, let’s try to take a look at the question from a different angle...
@@ -383,7 +376,7 @@
             </div>
 
             <div class="button"></div>
-
+        </div>
     </main>
     <div class="footer">
     </div>
@@ -393,7 +386,7 @@
     <script src="../../js/main.js"></script>
     <script src="../../js/go.up.js"></script>
     <script src="../../js/footnotes.js"></script>
-    <script src="../../js/progress.bar.js"></script>
+    <script src="../../js/progress-bar.js"></script>
     <script src="../../comments/inlineDisqussions.js"></script>
 
 </body>

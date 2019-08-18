@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./fonts/Serif/cmun-serif.css" />
     <link rel="stylesheet" href="./fonts/Serif-Slanted/cmun-serif-slanted.css" />
 
-    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/default.css">
     <link rel="stylesheet" href="css/nav_bar.css">
     <link rel="stylesheet" href="css/search.css">
@@ -20,7 +20,11 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143270978-1"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
       gtag('js', new Date());
       gtag('config', 'UA-143270978-1');
     </script>
@@ -29,42 +33,42 @@
     <title>Igor's Tech Blog</title>
 </head>
 
-<body>
+<body class="home-page">
 
-    <header class="header">
+<header class="header">
 
-        <div class="home">
-            <a href="./index.html" title="Home">
-                <img src="data/vector/logo.svg" alt="Home">
-            </a>
+    <div class="logo">
+        <a href="./index.html" title="Home">
+            <img src="data/vector/logo.svg" alt="Home">
+        </a>
+    </div>
+
+    <nav class="navigation">
+        <a href="#navigation" class="nav-trigger">
+            <span><em aria-hidden="true"></em></span>
+        </a>
+
+        <div class="search">
+            <form>
+                <input class="search-input" placeholder="Search post by tag...">
+                <input type="submit">
+            </form>
         </div>
 
-        <nav class="navigation">
-            <a href="#navigation" class="nav-trigger">
-                <span><em aria-hidden="true"></em></span>
-            </a>
+        <ul>
+            <li><a href="./archives.html">Archives</a></li>
+            <li><a href="./about.html">About</a></li>
+        </ul>
 
-            <div class="search">
-                <form>
-                    <input type="search" placeholder="Search post by tag...">
-                    <input type="submit">
-                </form>
-            </div>
+    </nav>
 
-            <ul>
-                <li><a href="./archives.html">Archives</a></li>
-                <li><a href="./about.html">About</a></li>
-            </ul>
+</header>
 
-        </nav>
-
-    </header>
-
-    <main>
-        <section class="gallery">
-            <ul>
-
-                <li class="mix astronomy physics">
+<main>
+    <section class="gallery">
+        <div class="container">
+            <div class="gallery-list">
+                <div class="mix astronomy physics">
                     <a href="posts/2018-09-23-Orbits/index.html">
                         <div class="post">
                             <img src="./data/images/post-covers/planets.png">
@@ -72,15 +76,15 @@
                                 <h3>Why Are Planet Orbits Elliptical?</h3>
                                 <p>An introduction to the history of solving one of the oldest questions of astronomy.</p>
                                 <div class="tags">
-                                    <a href="./tags/astronomy/index.html" class="tag">astronomy</a>
-                                    <a href="./tags/physics/index.html" class="tag">physics</a>
+                                    <button type="button" class="tag">astronomy</button>
+                                    <button type="button" class="tag">physics</button>
                                 </div>
                             </div>
                         </div>
                     </a>
-                </li>
+                </div>
 
-                <li class="mix math">
+                <div class="mix math">
                     <a href="posts/2018-10-20-Math-Part-1/index.html">
                         <div class="post">
                             <img src="./data/images/post-covers/applied_math.png">
@@ -89,14 +93,14 @@
                                 <h3>Applied Math. Part I: Introduction.</h3>
                                 <p>How to embrace the unembraceable?</p>
                                 <div class="tags">
-                                    <a href="./tags/math/index.html" class="tag">math</a>
+                                    <button type="button" class="tag">math</button>
                                 </div>
                             </div>
                         </div>
                     </a>
-                </li>
+                </div>
 
-                <li class="mix math">
+                <div class="mix math">
                     <a href="posts/2018-12-9-Math-Part-2/index.html">
                         <div class="post">
                             <img src="./data/images/post-covers/applied_math.png">
@@ -105,14 +109,14 @@
                                 <h3>Applied Math. Part II: Derivative.</h3>
                                 <p>A quick recap of what derivative is and what it is for.</p>
                                 <div class="tags">
-                                    <a href="./tags/math/index.html" class="tag">math</a>
+                                    <button type="button" class="tag">math</button>
                                 </div>
                             </div>
                         </div>
                     </a>
-                </li>
+                </div>
 
-                <li class="mix ml nn dl machine learning deep learning neural networks">
+                <div class="mix ml nn dl">
                     <a href="./posts/2019-03-15-DL/index.html">
                         <div class="post">
                             <img src="./data/images/post-covers/dl.png">
@@ -120,16 +124,16 @@
                                 <h3>What Is Deep Learning?</h3>
                                 <p>A short introduction into the world of Machine Learning.</p>
                                 <div class="tags">
-                                    <a href="./tags/ml/index.html" class="tag">ml</a>
-                                    <a href="./tags/nn/index.html" class="tag">nn</a>
-                                    <a href="./tags/dl/index.html" class="tag">dl</a>
+                                    <button type="button" class="tag">ml</button>
+                                    <button type="button" class="tag">nn</button>
+                                    <button type="button" class="tag">dl</button>
                                 </div>
                             </div>
                         </div>
                     </a>
-                </li>
+                </div>
 
-                <li class="mix nn ml machine learning neural networks">
+                <div class="mix nn ml">
                     <a href="./posts/2019-04-11-MLP-Part-1/index.html">
                         <div class="post">
                             <img src="./data/images/post-covers/nn.png">
@@ -138,15 +142,15 @@
                                 <h3>Multilayer Perceptron. Part I: Introduction.</h3>
                                 <p>The simplest neural network architecture. Basic concepts.</p>
                                 <div class="tags">
-                                    <a href="./tags/ml/index.html" class="tag">ml</a>
-                                    <a href="./tags/nn/index.html" class="tag">nn</a>
+                                    <button type="button" class="tag">ml</button>
+                                    <button type="button" class="tag">nn</button>
                                 </div>
                             </div>
                         </div>
                     </a>
-                </li>
+                </div>
 
-                <li class="mix nn ml machine learning neural networks">
+                <div class="mix nn ml">
                     <a href="./posts/2019-05-20-MLP-Part-2/index.html">
                         <div class="post">
                             <img src="./data/images/post-covers/nn.png">
@@ -155,29 +159,32 @@
                                 <h3>Multilayer Perceptron. Part II: Training.</h3>
                                 <p>How is perceptron trained?</p>
                                 <div class="tags">
-                                    <a href="./tags/ml/index.html" class="tag">ml</a>
-                                    <a href="./tags/nn/index.html" class="tag">nn</a>
+                                    <button type="button" class="tag">ml</button>
+                                    <button type="button" class="tag">nn</button>
                                 </div>
                             </div>
                         </div>
                     </a>
-                </li>
+                </div>
+
+                <div class="gap"></div>
+                <div class="gap"></div>
+                <div class="gap"></div>
 
                 <div class="fail-message">
                     <p>Results not found. Show <a href="./index.html">all</a> posts.</p>
                 </div>
-            </ul>
+            </div>
+        </div>
 
-        </section>
+    </section>
+</main>
+<div class="footer"></div>
 
-        <div class="footer" style="position:fixed"></div>
-
-    </main>
-
-    <script src="js/jquery-3.0.0.min.js"></script>
-    <script src="js/jquery.mixitup.min.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/search.js"></script>
+<script src="js/jquery-3.0.0.min.js"></script>
+<script src="js/mixitup.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/filtering.js"></script>
 
 </body>
 
