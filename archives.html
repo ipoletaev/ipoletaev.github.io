@@ -18,7 +18,11 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143270978-1"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
       gtag('js', new Date());
       gtag('config', 'UA-143270978-1');
     </script>
@@ -28,60 +32,61 @@
 </head>
 
 <body>
-    <header class="header">
+<header class="header">
 
-        <div class="logo">
-            <a href="./index.html" title="Home">
-                <img src="data/vector/logo.svg" alt="Home">
-            </a>
+    <div class="logo">
+        <a href="./index.html" title="Home">
+            <img src="data/vector/logo.svg" alt="Home">
+        </a>
+    </div>
+
+    <nav class="navigation">
+        <a href="#navigation" class="nav-trigger">
+            <span><em aria-hidden="true"></em></span>
+        </a>
+
+        <ul>
+            <li><a href="./archives.html">Archives</a></li>
+            <li><a href="./about.html">About</a></li>
+        </ul>
+
+    </nav>
+</header>
+
+<main>
+    <div class="archive">
+        <div class="container">
+            <div class="content">
+                <h1>Archives</h1>
+                <p>All previous blog posts:</p>
+                <ul>
+                    <li>September 23, 2018:
+                        <a href="posts/2018-09-23-Orbits/index.html">Why Are Planet Orbits Elliptical?</a>
+                    </li>
+                    <li>October 20, 2018:
+                        <a href="posts/2018-10-20-Math-Part-1/index.html">Applied Math. Part I: Introduction.</a>
+                    </li>
+                    <li>December 9, 2018:
+                        <a href="posts/2018-12-9-Math-Part-2/index.html">Applied Math. Part II: Derivative.</a>
+                    </li>
+                    <li>March 15, 2019:
+                        <a href="posts/2019-03-15-DL/index.html">What Is Deep earning?</a>
+                    </li>
+                    <li>April 11, 2019:
+                        <a href="posts/2019-04-11-MLP-Part-1/index.html">Multilayer Perceptron. Part I: Introduction.</a>
+                    </li>
+                    <li>May 20, 2019:
+                        <a href="posts/2019-05-20-MLP-Part-2/index.html">Multilayer Perceptron. Part II: Training.</a>
+                    </li>
+                </ul>
+            </div>
         </div>
+    </div>
+</main>
+<div class="footer"></div>
 
-        <nav class="navigation">
-            <a href="#navigation" class="nav-trigger">
-                <span><em aria-hidden="true"></em></span>
-            </a>
-
-            <ul>
-                <li><a href="./archives.html">Archives</a></li>
-                <li><a href="./about.html">About</a></li>
-            </ul>
-
-        </nav>
-    </header>
-
-    <main>
-
-        <div class="text">
-            <h1>Archives</h1>
-            <p>All previous blog posts:</p>
-            <ul>
-                <li>September 23, 2018:
-                    <a href="posts/2018-09-23-Orbits/index.html">Why Are Planet Orbits Elliptical?</a>
-                </li>
-                <li>October 20, 2018:
-                    <a href="posts/2018-10-20-Math-Part-1/index.html">Applied Math. Part I: Introduction.</a>
-                </li>
-                <li>December 9, 2018:
-                    <a href="posts/2018-12-9-Math-Part-2/index.html">Applied Math. Part II: Derivative.</a>
-                </li>
-                <li>March 15, 2019:
-                    <a href="posts/2019-03-15-DL/index.html">What Is Deep earning?</a>
-                </li>
-                <li>April 11, 2019:
-                    <a href="posts/2019-04-11-MLP-Part-1/index.html">Multilayer Perceptron. Part I: Introduction.</a>
-                </li>
-                <li>May 20, 2019:
-                    <a href="posts/2019-05-20-MLP-Part-2/index.html">Multilayer Perceptron. Part II: Training.</a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="footer"></div>
-
-    </main>
-        
-    <script src="js/jquery-3.0.0.min.js"></script>
-    <script src="js/main.js"></script>
+<script src="js/jquery-3.0.0.min.js"></script>
+<script src="js/main.js"></script>
 </body>
 
 </html>

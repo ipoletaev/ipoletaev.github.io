@@ -1,52 +1,45 @@
-.text {
-  margin-top: 150px;
-  position: relative;
-  left: 15%;
-  width: 70%;
-  max-width: 100%;
-  max-height: 100%;
-  text-align: left;
-  font-size: 120%;
+.archive {
+  padding-top: 100px;
 }
 
-.text ul li {
-  padding-left: 10px;
-  margin-top: 0;
-  margin-bottom: 1rem;
+.archive ul li {
   list-style-type: disc;
-  -webkit-margin-before: 1em;
-  -webkit-margin-after: 1em;
-  -webkit-margin-start: 20px;
-  -webkit-margin-end: 0px;
-  -webkit-padding-start: 20px;
+  margin: 16px 0 0 20px;
+  padding-left: 20px;
 }
 
-.text h1 {
-  font-size: 300%;
+.archive h1 {
   font-weight: 400;
   line-height: 1;
-  margin-bottom: 20px;
+  margin: 0 0 20px;
 }
 
-.text p {
-  font-size: 120%;
+.archive p {
   margin-bottom: 10px;
 }
 
-.text a:link {
+.archive a:link,
+.archive a:hover {
   color: #9da0a0;
   text-decoration: none;
 }
 
-.text a:visited {
+.archive a:visited,
+.archive a:active {
   color: #9da0a0;
 }
 
-.text a:hover {
-  color: #9da0a0;
-  text-decoration: underline;
-}
+@media only screen and (min-width: 768px) {
+  .archive {
+    padding-top: 130px;
+    font-size: 120%;
+  }
 
-.text a:active {
-  color: #9da0a0;
+  .archive h1 {
+    font-size: 270%;
+  }
+
+  .archive p {
+    font-size: 120%;
+  }
 }
