@@ -179,8 +179,11 @@ pre code {
   margin-bottom: 20px;
 }
 
-.mjx-chtml {
-  max-width: 100% !important;
-  overflow-x: auto;
-  vertical-align: middle;
+@media only screen and (max-width: 767px) {
+  .MJXc-display {
+    max-width: 100% !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    vertical-align: middle;
+  }
 }
