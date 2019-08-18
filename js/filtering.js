@@ -34,9 +34,9 @@ jQuery(document).ready(function ($) {
   $('.tags button').on('click', function (e) {
     e.preventDefault();
     var tag = $(this).text();
-    mixer.filter('.' + tag).then(function () {
+    mixer.filter('.' + tag, false).then(function () {
       var body = $('html, body');
-      body.stop().animate({ scrollTop: 0 }, 200, 'swing');
+      body.stop().animate({ scrollTop: 0 }, 600, 'swing');
     });
   });
 

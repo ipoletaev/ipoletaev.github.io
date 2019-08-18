@@ -31,9 +31,10 @@ b {
   font-weight: bold;
 }
 
-.content h1 {
+.post h1 {
   font-family: 'CMS', 'Droid Serif', Georgia, Times, serif;
   font-size: 230%;
+  line-height: 45px;
   margin: 0;
   font-weight: 400;
   text-align: center;
@@ -186,7 +187,7 @@ pre code {
   .post {
     padding: 150px 0 90px;
   }
-  .content h1 {
+  .post h1 {
     font-size: 240%;
     line-height: 65px;
   }

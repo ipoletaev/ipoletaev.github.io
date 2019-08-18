@@ -32,7 +32,8 @@
   cursor: pointer;
   border-radius: 0;
   -webkit-appearance: none;
-  appearance: none;
+  -moz-appearance: none;
+       appearance: none;
 }
 
 .search .search-input::-ms-clear {
