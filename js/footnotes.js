@@ -8,17 +8,18 @@ jQuery(document).ready(function () {
       content: '',
       animation: 'fade',
       theme: 'custom',
-      distance: 0,
+      distance: 3,
       maxWidth: 400,
       interactive: true,
       interactiveBorder: 10,
       placement: 'bottom',
       ignoreAttributes: true,
       arrow: false,
+      zIndex: 0,
       onShow: function (instance) {
         if (instance.popperChildren.content.textContent === '') {
           var rawContent = $(targetId).html();
-          var cropIndex = rawContent.indexOf('<a href="#');
+          var cropIndex = rawContent.indexOf('<a href="#fn');
           instance.setContent(rawContent.substring(0, cropIndex));
         }
       },
