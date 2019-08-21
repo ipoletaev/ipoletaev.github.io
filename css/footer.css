@@ -14,16 +14,8 @@
   display: none;
 }
 
-.footer h1 {
-  font-family: 'CMS', 'Droid Sans', Helvetica, Arial, sans-serif;
-  font-size: 1.1rem;
-  margin-right: 3%;
-  margin-top: 14px;
-  text-align: right;
-  color: white;
-}
-
 .footer p {
+  font-family: "PT Sans", sans-serif;
   font-size: 1.1rem;
   margin-right: 3%;
   margin-top: 14px;
