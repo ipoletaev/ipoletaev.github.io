@@ -1,5 +1,4 @@
 .footer {
-  font-family: "PT Sans", sans-serif;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -16,6 +15,7 @@
 }
 
 .footer h1 {
+  font-family: 'CMS', 'Droid Sans', Helvetica, Arial, sans-serif;
   font-size: 1.1rem;
   margin-right: 3%;
   margin-top: 14px;
