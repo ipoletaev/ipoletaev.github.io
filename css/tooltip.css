@@ -1,0 +1,16 @@
+.tippy-tooltip.custom-theme {
+  border-radius: 3px;
+  font-size: 14px;
+  line-height: 1.15;
+  opacity: 0.95;
+  background-color: white;
+  padding: 3px 12px;
+  color: rgb(109, 109, 109);
+  border: 1px solid #CDBBB5;
+  box-shadow: #555 0 0 10px;
+  text-align: left;
+}
+
+.tippy-tooltip.custom-theme .tippy-backdrop {
+  background-color: white;
+}
