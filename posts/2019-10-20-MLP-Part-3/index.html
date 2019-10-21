@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=David+Libre|Hind:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="../../fonts/Serif/cmun-serif.css" />
+    <link rel="stylesheet" href="../../fonts/Serif-Slanted/cmun-serif-slanted.css" />
+
+    <link rel="stylesheet" href="../../css/normalize.css">
+    <link rel="stylesheet" href="../../css/default.css">
+    <link rel="stylesheet" href="../../css/nav_bar.css">
+    <link rel="stylesheet" href="../../css/post.css">
+    <link rel="stylesheet" href="../../css/progress_bar.css">
+    <link rel="stylesheet" href="../../css/go_up.css">
+    <link rel="stylesheet" href="../../css/footer.css">
+    <link rel="stylesheet" href="../../css/tags.css">
+    <link rel="stylesheet" href="../../css/tooltip.css">
+    <link rel="stylesheet" href="../../comments/inlineDisqussions.css">
+
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: { autoNumber: "AMS" } }
+    });
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143270978-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-143270978-1');
+    </script>
+
+    <link rel="shortcut icon" href="../../data/icons/Icon.ico" />
+    <title>Igor's Tech Blog</title>
+
+    <link href="../../prism/prism.css" rel="stylesheet" />
+    <script src="../../prism/prism.js"></script>
+
+</head>
+
+<body>
+
+    <header class="header">
+
+        <div class="logo">
+            <a href="../../index.html" title="Home">
+                <img src="../../data/vector/logo.svg" alt="Home">
+            </a>
+        </div>
+
+        <nav class="navigation">
+            <a href="#navigation" class="nav-trigger">
+                <span><em aria-hidden="true"></em></span>
+            </a>
+
+            <ul>
+                <li><a href="../../archives.html">Archives</a></li>
+                <li><a href="../../about.html">About</a></li>
+            </ul>
+
+        </nav>
+
+    </header>
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    <main>
+        <div class="post">
+            <div class="container">
+                <div class="content">
+
+                    <h1>Multilayer Perceptron.</h1>
+                    <h1>Part III: Regularization.</h1>
+                    <div class="time">October 20, 2019</div>
+                    <div class="post-tags">
+                        <a href="../../index.html" class="tag">ml</a>
+                        <a href="../../index.html" class="tag">nn</a>
+                    </div>
+
+                    <p>
+                    Although we have already touched upon this topic in the previous <a href="../2019-05-20-MLP-Part-2/index.html">post</a>, I would still like to give more details on how various factors, like the training data size, for instance, may affect the real trained ML model quality and in addition discuss some important nuances associated with the training of neural networks. 
+                    </p>
+
+
+                    <h3>Trained Model Quality</h3>
+                    <p>
+                    Last time, we found out that while estimating model parameters and constructing the approach to compute them, the following two important assumptions were used:
+                    <li>Training examples are independent and identically distributed, </li>
+                    <li>The number of training examples <span class="math">\(N\)</span> is large.</span></li>
+                    </p>
+
+                    <p>
+                    While the first assumption is surmountable in practice, because it is relatively easy to make a data set with different and diverse examples, the second one always requires a lot of effort. Of course, the fulfillment of these requirements does not guarantee that the trained model will ideally cope with the task of processing previously unseen examples. However, on the other hand, ignoring these requirements can adversely affect the model used in practice. Let's consider the following example of how this can manifest itself.
+                    </p>
+
+                    <p>
+                    It is often the case that a trained model performs very well on the training data, but it works poorly<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> (or doesn't work at all) on the so-called validation data, that is, those examples that the model has never seen before. This validation data set is used as an indicator of the model's <a href="https://en.wikipedia.org/wiki/Generalization_error">generalization</a> ability. 
+                    </p>
+
+                    <p>
+                    Broadly speaking, assuming the the model has enough capacity (i.e. it is large and complex enough), then the most probable cause of the poor generalization quality is because the empirical joint probability distribution of the data <span class="math">\(p_{d}(\mathcal{D})\)</span> represents the real data distribution <span class="math">\(\hat{p}_{d}(\mathcal{D})\)</span> too roughly (see <a href="../2019-04-11-MLP-Part-1/index.html">this</a> post where this notation was introduced). This usually happens due to the lack of training examples or if they are not diverse enough. Well ...
+                    </p>
+
+                    <h3>What Do We Do?</h3>
+                    <p>
+                    Using the <em>additional knowledge about parameters of a model</em> that we train can significantly help the cause. In the case of a neural network, these parameters are all neurons' weights and biases <span class="math">\(\textbf{w} \)</span>. Such additional knowledge is usually called "a priori information", hence the name <a href="https://en.wikipedia.org/wiki/Prior_probability">prior probability distribution</a> <span class="math">\(p(\textbf{w})\)</span>. This distribution is used to refine the approximation of model parameters. How to use that? Let's try to look at this problem from a probabilistic point of view. To do so, it would be great to consider the full posterior distribution <span class="math">\(p(\textbf{w}|\mathcal{D})\)</span> of weights <span class="math">\(\textbf{w}\)</span> for a given data set <span class="math">\(\mathcal{D}\)</span>. We can write an expression for <span class="math">\(p(\textbf{w}|\mathcal{D})\)</span> using the <a href="https://en.wikipedia.org/wiki/Bayes%27_theorem">Bayes' theorem</a>:
+
+                    <span class="math">\[ \underbrace{p(\textbf{w}|\mathcal{D})}_{\text{posterior}} = \dfrac{\overbrace{p_{\textbf{w}}(\mathcal{D})}^{\text{likelihood}} \, \cdot \, \overbrace{p(\textbf{w})}^{\text{prior}}}{\underbrace{p(\mathcal{D})}_{\text{marginal likelihood}}} \]</span>
+
+                    Here <span class="math">\(p(\mathcal{D})\)</span> is the total probability of having a data set <span class="math">\(\mathcal{D}\)</span> considering all possible weights values - the so-called <a href="https://en.wikipedia.org/wiki/Marginal_likelihood">marginal likelihood</a> or the <em>evidence</em>. It is difficult to calculate <span class="math">\(p(\mathcal{D})\)</span> as the calculation would involve a large sum, but on the other hand <span class="math">\(p(\mathcal{D})\)</span> doesn't depend on the weights <span class="math">\(\textbf{w}\)</span> being an integral variable. Therefore, as in the case of the maximum likelihood estimation, we are not concerned with a specific value of <span class="math">\(p(\textbf{w}|\mathcal{D})\)</span>. We only care about the point <span class="math">\(\textbf{w}^{*}\)</span> where this posterior probability has a maximum value, therefore, we have:
+
+                    <span class="math">\[ \begin{equation}
+
+                    \textbf{w}^{*} = \operatorname*{argmax}_{\textbf{w}} p(\textbf{w}|\mathcal{D}) = \operatorname*{argmax}_{\textbf{w}} \left[p_{\textbf{w}}(\mathcal{D})p(\textbf{w})\right] \end{equation}
+
+                    \]</span>
+                    </p>
+
+                    <p>
+                    This principle is called <a href="https://en.wikipedia.org/wiki/Maximum_a_posteriori_estimation">maximum a posteriori estimation</a> or MAP. If we had not had information on how weights should look like, then we should have considered <span class="math">\(p(\textbf{w})\)</span> as a constant. Consequently, the estimate <span class="math">\((1)\)</span> would have been equal to the maximum likelihood estimate value, because in this case <span class="math">\(p(\textbf{w})\)</span> has no affect on the <span class="math">\(p(\textbf{w}|\mathcal{D})\)</span> maximum.
+                    </p>
+
+                    <p>
+                    Based on the <a href="../2019-04-11-MLP-Part-1/index.html">first</a> post results, we may assume that <span class="math">\(p_{\textbf{w}}(\mathcal{D}) \approx \prod_{i=1}^{N}p_{\textbf{w}}(c_{i}|\vec{x}_{i})\)</span>, thus using this approximation and applying the logarithm, equation <span class="math">\((1)\)</span> can be rewritten as follows:
+
+                    <span class="math">\[ \begin{equation}
+
+                    \textbf{w}^{*} = \operatorname*{argmax}_{\textbf{w}} \left[p_{\textbf{w}}(\mathcal{D})p(\textbf{w})\right]  =
+                    \operatorname*{argmax}_{\textbf{w}} \left[\dfrac{1}{N} \sum_{i=1}^{N} \log{p_{\textbf{w}}(c_{i}|\vec{x}_{i})} + \log{p(\textbf{w})}\right]
+                    \end{equation}
+
+                    \]</span>
+
+                    The first term is the well known negative cross-entropy <span class="math">\(-H(p_{d}, p_{\textbf{w}})\)</span>  between the model and data probability distributions, whereas the second term, usually denoted as <span class="math">\(-R(\textbf{w})\)</span> (minus is important) is the so-called <a href="https://en.wikipedia.org/wiki/Regularization_(mathematics)">regularization</a> term, and that is why the process <span class="math">\((2)\)</span> of finding optimal weights <span class="math">\(\textbf{w}^{*}\)</span> is referred to as the <em>training with regularization</em>. Combining everything together, similarly to <a href="../2019-04-11-MLP-Part-1/index.html#fnref6"><span class="math">\((9)\)</span></a>, we obtain the following general expression for the loss function:
+
+
+                    <span class="math">\[ \begin{equation}
+
+                    L_{\text{reg}} = \underbrace{H(p_{d}, p_{\textbf{w}})}_{L} + R(\textbf{w}) \end{equation} \quad \blacksquare
+
+                    \]</span>
+                    </p>
+
+                    <p>
+                    This is how the knowledge of weights distribution affects the training of neural networks — it results in the addition of the extra term to the loss function. Let's look at some examples below and discuss why this term is important and how it works.
+                    </p>
+
+                    <h3><span class="math">\(L_{2}\)</span>-regularization</h3>
+                    <p>
+                    For example, if during the training procedure we want to "encourage" small weights (this technique is called <em>weight decay</em>), then we can assume that the prior <span class="math">\(p(\textbf{w})\)</span> is given by the normal distribution <span class="math">\(\mathcal{N}(\textbf{w}; 0, \textbf{I}^{2}/\lambda)\)</span>, where <span class="math">\(\textbf{I}\)</span> is the <a href="https://en.wikipedia.org/wiki/Identity_matrix">identity matrix</a> with corresponding dimensions and <span class="math">\(\lambda \in [0,+\infty)\)</span> is a manually chosen hyper-parameter. In this case:
+
+                     <span class="math">\[ 
+
+                    R(\textbf{w}) = -\log{p(\textbf{w})} \propto -\log{e^{-\lambda \cdot \textbf{w}^{\top} \textbf{I} \cdot \textbf{w}}} = \lambda ||\textbf{w}||_{2}^{2} = \lambda \cdot (w_{1}^{2} + w_{2}^{2} + \ldots)
+
+                    \]</span>      
+
+                    This is why such type of regularization is often called <span class="math">\(L_{2}\)</span>-regularization. The term <span class="math">\(||\textbf{w}||_{2}^{2}\)</span> facilitates only small weights, thereby making the final value of <span class="math">\(||\textbf{w}^{*}||\)</span> less. Below there is an example for the loss function that depends only on two variables: <span class="math">\(L=L(w^{1},w^{2})\)</span>. The surface <span class="math">\(L_{\text{reg}}\)</span> of the loss function with <span class="math">\(L_{2}\)</span>-regularization is shown in green color:
+                    </p>
+
+                    <div>
+                    <img src="images/regularization.gif">
+                    <div class="source">Increasing the regularization parameter <span class="math">\(\lambda\)</span>, the values of the optimal weights <span class="math">\((w^{1*},w^{2*})\)</span>, as expected, decrease. </div>
+                    </div>
+
+                    <p>
+                    Such a simple idea <a href="https://papers.nips.cc/paper/563-a-simple-weight-decay-can-improve-generalization.pdf">has proven</a> to be very efficient in practice. Moreover, various neural network's layers weights can be regularized differently, i.e., if multiple sub-distributions form the overall prior. This can also help to improve the NN's performance.
+                    </p>
+
+                    <p>
+                    In the conclusion of this section, it is necessary to understand how the addition of regularization affects the technical side of the optimization. To do this we just need to choose the regularization term, for example, the aforementioned <span class="math">\(R(\textbf{w}) = \lambda ||\textbf{w}||_{2}^{2}\)</span>, and compute the derivative of <span class="math">\((3)\)</span> with respect to the weights, so:
+
+                    <span class="math">\[
+                    \nabla L_{\text{reg}} = \nabla L + 2 \lambda \textbf{w} \Rightarrow \Delta \textbf{w}_{\text{reg}} = - \eta \cdot \nabla L_{reg} = \Delta \textbf{w} - 2 \lambda \eta \textbf{w}
+                    \]</span>   
+
+                    This means that every weight's update <span class="math">\(\Delta w_{ij}^{t+1}\)</span> decreases by a certain regularization value <span class="math">\(- 2 \lambda \eta w_{ij}^{t}\)</span>. This results in pushing the values of the optimal weights towards the origin.
+                    </p> 
+
+
+                    <h3><span class="math">\(L_{1}\)</span>-regularization</h3>
+                    <p>
+                    In the vast majority of cases, dealing with optimization problems, one has to deal with multivariable functions - the concept of <a href="https://en.wikipedia.org/wiki/Vector_space">vector spaces</a> appears. Also, it happens often that loss functions in machine learning are <a href="https://en.wikipedia.org/wiki/Measurable_function">measurable</a> in <span class="math">\(L_{p}\)</span> <a href="https://en.wikipedia.org/wiki/Lp_space">spaces</a>. This is why the following two popular types of <a href="https://en.wikipedia.org/wiki/Norm_(mathematics)">norms</a> are used for regularization: <span class="math">\(L_{1}\)</span> and <span class="math">\(L_{2}\)</span>. All right, let me stop speaking formally... The second regularization term type has just been considered as an example above, so let's talk a bit about the first one.
+
+                    <p>
+                    In fact, the difference is not fundamental in the approach but is quite noticeable in the results obtained. First, let's take a look at the corresponding regularization term:
+
+
+                    <span class="math">\[
+                    R(\textbf{w}) = \lambda \cdot ||\textbf{w}||_{1} = \lambda \cdot (|w_{1}| + |w_{2}| + \ldots)
+                    \]</span>   
+
+                    This expression could be also obtained using the <a href="https://en.wikipedia.org/wiki/Laplace_distribution">Laplace distribution</a> <span class="math">\(p(\textbf{w}) \propto e^{-\lambda |\textbf{w}|}\)</span> in the way as we just did before for <span class="math">\(L_{2}\)</span>-regularization and the normal distribution. Well, now we can compute the update for some arbitrary weight <span class="math">\(w\)</span> as follows<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>:
+
+                    <span class="math">\[
+                    \Delta w_{\text{reg}} = \Delta w - \lambda \eta \cdot \text{sgn}(w)                 
+                    \]</span>      
+
+                    Thus, regardless of the weight absolute value <span class="math">\(|w|\)</span>, its update <span class="math">\(\Delta w_{\text{reg}}\)</span> is always non-negative (even if <span class="math">\(\Delta w = 0\)</span>) both for any positive or negative value. Therefore <span class="math">\(L_{1}\)</span>-regularization results in facilitation of zero weights, because in this case <span class="math">\(L_{\text{reg}}\)</span> would be closer to its minimum<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>. Ultimately, this regularization leads to a higher <em>sparsity</em> of the weights obtained at the end of the training. Such a consequence can be interpreted as the <em>feature filtering</em>, i.e., the model essentially learns to ignore most of the useless features. This is how <span class="math">\(L_{1}\)</span>-regularization can help neural networks to understand the features of the data better.
+                    </p>
+
+                    <h3>Other Techniques</h3>
+                    <p>
+                    Nowadays, the concept of regularization is more general than a simple tweaking out of the loss function. In a broader sense, regularization refers to any method aimed at overcoming the effect of overfitting mentioned above. There are a couple of examples:
+                    
+                    <h4>Weights Initialization</h4>
+                    <p>As was discussed in previous posts, the weights of a neural network can be initialized randomly. Of course, even being simple and intuitive, this method does not always work well. Although this is an incredibly interesting topic, here I would like to mention only the main idea of how the proper weights initialization can help. Generally speaking, it may help to accelerate the passage of signals through the neural network in both directions, that is, when calculating the output signals and updating the weights using the back-propagation algorithm.
+                    </p>
+
+                    <p>
+                    Here is an example. One common approach, called <em>Xavier initialization</em>, suggests to initialize all <span class="math">\(l\)</span>-th layer's weights <span class="math">\(w_{l}\)</span> using the <a href="https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)">uniform distribution</a> with coefficients proportional to the inverse square root of the number <span class="math">\(n\)</span> of neurons in  <span class="math">\(l\)</span>-th and  <span class="math">\(l+1\)</span>-th layers together:
+                    </p>
+
+                    <span class="math">\[
+                    w_{l} \sim U \left [ -\sqrt{\dfrac{6}{n_{l}+n_{l+1}}}; \sqrt{\dfrac{6}{n_{l}+n_{l+1}}} \right ]                 
+                    \]</span>  
+
+                    <p style="text-indent: 0%">
+                    As it turned out, this heuristic does help to accelerate the training and improves the generalizing ability. To know why this works, I'd recommend taking a look at the <a href="http://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf">primary source</a>.
+                    </p>
+
+                    <h4>Batch-normalization</h4>
+                    <p>
+                    The authors of <a href="https://arxiv.org/pdf/1502.03167.pdf">this</a> research found a way to speed up the training and help the loss to converge to even a lower point, while using a mini-batch gradient-based backpropagation algorithm. The idea is to apply linear data transformation to every neuron of a neural network. Let's consider a neuron's induced local fields <span class="math">\(z_{1},\ldots,z_{i},\ldots,z_{|\pi|}\)</span> collected over a batch <span class="math">\(\pi\)</span>. One can normalize these signals based on the statistical properties of the batch:</p>
+
+                    <span class="math">\[
+                    z_{i} := \gamma \cdot \left ( \dfrac{z_{i} - \mu}{\sqrt{\sigma^{2} + \varepsilon}} \right ) + \beta, \quad \forall i \in \pi
+                    \]</span>  
+
+                    <span class="math">\[
+                    \varepsilon, \gamma, \beta \in \mathbb{R}; \, \mu = \dfrac{1}{m}\sum_{i=1}^{|\pi|}z_{i}; \sigma^2 = \dfrac{1}{m}\sum_{i=1}^{|\pi|}(z_{i}-\mu)^{2};          
+                    \]</span>
+
+                    <p style="text-indent: 0%">
+                    <span class="math">\(\gamma\)</span> and <span class="math">\(\beta\)</span> are two hyperparameters which are optimized during the training, whereas <span class="math">\(\varepsilon > 0\)</span> is a fixed parameter that prevents the division by zero. This technique is called <em>batch normalization</em><a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>. During the classification time, the neural network uses values of <span class="math">\(\mu\)</span> and <span class="math">\(\sigma\)</span>, which were averaged among all training batches.
+
+                    <p>
+                    Utilizing batch normalization, you should keep in mind that it requires additional overhead costs both in time and in memory. For example, <em>each</em> neuron to which this procedure applies must store four additional variables: <span class="math">\(\gamma, \beta, \mu, \sigma\)</span>. And this is at least 16 bytes on modern computers.
+                    </p>
+
+                    <div>
+                    <img src="images/batch_norm.png">
+                    <div class="source">An example of how batch normalization transforms sample data without losing information.</div>
+                    </div>
+
+                    <p>
+                    All these statistical manipulations normalize the expectation and variance of the gradients. Thus higher learning rates are becoming stable enough. This, in turn, has a positive effect the characteristics of the trained model and the time required to train it.
+                    </p>   
+
+                    <h4>Data Augmentation</h4>
+                    <p>Here everything is pretty much straightforward, at least from the practical point of view. The idea is to have more data for the training. By "more" in this context, additional data generated from already existing examples is meant. Yep. That simple. "Why?" you may ask. This question has been already answered above: the more data you have and the more diverse it is, the better the real-world data distribution a neural network will learn. 
+                    </p> 
+                    <p> 
+                    For example, in speech recognition tasks, the addition of various noises is often used as the augmentation, such as applause, distant voices, or street sounds in the background. For the graphical problems, distortion, warping, rotation, and scaling of images are commonly used to augment the training data set. Thus, the neural network will be able to generalize its knowledge to a broader range of previously unseen examples. So yet another passenger's face will be registered at the airport, and a camera will recognize one more dirty license plate at the entrance to the toll bridge.
+                    </p>
+
+                    <h4>Early Stopping</h4>
+                    <p> 
+                    Suppose you have enough data, then you most likely have the opportunity to divide all the available data into two representative parts, for example, with the ratio of 7:3 or 4:1. A large part, called the training set, is (please make a guess...) used for training. At the end of each epoch, while a neural network is trained, the loss function value is calculated on the second, the remaining part of the data, called the validation set. If you plot the dependency of the training and validation losses on the number of epochs passed, the typical (smoothed) behavior of these two curves will look as follows:
+                    </p> 
+
+                    <div>
+                    <img src="images/loss.png">
+                    <div class="source">An illustration of the typical training process. The optimal number of epochs is depicted by a dotted line.</div>
+                    </div>
+
+                    <p style="text-indent: 0%">
+                    The neural network performance on the validation set is becoming worse and worse after some specific number of epochs. Therefore, one should keep an eye on these two curves throughout the entire training process in order to choose the proper point in time when to stop the training. This procedure is called the <em>early stopping</em>, and even being a common-sense demonstration, it is usually considered as a regularization technique<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>.
+                    </p> 
+
+                    <h4>Ensemble of Models</h4>
+                    <p> 
+                    Let's consider an arbitrary neural network. Also, let's consider, two more copies of the same architecture and change something a little bit in each of them — for instance, the number of neurons in layers:
+                    </p> 
+
+                    <div>
+                    <img src="images/ensemble.png">
+                    </div>
+
+                    <p style="text-indent: 0%">
+                    Now let's train all these three neural networks to perform the same task, say, recognize cats on pictures, namely, say yes or no depending on the presence of a cat in the image. Then we can take all three trained copies and utilize them to classify some arbitrary pictures. To do so, we assume that there is a cat if and only if all three networks agree with this, and there is no cat if at least one network disagrees with that. This kind of unification is called an <em>ensemble</em>. This approach is pretty much expensive, but it often helps to achieve higher accuracy and lower false positive rate for various classification problems.
+                    </p> 
+
+                    <p> 
+                    The existence of multiple copies of the same neural network which are trained and used for classification together works as a regularization. The randomness of the initial weights initialization and slightly different architecture characteristics lead to more accurate learning of the different data features. For example, the first model has learned to predict only one part of the classes well, while the second one has learned only the remaining classes quite well. Almost like in everything, teamwork is better and more effective than the work of one.
+                    </p> 
+
+                    <h4>Dropout</h4>
+                    <p> 
+                    How can one make an ensemble of models to be more efficient in practice? The first thing that comes to mind is to try to train many models at the same time. Here comes the <a href="http://www.jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf">dropout</a> approach! The idea is in switching off a certain number of neurons randomly during every forward-backward pass, that is, with every new batch, thereby simply excluding these neurons both from the output signal calculation and weights update. 
+                    </p> 
+
+                    <p> 
+                    The only thing that the user should regulate is the so-called dropout rate <span class="math">\(p\)</span> that states for the percentage of neurons, which will be randomly turned off in every network's hidden layer. Consequently, the probability that a given hidden neuron will be turned on during an arbitrary training step is given by <span class="math">\(q = 1-p\)</span>. Therefore, during the classification, in order to emulate that the neural network actually was trained as an ensemble of multiple models, one need to multiply every hidden layer neuron's output signal by <span class="math">\(q\)</span>. This is equivalent<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a> to the division of all output signals by the same value <span class="math">\(q\)</span> during the training time. In practice, this approach is actually more preferable since it doesn't require any additional actions during the classification time.
+                    </p> 
+
+                    <div>
+                    <img src="images/dropout.png">
+                    <div class="source">An example of how some random neuron is "dropped out" during the signals propagation.</div>
+                    </div>
+
+                    <p>
+                    Of particular note is the efficiency of dropout in reducing the overfitting. Various researches have proved that dropout remarkably increases the generalization ability of almost any arbitrary neural network architecture used almost for any task. 
+                    </p> 
+
+                    <p>...</p> 
+
+                    <p> 
+                    Obviously, regularization is not given for free. The price of the model's generalization ability improvement is increased computational complexity and additional memory consumption. Nevertheless, for large production ML-powered systems, the generalization ability of a model has a higher priority over the training time reduction. Therefore, the use of various regularization methods is highly recommended.
+                    </p> 
+
+
+                    <h3>Notes</h3>
+                    <section class="footnotes">
+                        <hr>
+                        <ol>
+                            <li id="fn1">Manifestations of such behavior is combined under a general term <a href="https://en.wikipedia.org/wiki/Overfitting">overfitting</a>.<a href="#fnref1">↩</a>
+                            </li>
+                            <li id="fn2"><span class="math">\(\text{sgn}(x)\)</span> is the so-called <a href="https://en.wikipedia.org/wiki/Sign_function">sign function</a>.<a href="#fnref2">↩</a>
+                            </li>
+                            <li id="fn3">See <a href="https://www.deeplearningbook.org/contents/regularization.html">this</a> nicely written "Deep Learning Book"'s chapter in order to find the strict mathematical proof of such conclusion.<a href="#fnref3">↩</a>
+                            </li>
+                            <li id="fn4">One important note. Sometimes, it's more efficient to apply batch normalization after the activation function, i.e., to the neuron's output signal <span class="math">\(y_{i}\)</span>, and not to the induced local field <span class="math">\(z_{i}\)</span>. In most cases, a specific configuration is selected experimentally.<a href="#fnref4">↩</a>
+                            </li>
+                            <li id="fn5">I recommend referring to <a href="https://arxiv.org/pdf/1811.12808.pdf">this</a> comprehensive article for other effective ways of model selection.<a href="#fnref5">↩</a>
+                            </li>
+                            <li id="fn6">Assuming that <span class="math">\(P\)</span> is a function that randomly switches off a given neuron with probability <span class="math">\(p\)</span>, the regular dropout will work as follows: <span class="math">\(\tilde{y}_{\text{train}}=P \cdot y_{i}\)</span> and <span class="math">\(\tilde{y}_{\text{test}} = q \cdot y_{i}\)</span>, whereas inverted dropout works slightly differently: <span class="math">\(\tilde{y}_{\text{train}}= (1/q) \cdot  P \cdot y_{i}\)</span> and <span class="math">\(\tilde{y}_{\text{test}} = y_{i}\)</span>.<a href="#fnref6">↩</a>
+                            </li>
+                        </ol>
+                        <hr>
+                    </section>
+
+
+                    <div id="disqus_thread"></div>
+
+                </div>
+            </div>
+
+            <div class="button"></div>
+        </div>
+    </main>
+    <div class="footer">
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/popper.js@^1"></script>
+    <script src="https://unpkg.com/tippy.js@4"></script>
+    <script src="../../js/main.js"></script>
+    <script src="../../js/go.up.js"></script>
+    <script src="../../js/footnotes.js"></script>
+    <script src="../../js/progress-bar.js"></script>
+    <script src="../../js/disqus.js"></script>
+    <script src="../../comments/inlineDisqussions.js"></script>
+
+</body>
+
+</html>
