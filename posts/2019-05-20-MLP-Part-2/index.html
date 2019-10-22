@@ -226,7 +226,7 @@
                     </p>
 
                     <p>
-                    Based on expression <span class="math">\((2)\)</span>, we have to compute the gradient with respect to the corresponding weight. Utilizing the chain rule and the neuron's activation formula above, we have:
+                    Based on expression <span class="math">\((2)\)</span>, we have to compute the gradient with respect to the corresponding weight. Let's denote the <span class="math">\(w\)</span>-component of the loss function's gradient as <span class="math">\(\nabla w\)</span>. Utilizing the chain rule and the neuron's activation formula above, we have:
 
                     <span class="math">\[
                     \nabla w_{l}^{m,i} = \dfrac{\partial L}{\partial w_{l}^{m,i}} =  \underbrace{\left. \dfrac{\partial L}{\partial y} \right |_{y=y_{l}^{m}}}_{L'} \cdot \underbrace{\left. \dfrac{\partial y_{l}^{m}}{\partial z} \right |_{z=z_{l}^{m}}}_{\varphi'} \cdot \left. \dfrac{\partial z_{l}^{m}}{\partial w} \right |_{w=w_{l}^{m,i}}
@@ -281,12 +281,11 @@
 
 
                     <span class="math">\[
-                    y^{i}_{l-1} = \varphi_{l-1} \left (\sum_{k=1}^{n} w_{l-1}^{i,k} \cdot y_{l-2}^{k} + b^{k}_{l-1} \right )
+                    y^{i}_{l-1} = \varphi_{l-1} \left (\sum_{k=1}^{n} w_{l-1}^{i,k} \cdot y_{l-2}^{k} + b^{i}_{l-1} \right )
                     \]</span>  
                     
 
                     Thus, the gradient for this neuron's <span class="math">\(k\)</span>-th weight <span class="math">\(w_{l-1}^{i,k}\)</span> is given as follows:
-
 
                     <span class="math">\[
                     \nabla w_{l-1}^{i,k} = \dfrac{\partial L}{\partial  w_{l-1}^{i,k}} = \sum_{j}^{n} \left ( \left. \dfrac{\partial L}{\partial y } \right |_{y=y_{l}^{j}} \cdot \left. \dfrac{\partial y_{l}^{j}}{\partial z} \right |_{z=z_{l}^{j}} \cdot \left. \dfrac{\partial z_{l}^{j}}{\partial w} \right |_{w=w_{l-1}^{i,k}} \right )
@@ -318,6 +317,13 @@
                     \left. \dfrac{\partial y_{l-1}^{i}}{\partial w} \right |_{w=w_{l-1}^{i,k}} = \varphi_{l-1}' \cdot y_{l-2}^{k} \Rightarrow  \nabla w_{l-1}^{i,k} = \left ( \sum_{j}^{n} \delta_{l}^{j}  \cdot w_{l}^{j,i} \right ) \cdot \varphi_{l-1}' \cdot y_{l-2}^{k} 
 
                     \end{equation}
+                    \]</span>
+
+                    Similarly we can compute the update for the bias <span class="math">\(b_{l-1}^{i}\)</span>:
+
+                    <span class="math">\[
+                    \nabla b_{l-1}^{i} = \left ( \sum_{j}^{n} \delta_{l}^{j}  \cdot w_{l}^{j,i} \right ) \cdot \varphi_{l-1}'
+
                     \]</span>
 
                     Here comes the pattern...
@@ -352,13 +358,13 @@
                         <li>Randomly initialize all NN's weights and biases <span class="math">\(\textbf{w}\)</span>;</li>
                         <li><b>for</b> each epoch <span class="math">\(e \in [1, \ldots, E]\)</span> <b>do</b>:</li>
                         <li>&emsp;<b>for</b> each randomly selected same-size batch <span class="math">\(\pi \in [1, \ldots, B]\)</span> <b>do</b>:</li>
-                        <li>&emsp;&emsp;<b>for</b> each weight <span class="math">\(w\)</span> initialize its gradient to zero: <span class="math">\(\nabla L = [0,\ldots,0]\)</span>;</li>
+                        <li>&emsp;&emsp;<b>for</b> each weight <span class="math">\(w\)</span> set the respective gradient component to zero: <span class="math">\(\nabla L = [0,\ldots,0]\)</span>;</li>
                         <li>&emsp;&emsp;<b>for</b> each training pair <span class="math">\((\vec{x}, \vec{t})\)</span> in <span class="math">\(\pi\)</span> <b>do</b>:</li>
                         <li>&emsp;&emsp;&emsp;Compute all neurons' <span class="math">\(y\)</span> and <span class="math">\(z\)</span> function values;</li>
                         <li>&emsp;&emsp;&emsp;<b>for</b> each layer <span class="math">\(l \in [n, n-1, \ldots, 1]\)</span> <b>do</b>:</li>
                         <li>&emsp;&emsp;&emsp;&emsp;<b>for</b> each neuron <span class="math">\(m\)</span> in the <span class="math">\(\text{layer}\)</span> compute <span class="math">\(\Delta^{m}_{l}\)</span> and <span class="math">\(\varphi_{l}'\)</span>;</li>
                         <li>&emsp;&emsp;&emsp;<b>for</b> each weight <span class="math">\(w\)</span> compute <span class="math">\(\nabla w_{l}^{m,i}\)</span> in accordance with <span class="math">\((8)\)</span>;</li>
-                        <li>&emsp;&emsp;&emsp;<b>for</b> each weight <span class="math">\(w\)</span> increment the gradient: <span class="math">\(\nabla L_{l}^{m,i} \mathrel{+}= \nabla w_{l}^{m,i}\)</span>;</li>
+                        <li>&emsp;&emsp;&emsp;<b>for</b> each weight <span class="math">\(w\)</span> update the respective gradient component: <span class="math">\(\nabla L_{l}^{m,i} := \nabla w_{l}^{m,i}\)</span>;</li>
                         <li>&emsp;&emsp;<b>for</b> each weight <span class="math">\(w\)</span> compute the average gradient: <span class="math">\(\nabla L_{l}^{m,i}\mathrel{/}= |\pi|\)</span>;</li>
                         <li>&emsp;&emsp;<b>for</b> each weight <span class="math">\(w\)</span> compute its update: <span class="math">\(\Delta w_{l}^{m,i} = -\eta \nabla L_{l}^{m,i}\)</span>;</li>
                         <li>&emsp;&emsp;Update each weight <span class="math">\(w\)</span>: <span class="math">\(w_{l}^{m,i} := w_{l}^{m,i} + \Delta w_{l}^{m,i}\)</span>;</li>
