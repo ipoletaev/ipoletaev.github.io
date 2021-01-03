@@ -51,6 +51,7 @@ jQuery(document).ready(function ($) {
 
   //////////////////////////////////////////////////////////////////////
 
+  // scroll a little bit down to make the footnotes work properly
   window.addEventListener('hashchange', function () {
     window.scrollTo(window.scrollX, window.scrollY - 100);
   });
@@ -61,8 +62,6 @@ jQuery(document).ready(function ($) {
     sessionStorage.setItem('passedFromSingle', tag);
   });
 
-});
-
-window.addEventListener('hashchange', function () {
-  window.scrollTo(window.scrollX, window.scrollY - 100);
+  // add note to the footer
+  $( ".footer" ).append("<p>Copyright © 2021 Igor Poletaev. All Rights Reserved.</p>");
 });
