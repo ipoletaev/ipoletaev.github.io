@@ -20,14 +20,15 @@
     <link rel="stylesheet" href="../../css/tooltip.css">
     <link rel="stylesheet" href="../../comments/inlineDisqussions.css">
 
-    <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143270978-1"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-143270978-1');
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-143270978-1');
     </script>
 
     <link rel="shortcut icon" href="../../data/icons/Icon.ico" />
@@ -80,444 +81,833 @@
                     <em>"Mathematics is the art of giving the same name to different things."</em> - Henri Poincaré</em>
 
                     <h3>Introductory Remarks</h3>
-                    <p>Having seen the title, you must have thought that there is something suspicious in here. Well, perhaps you are right, but I hope, you'll change your opinion soon. Despite the fact that thousands of books have been already written and thousands of lectures have been delivered, this is not about textbooks or a "how to" guides. No, on the contrary, this series of posts addresses various aspects of applied mathematics, which are in one way or another important for some physics and machine learning applications. These topics will mainly deal with mathematical analysis, linear algebra, and geometry. Some of the purely mathematical questions will be touched upon without strict proofs, required by textbooks, so in no case should these posts claim to the strict mathematical precision. The primary purpose is a summary of the essential points.
+                    <p>Having seen the title, you must have thought that there is something suspicious in here. Well,
+                        perhaps you are right, but I hope, you'll change your opinion soon. Despite the fact that
+                        thousands of books have been already written and thousands of lectures have been delivered, this
+                        is not about textbooks or a "how to" guides. No, on the contrary, this series of posts addresses
+                        various aspects of applied mathematics, which are in one way or another important for some
+                        physics and machine learning applications. These topics will mainly deal with mathematical
+                        analysis, linear algebra, and geometry. Some of the purely mathematical questions will be
+                        touched upon without strict proofs, required by textbooks, so in no case should these posts
+                        claim to the strict mathematical precision. The primary purpose is a summary of the essential
+                        points.
                     </p>
 
                     <p>
-                    I don't doubt that it is impossible to know mathematics completely, as well as to gain any significant, broad practical experience in a year, two or even three, - it is just incredibly difficult. Moreover, I don't dare to say that I am very experienced, fully competent and specially trained person or that kind of things. No, of course, not. Writing of these notes is connected to a sincere desire to share my own thoughts and logic that once turned out to be helpful for me to comprehend this or that material. These posts are aimed at an audience more or less familiar with mathematics in the sense that, for example, they studied it in the university. Thus, almost everything that we will be talking about is more suited for the repetition of some topics and concepts. This first introduction post will serve as a brief insight into the basic concepts, terms, and notation. This will be useful to simplify the subsequent discussions.
+                        I don't doubt that it is impossible to know mathematics completely, as well as to gain any
+                        significant, broad practical experience in a year, two or even three, - it is just incredibly
+                        difficult. Moreover, I don't dare to say that I am very experienced, fully competent and
+                        specially trained person or that kind of things. No, of course, not. Writing of these notes is
+                        connected to a sincere desire to share my own thoughts and logic that once turned out to be
+                        helpful for me to comprehend this or that material. These posts are aimed at an audience more or
+                        less familiar with mathematics in the sense that, for example, they studied it in the
+                        university. Thus, almost everything that we will be talking about is more suited for the
+                        repetition of some topics and concepts. This first introduction post will serve as a brief
+                        insight into the basic concepts, terms, and notation. This will be useful to simplify the
+                        subsequent discussions.
                     </p>
 
                     <h3>Historical Notes</h3>
 
                     <p>
-                    On the Internet or in any large library you can find tons of different literature that is fully or partially devoted to the history of mathematics. Starting from ancient Egypt, where people used exact formulas of areas and volumes to build pyramids, ending with cutting-edge areas, such as complex analysis that helps to calculate the correct shape of space rocket fairings. There are countless such examples... So I do recommend you to read some math history books. In addition to the general knowledge, it will give you an ability to think about math not like about something static, fundamental strict and boring, but like about something dynamic and open to everything new, because historically, mathematics has always been a science, which is used to solve challenging practical problems. 
+                        On the Internet or in any large library you can find tons of different literature that is fully
+                        or partially devoted to the history of mathematics. Starting from ancient Egypt, where people
+                        used exact formulas of areas and volumes to build pyramids, ending with cutting-edge areas, such
+                        as complex analysis that helps to calculate the correct shape of space rocket fairings. There
+                        are countless such examples... So I do recommend you to read some math history books. In
+                        addition to the general knowledge, it will give you an ability to think about math not like
+                        about something static, fundamental strict and boring, but like about something dynamic and open
+                        to everything new, because historically, mathematics has always been a science, which is used to
+                        solve challenging practical problems.
                     </p>
 
                     <p>
-                    On the other hand, we need to commend mathematicians, that they did not always put the applicability in practice at the forefront. Nowadays, math can operate with objects and relations between them that can be represented neither using numbers nor through geometric shapes. Such an approach of "pure" math often helps to come up with theoretical findings, which don't immediately get a practical interpretation. For example, the ancient Greeks had been studying ellipses almost two thousands years before Kepler started to use this knowledge to understand planetary motion laws. The same thing happened with tensors, which were initially discovered more than 50 years before they were first "practically" used in Einstein's theory of relativity. Nevertheless, sometimes "pure math" is what is being taught in school and sometimes it is overcomplicated. This, in addition, is almost always aggravated by the fact that topics are presented purely without any examples of their real-world applications. This is why the title contains the word "applied". Therefore, I will do my best to accompany all topics with examples.
+                        On the other hand, we need to commend mathematicians, that they did not always put the
+                        applicability in practice at the forefront. Nowadays, math can operate with objects and
+                        relations between them that can be represented neither using numbers nor through geometric
+                        shapes. Such an approach of "pure" math often helps to come up with theoretical findings, which
+                        don't immediately get a practical interpretation. For example, the ancient Greeks had been
+                        studying ellipses almost two thousands years before Kepler started to use this knowledge to
+                        understand planetary motion laws. The same thing happened with tensors, which were initially
+                        discovered more than 50 years before they were first "practically" used in Einstein's theory of
+                        relativity. Nevertheless, sometimes "pure math" is what is being taught in school and sometimes
+                        it is overcomplicated. This, in addition, is almost always aggravated by the fact that topics
+                        are presented purely without any examples of their real-world applications. This is why the
+                        title contains the word "applied". Therefore, I will do my best to accompany all topics with
+                        examples.
                     </p>
 
                     <p>
-                    Math language often<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> operates with a variety of different signs and symbols. As we move forward, detailed description of the notation will be given. It's worth to note that, from this point of view, math is perhaps the most "alive" science ever existed: new symbols constantly appear in it. This is why sometimes my notation may differ from the notation you are accustomed to, but I'll do my best to write as clear as possible, so these posts might be useful for ones who have never encountered the likes of it before. So, let us move from words to action!
+                        Math language often<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> operates with
+                        a variety of different signs and symbols. As we move forward, detailed description of the
+                        notation will be given. It's worth to note that, from this point of view, math is perhaps the
+                        most "alive" science ever existed: new symbols constantly appear in it. This is why sometimes my
+                        notation may differ from the notation you are accustomed to, but I'll do my best to write as
+                        clear as possible, so these posts might be useful for ones who have never encountered the likes
+                        of it before. So, let us move from words to action!
                     </p>
 
                     <h3>What Will We Discuss?</h3>
-                    <p>As it was already mentioned posts will be mostly about mathematical analysis topics. We will touch upon the following things in the respective order:
-                     <li>Basic things</li>     
-                     <li>Single variable derivative</li>
-                     <li>Higher order derivatives</li>
-                     <li>Differential calculus of several variables</li>
-                     <li>Extremum</li>
-                     <li>Integrals, calculus of variations, complex analysis, extremum with equality constraints...</li>
-                     <li>Please add your suggestions into the comments!</li>
+                    <p>As it was already mentioned posts will be mostly about mathematical analysis topics. We will
+                        touch upon the following things in the respective order:
+                        <li>Basic things</li>
+                        <li>Single variable derivative</li>
+                        <li>Higher order derivatives</li>
+                        <li>Differential calculus of several variables</li>
+                        <li>Extremum</li>
+                        <li>Integrals, calculus of variations, complex analysis, extremum with equality constraints...
+                        </li>
+                        <li>Please add your suggestions into the comments!</li>
                     </p>
 
                     <p>
-                    These topics will be organized into posts to make the material more or less convenient for a single continuous read. 
+                        These topics will be organized into posts to make the material more or less convenient for a
+                        single continuous read.
                     </p>
 
                     <h3>Basic Things</h3>
                     <p>
-                    Today's topic is the basic things, which are crucial for the further understanding of derivatives and integrals: statements and quantifiers, sets and mappings, numbers, infima and suprema, limits of sequences and functions, and continuity. If you want to remember it, then let me help you to do that.
+                        Today's topic is the basic things, which are crucial for the further understanding of
+                        derivatives and integrals: statements and quantifiers, sets and mappings, numbers, infima and
+                        suprema, limits of sequences and functions, and continuity. If you want to remember it, then let
+                        me help you to do that.
                     </p>
 
                     <h4>Statements and Quantifiers</h4>
                     <p>
-                    Statements are essential for understanding the formal mathematical language. A statement is a <a href="https://en.wikipedia.org/wiki/Propositional_formula">sentence</a> that may be true or false. Different statements are widely used to formulate various phenomena. For example, consider the statement: <em>If the monotonic sequence is limited, then it has a finite limit</em>. This statement is made of two parts: <span class="math">\(P = \)</span> <em>"If the monotonic sequence is limited"</em> and <span class="math">\(Q = \)</span> <em>"then it has a finite limit"</em>. Mathematicians call such types of statements a <a href="https://en.wikipedia.org/wiki/Material_conditional">material implication</a> and it is denoted as  
-                    <span class="math">\(P \rightarrow Q \)</span> and read as "<span class="math">\(P\)</span> <em>implies</em> <span class="math">\(Q\)</span>" or in other words 
-                    <em>"If <span class="math">\(P\)</span> then <span class="math">\(Q\)</span>"</em>. In addition to the implication, there are four other basic logical connectives, so finally, we have:
+                        Statements are essential for understanding the formal mathematical language. A statement is a <a
+                            href="https://en.wikipedia.org/wiki/Propositional_formula">sentence</a> that may be true or
+                        false. Different statements are widely used to formulate various phenomena. For example,
+                        consider the statement: <em>If the monotonic sequence is limited, then it has a finite
+                            limit</em>. This statement is made of two parts: <span class="math">\(P = \)</span> <em>"If
+                            the monotonic sequence is limited"</em> and <span class="math">\(Q = \)</span> <em>"then it
+                            has a finite limit"</em>. Mathematicians call such types of statements a <a
+                            href="https://en.wikipedia.org/wiki/Material_conditional">material implication</a> and it is
+                        denoted as
+                        <span class="math">\(P \rightarrow Q \)</span> and read as "<span class="math">\(P\)</span>
+                        <em>implies</em> <span class="math">\(Q\)</span>" or in other words
+                        <em>"If <span class="math">\(P\)</span> then <span class="math">\(Q\)</span>"</em>. In addition
+                        to the implication, there are four other basic logical connectives, so finally, we have:
                     <ol>
-                        <li>Not (or negation): <span class="math">\(\bar{A}\)</span> or <span class="math">\(\lnot A\)</span></li>
-                        <li>And (or conjunction): <span class="math">\(A\&B\)</span> or  <span class="math">\(A\land B\)</span></li>
-                        <li>Or (or disjunction): <span class="math">\(A|B\)</span> or <span class="math">\(A\lor B\)</span> </li>
+                        <li>Not (or negation): <span class="math">\(\bar{A}\)</span> or <span class="math">\(\lnot
+                                A\)</span></li>
+                        <li>And (or conjunction): <span class="math">\(A\&B\)</span> or <span class="math">\(A\land
+                                B\)</span></li>
+                        <li>Or (or disjunction): <span class="math">\(A|B\)</span> or <span class="math">\(A\lor
+                                B\)</span> </li>
                         <li>If ... then ... (or implication): <span class="math">\(A \rightarrow B\)</span></li>
-                        <li>Equality: <span class="math">\(A \leftrightarrow B\)</span></li>                        
+                        <li>Equality: <span class="math">\(A \leftrightarrow B\)</span></li>
                     </ol>
                     </p>
 
                     <p>
-                    These connectivities are not only the part of math, you can find them almost everywhere. For example, most of you are familiar with the (almost) programming term -  <a href="https://en.wikipedia.org/wiki/Truth_table">truth table</a>. A few more examples. Let's consider an expression <span class="math">\(P \rightarrow Q\)</span>. If we take a look at the truth table for this expression and the corresponding truth table for the expression <span class="math">\(\lnot Q \rightarrow \lnot P\)</span> we'll see that they are similar! What does that mean? That means that if you need to prove the implication statement, you can negate it and try to prove the negated statement, proof of which will automatically mean the original implication correctness. Thus, if you need to prove the following statement: <em>"If <span class="math">\(P\)</span>(it is raining) then <span class="math">\(Q\)</span>(it is cloudy)"</em> you can prove the negated one: <em>"If <span class="math">\(\lnot Q\)</span>(it is sunny) then <span class="math">\(\lnot P\)</span>(it is not raining)"</em>. And it, you should agree, looks simpler to demonstrate. This kind of approach is called <a href="https://en.wikipedia.org/wiki/Proof_by_contrapositive">proof by contrapositive</a>. Another powerful tool that is prevalent for different mathematical proofs is <a href="https://en.wikipedia.org/wiki/Proof_by_contradiction">proof by contradiction</a>.
-                    </p>
-
-                    <p> 
-                    Another statement <em>"<span class="math">\(P\)</span>(A polygon is a triangle) if and only if <span class="math">\(Q\)</span>(the polygon's angels sum is 180 degrees)"</em> is an example of logical equality <span class="math">\(P \leftrightarrow Q\)</span>, that means that <span class="math">\(P \rightarrow Q\)</span> and <span class="math">\(Q \rightarrow P\)</span> at the same time. 
-                    It can be written even more shortly: <span class="math">\(P \leftrightarrow Q \equiv (P \rightarrow Q) \land (Q \rightarrow P) \)</span>. Some of such equivalent statements in mathematics are very often called <a href="https://en.wikipedia.org/wiki/Theorem">theorems</a>. In such cases, it is not rare that the statement <span class="math">\(P\)</span> is easily verifiable, whereas <span class="math">\(Q\)</span> is some non-trivial fact that is hard to prove.
+                        These connectivities are not only the part of math, you can find them almost everywhere. For
+                        example, most of you are familiar with the (almost) programming term - <a
+                            href="https://en.wikipedia.org/wiki/Truth_table">truth table</a>. A few more examples. Let's
+                        consider an expression <span class="math">\(P \rightarrow Q\)</span>. If we take a look at the
+                        truth table for this expression and the corresponding truth table for the expression <span
+                            class="math">\(\lnot Q \rightarrow \lnot P\)</span> we'll see that they are similar! What
+                        does that mean? That means that if you need to prove the implication statement, you can negate
+                        it and try to prove the negated statement, proof of which will automatically mean the original
+                        implication correctness. Thus, if you need to prove the following statement: <em>"If <span
+                                class="math">\(P\)</span>(it is raining) then <span class="math">\(Q\)</span>(it is
+                            cloudy)"</em> you can prove the negated one: <em>"If <span class="math">\(\lnot
+                                Q\)</span>(it is sunny) then <span class="math">\(\lnot P\)</span>(it is not
+                            raining)"</em>. And it, you should agree, looks simpler to demonstrate. This kind of
+                        approach is called <a href="https://en.wikipedia.org/wiki/Proof_by_contrapositive">proof by
+                            contrapositive</a>. Another powerful tool that is prevalent for different mathematical
+                        proofs is <a href="https://en.wikipedia.org/wiki/Proof_by_contradiction">proof by
+                            contradiction</a>.
                     </p>
 
                     <p>
-                    In order to make a statements, you often need to use some variables this statement should depend on. For example, if you say that <em>"in university <span class="math">\(X\)</span> every first-year student <span class="math">\(x\)</span> wants to sleep all the time"</em> you can use a sign <span class="math">\(\forall \)</span> - the so-called <a href="https://en.wikipedia.org/wiki/Universal_quantification">universal quantifier</a> to write it more formally: <span class="math">\(\forall x \in X ...\)</span> that can be read as <em>"for every <span class="math">\(x\)</span> from <span class="math">\(X\)</span> ..."</em>. The same thing if you want to say that <em>"in university <span class="math">\(X\)</span> there is a student <span class="math">\(x\)</span> that skips classes all the time"</em>. Here for brevity, you can use the so-called <a href="https://en.wikipedia.org/wiki/Existential_quantification"> existential  quantifier</a> <span class="math">\(\exists \)</span>: <span class="math">\(\exists x \in X ...\)</span> that can be read as <em>"there is at least one <span class="math">\(x\)</span> from <span class="math">\(X\)</span> ..."</em>. These two signs are called <a href="https://en.wikipedia.org/wiki/Quantifier_(logic)">quantifiers</a> and mathematicians leverage them to <em>quantify</em> the number of some items/objects/properties to be used in a statement. Please take a look at <a href="https://www.karlin.mff.cuni.cz/~krajicek/mendelson.pdf">this</a> book if you want to dive deeper into this topic.
+                        Another statement <em>"<span class="math">\(P\)</span>(A polygon is a triangle) if and only if
+                            <span class="math">\(Q\)</span>(the polygon's angels sum is 180 degrees)"</em> is an example
+                        of logical equality <span class="math">\(P \leftrightarrow Q\)</span>, that means that <span
+                            class="math">\(P \rightarrow Q\)</span> and <span class="math">\(Q \rightarrow P\)</span> at
+                        the same time.
+                        It can be written even more shortly: <span class="math">\(P \leftrightarrow Q \equiv (P
+                            \rightarrow Q) \land (Q \rightarrow P) \)</span>. Some of such equivalent statements in
+                        mathematics are very often called <a href="https://en.wikipedia.org/wiki/Theorem">theorems</a>.
+                        In such cases, it is not rare that the statement <span class="math">\(P\)</span> is easily
+                        verifiable, whereas <span class="math">\(Q\)</span> is some non-trivial fact that is hard to
+                        prove.
+                    </p>
+
+                    <p>
+                        In order to make a statements, you often need to use some variables this statement should depend
+                        on. For example, if you say that <em>"in university <span class="math">\(X\)</span> every
+                            first-year student <span class="math">\(x\)</span> wants to sleep all the time"</em> you can
+                        use a sign <span class="math">\(\forall \)</span> - the so-called <a
+                            href="https://en.wikipedia.org/wiki/Universal_quantification">universal quantifier</a> to
+                        write it more formally: <span class="math">\(\forall x \in X ...\)</span> that can be read as
+                        <em>"for every <span class="math">\(x\)</span> from <span class="math">\(X\)</span> ..."</em>.
+                        The same thing if you want to say that <em>"in university <span class="math">\(X\)</span> there
+                            is a student <span class="math">\(x\)</span> that skips classes all the time"</em>. Here for
+                        brevity, you can use the so-called <a
+                            href="https://en.wikipedia.org/wiki/Existential_quantification"> existential quantifier</a>
+                        <span class="math">\(\exists \)</span>: <span class="math">\(\exists x \in X ...\)</span> that
+                        can be read as <em>"there is at least one <span class="math">\(x\)</span> from <span
+                                class="math">\(X\)</span> ..."</em>. These two signs are called <a
+                            href="https://en.wikipedia.org/wiki/Quantifier_(logic)">quantifiers</a> and mathematicians
+                        leverage them to <em>quantify</em> the number of some items/objects/properties to be used in a
+                        statement. Please take a look at <a
+                            href="https://www.karlin.mff.cuni.cz/~krajicek/mendelson.pdf">this</a> book if you want to
+                        dive deeper into this topic.
                     </p>
 
                     <h4>Sets and Mappings</h4>
                     <p>
-                    A set is a collection of some objects. This is the informal definition, and, frankly speaking, it is enough for our purposes<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>.
-                    There are two ways to define a set. First approach: using an enumeration. Usually it is shown as follows: 
+                        A set is a collection of some objects. This is the informal definition, and, frankly speaking,
+                        it is enough for our purposes<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>.
+                        There are two ways to define a set. First approach: using an enumeration. Usually it is shown as
+                        follows:
 
-                    <span class="math">\[
-                    X = \lbrace a,b,c, ..., z \rbrace
-                    \]</span>
+                        <span class="math">\[
+                            X = \lbrace a,b,c, ..., z \rbrace
+                            \]</span>
 
-                    You can read it as: <em>"there is a set <span class="math">\(X\)</span> that contains <span class="math">\(a,b,c\)</span>, and so on"</em>. This is an example of the English alphabet, so the letter "a" is a member of the set <span class="math">\(X\)</span> and this fact may be reduced to the next three signs: <span class="math">\(a \in X\)</span>. Similarly, the number "4" is not a member of the alphabet. This is usually denoted as follows: <span class="math">\(4 \notin X\)</span>. 
+                        You can read it as: <em>"there is a set <span class="math">\(X\)</span> that contains <span
+                                class="math">\(a,b,c\)</span>, and so on"</em>. This is an example of the English
+                        alphabet, so the letter "a" is a member of the set <span class="math">\(X\)</span> and this fact
+                        may be reduced to the next three signs: <span class="math">\(a \in X\)</span>. Similarly, the
+                        number "4" is not a member of the alphabet. This is usually denoted as follows: <span
+                            class="math">\(4 \notin X\)</span>.
                     </p>
-                    
+
                     <p>
-                    The second approach to define a set is to use another set(s). For example, if we have two sets <span class="math">\(A\)</span> and <span class="math">\(B\)</span>, we can define their <a href="https://en.wikipedia.org/wiki/Union_(set_theory)">union</a>, the set <span class="math">\(X\)</span> as follows:
+                        The second approach to define a set is to use another set(s). For example, if we have two sets
+                        <span class="math">\(A\)</span> and <span class="math">\(B\)</span>, we can define their <a
+                            href="https://en.wikipedia.org/wiki/Union_(set_theory)">union</a>, the set <span
+                            class="math">\(X\)</span> as follows:
 
-                    <span class="math">\[
-                    X \equiv A \cup B = \lbrace x \,|\, x \in A \lor x \in B  \rbrace
-                    \]</span>
+                        <span class="math">\[
+                            X \equiv A \cup B = \lbrace x \,|\, x \in A \lor x \in B \rbrace
+                            \]</span>
 
-                    It may be read as: <em>"A set <span class="math">\(X\)</span> is a set of elements, where each element <span class="math">\(x\)</span> belongs to <span class="math">\(A\)</span> or belongs to <span class="math">\(B\)</span>"</em>. In addition to the unions, there is the <a href="https://en.wikipedia.org/wiki/Intersection_(set_theory)">intersection</a>: <span class="math">\[A \cap B\ = \lbrace x \,|\, x \in A \land x \in B  \rbrace \]</span>
+                        It may be read as: <em>"A set <span class="math">\(X\)</span> is a set of elements, where each
+                            element <span class="math">\(x\)</span> belongs to <span class="math">\(A\)</span> or
+                            belongs to <span class="math">\(B\)</span>"</em>. In addition to the unions, there is the <a
+                            href="https://en.wikipedia.org/wiki/Intersection_(set_theory)">intersection</a>: <span
+                            class="math">\[A \cap B\ = \lbrace x \,|\, x \in A \land x \in B \rbrace \]</span>
 
 
                     <div>
-                    <img src="images/pic_1.png" alt style>
+                        <img src="images/pic_1.png" alt style>
                     </div>
                     </p>
 
                     <p style="text-indent: 0%">
-                    and the <a href="https://en.wikipedia.org/wiki/Complement_(set_theory)">difference</a>:
-                    <span class="math">\[A \backslash B = \lbrace x\,|\, x \in A \land x \notin B \rbrace \]</span>
+                        and the <a href="https://en.wikipedia.org/wiki/Complement_(set_theory)">difference</a>:
+                        <span class="math">\[A \backslash B = \lbrace x\,|\, x \in A \land x \notin B \rbrace \]</span>
                     </p>
 
                     <p>
-                    Also, between sets, like between all other mathematical entities of the same nature, there are different relations. For example, one set may be a part of another, in this case, we say <em>"<span class="math">\(A\)</span> is a subset of <span class="math">\(B\)</span>"</em> and write: <span class="math">\[A \subset B \Leftrightarrow A = \lbrace x\,|\, \forall x \in A  \rightarrow x \in B \rbrace \]</span>
+                        Also, between sets, like between all other mathematical entities of the same nature, there are
+                        different relations. For example, one set may be a part of another, in this case, we say
+                        <em>"<span class="math">\(A\)</span> is a subset of <span class="math">\(B\)</span>"</em> and
+                        write: <span class="math">\[A \subset B \Leftrightarrow A = \lbrace x\,|\, \forall x \in A
+                            \rightarrow x \in B \rbrace \]</span>
 
                     <div>
-                    <img src="images/pic_2.png" alt style>
+                        <img src="images/pic_2.png" alt style>
                     </div>
                     </p>
 
                     <p>
-                    Another important definition is the <a href="https://en.wikipedia.org/wiki/Cartesian_product">Cartesian product</a>. If a set <span class="math">\(A\)</span> and a set <span class="math">\(B\)</span> have the same number of elements, then their <em>"product"</em> is also a set, containing the pairs of elements from both sets:
+                        Another important definition is the <a
+                            href="https://en.wikipedia.org/wiki/Cartesian_product">Cartesian product</a>. If a set <span
+                            class="math">\(A\)</span> and a set <span class="math">\(B\)</span> have the same number of
+                        elements, then their <em>"product"</em> is also a set, containing the pairs of elements from
+                        both sets:
 
-                    <span class="math">\[
-                    X = A \times B = \lbrace (x,y) \,|\, x \in A, y \in B  \rbrace
-                    \]</span>                    
+                        <span class="math">\[
+                            X = A \times B = \lbrace (x,y) \,|\, x \in A, y \in B \rbrace
+                            \]</span>
 
-                    Similarly, the set exponentiation concept is introduced. For example, two-dimensional coordinate space:
+                        Similarly, the set exponentiation concept is introduced. For example, two-dimensional coordinate
+                        space:
 
-                     <span class="math">\[
-                    \mathbb{R}^{2} \equiv \mathbb{R}\times\mathbb{R} = \lbrace (x,y) \,|\, x \in \mathbb{R}, y \in \mathbb{R} \rbrace
-                    \]</span>                    
+                        <span class="math">\[
+                            \mathbb{R}^{2} \equiv \mathbb{R}\times\mathbb{R} = \lbrace (x,y) \,|\, x \in \mathbb{R}, y
+                            \in \mathbb{R} \rbrace
+                            \]</span>
 
-                    Last important note regarding sets is that it is totally fine that some elements of a set may be infinite.
+                        Last important note regarding sets is that it is totally fine that some elements of a set may be
+                        infinite.
                     </p>
 
                     <p>
-                    All this information about sets is useful to understand the next term: a mapping or a function. Let's discuss this briefly. There's a formal definition of a function: 
+                        All this information about sets is useful to understand the next term: a mapping or a function.
+                        Let's discuss this briefly. There's a formal definition of a function:
                     </p>
 
                     <p class="note">
-                    Consider two sets <span class="math">\(X\)</span> and <span class="math">\(Y\)</span>. Then, a mapping <span class="math">\(f\)</span>, defined on a set <span class="math">\(X\)</span>, is a rule, according to which, every element <span class="math">\(x\)</span> of the set <span class="math">\(X\)</span> is associated with some specific element <span class="math">\(y\)</span> of the set <span class="math">\(Y\)</span>. 
+                        Consider two sets <span class="math">\(X\)</span> and <span class="math">\(Y\)</span>. Then, a
+                        mapping <span class="math">\(f\)</span>, defined on a set <span class="math">\(X\)</span>, is a
+                        rule, according to which, every element <span class="math">\(x\)</span> of the set <span
+                            class="math">\(X\)</span> is associated with some specific element <span
+                            class="math">\(y\)</span> of the set <span class="math">\(Y\)</span>.
                     </p>
 
                     <p style="text-indent: 0%">
-                    This fact may be denoted using the following notation: <span class="math">\(f: X \rightarrow Y\)</span> or <span class="math">\(f: x \mapsto y\)</span>. 
+                        This fact may be denoted using the following notation: <span class="math">\(f: X \rightarrow
+                            Y\)</span> or <span class="math">\(f: x \mapsto y\)</span>.
                     </p>
 
                     <p>
-                    All elements function <span class="math">\(f\)</span> is working with are called the <em>domain</em> and denoted by <span class="math">\(dom(f)\)</span>. Likewise, all possible elements <span class="math">\(y\)</span> that can be obtained applying the function <span class="math">\(f\)</span> make the <em>codomain</em>. The set of elements obtained by the action of the function on its domain is called the <em>range</em>, which is usually denoted as <span class="math">\(im(f)\)</span>. Now, for instance, we can formally define what a plain graph of the function <span class="math">\(f\)</span> is. It is a set <span class="math">\(G(f) \subset X \times Y \)</span>:
+                        All elements function <span class="math">\(f\)</span> is working with are called the
+                        <em>domain</em> and denoted by <span class="math">\(dom(f)\)</span>. Likewise, all possible
+                        elements <span class="math">\(y\)</span> that can be obtained applying the function <span
+                            class="math">\(f\)</span> make the <em>codomain</em>. The set of elements obtained by the
+                        action of the function on its domain is called the <em>range</em>, which is usually denoted as
+                        <span class="math">\(im(f)\)</span>. Now, for instance, we can formally define what a plain
+                        graph of the function <span class="math">\(f\)</span> is. It is a set <span class="math">\(G(f)
+                            \subset X \times Y \)</span>:
 
 
-                     <span class="math">\[
-                    G(f) = \lbrace (x, y) \, | \, x\in dom(f), \,\, y = f(x) \rbrace
-                    \]</span> 
+                        <span class="math">\[
+                            G(f) = \lbrace (x, y) \, | \, x\in dom(f), \,\, y = f(x) \rbrace
+                            \]</span>
 
 
-                    Also, a few more terms will be widely used further. Consider a subset <span class="math">\(A \subset dom(f)\)</span>, then the set <span class="math">\(f(A)\)</span> is called the <em>"image of <span class="math">\(A\)</span> under <span class="math">\(f\)</span>"</em>:
+                        Also, a few more terms will be widely used further. Consider a subset <span class="math">\(A
+                            \subset dom(f)\)</span>, then the set <span class="math">\(f(A)\)</span> is called the
+                        <em>"image of <span class="math">\(A\)</span> under <span class="math">\(f\)</span>"</em>:
 
 
-                     <span class="math">\[
-                    f(A) = \lbrace y \in Y \, | \, \exists x \in A \,\, y = f(x) \rbrace
-                    \]</span>              
-                    
-                    If we have two functions <span class="math">\(f: X \rightarrow Y\)</span>, <span class="math">\(g: im(f) \rightarrow Z\)</span> and <span class="math">\(im(f) \subset Y\)</span>. Then, a function <span class="math">\(f \circ g : X \rightarrow Z\)</span> is called the <em>composition</em> of these two functions. So, the composition is defined by the following rule: <span class="math">\(z = (f \circ g)(x) = g(f(x)), \, x \in X, \, z \in Z \)</span>.
+                        <span class="math">\[
+                            f(A) = \lbrace y \in Y \, | \, \exists x \in A \,\, y = f(x) \rbrace
+                            \]</span>
+
+                        If we have two functions <span class="math">\(f: X \rightarrow Y\)</span>, <span
+                            class="math">\(g: im(f) \rightarrow Z\)</span> and <span class="math">\(im(f) \subset
+                            Y\)</span>. Then, a function <span class="math">\(f \circ g : X \rightarrow Z\)</span> is
+                        called the <em>composition</em> of these two functions. So, the composition is defined by the
+                        following rule: <span class="math">\(z = (f \circ g)(x) = g(f(x)), \, x \in X, \, z \in Z
+                            \)</span>.
                     </p>
 
                     <p>
-                    In practice, we have to deal with a wide variety of functions. However, despite all functions are different (domain, range, their nature, and so on) they can be grouped into three major classes depending on their behavior:
+                        In practice, we have to deal with a wide variety of functions. However, despite all functions
+                        are different (domain, range, their nature, and so on) they can be grouped into three major
+                        classes depending on their behavior:
                     <ol>
-                        <li><em>Surjective</em> (many-to-one). The function <span class="math">\(f\)</span> is surjective, then: <span class="math">\(\forall y \in Y, \, \exists x \in X \, : \, y = f(x) \)</span>. In other words for every element from the range, there's some corresponding domain element. A simple example is a parabola: <span class="math">\(y = x^{2}\)</span> where for <span class="math">\(y=4\)</span> there are two respective values: <span class="math">\(x= \pm 2\)</span>.</li>
-                        <li><em>Injective</em> (one-to-one). In that case <span class="math">\(\forall a \in X, \, \forall b \in X \, : \, f(a) = f(b) \rightarrow x = y \)</span>. This means that <span class="math">\(y\)</span> can't have many <span class="math">\(x\)</span>: different elements of the set <span class="math">\(X\)</span> are mapped to the different elements of <span class="math">\(Y\)</span>. For example <span class="math">\(y=e^{x}\)</span>, because there is no real value maps to a negative number, although the opposite is correct.</li>                   
-                        <li><em>Bijective</em>. Function <span class="math">\(f\)</span> is bijective if and only if it is injective and surjective simultaneously: <span class="math">\(\forall a \in X, \, \forall b \in X \, : \, a \neq b \rightarrow f(a) \neq f(b) \land \forall y \in Y, \, \exists x \in X \, : \, f(x) = y \)</span>. In other words such function <span class="math">\(f\)</span> is a one-to-one correspondence: each <span class="math">\(x\)</span> is paired with exactly one <span class="math">\(y\)</span>, and vice versa, each <span class="math">\(y\)</span> is paired with exactly one <span class="math">\(x\)</span>. The simplest example is a linear function: <span class="math">\(y=x\)</span></li>
+                        <li><em>Surjective</em> (many-to-one). The function <span class="math">\(f\)</span> is
+                            surjective, then: <span class="math">\(\forall y \in Y, \, \exists x \in X \, : \, y = f(x)
+                                \)</span>. In other words for every element from the range, there's some corresponding
+                            domain element. A simple example is a parabola: <span class="math">\(y = x^{2}\)</span>
+                            where for <span class="math">\(y=4\)</span> there are two respective values: <span
+                                class="math">\(x= \pm 2\)</span>.</li>
+                        <li><em>Injective</em> (one-to-one). In that case <span class="math">\(\forall a \in X, \,
+                                \forall b \in X \, : \, f(a) = f(b) \rightarrow x = y \)</span>. This means that <span
+                                class="math">\(y\)</span> can't have many <span class="math">\(x\)</span>: different
+                            elements of the set <span class="math">\(X\)</span> are mapped to the different elements of
+                            <span class="math">\(Y\)</span>. For example <span class="math">\(y=e^{x}\)</span>, because
+                            there is no real value maps to a negative number, although the opposite is correct.</li>
+                        <li><em>Bijective</em>. Function <span class="math">\(f\)</span> is bijective if and only if it
+                            is injective and surjective simultaneously: <span class="math">\(\forall a \in X, \, \forall
+                                b \in X \, : \, a \neq b \rightarrow f(a) \neq f(b) \land \forall y \in Y, \, \exists x
+                                \in X \, : \, f(x) = y \)</span>. In other words such function <span
+                                class="math">\(f\)</span> is a one-to-one correspondence: each <span
+                                class="math">\(x\)</span> is paired with exactly one <span class="math">\(y\)</span>,
+                            and vice versa, each <span class="math">\(y\)</span> is paired with exactly one <span
+                                class="math">\(x\)</span>. The simplest example is a linear function: <span
+                                class="math">\(y=x\)</span></li>
                     </ol>
                     </p>
 
-                    <p>                    
-                    If, for example, our function <span class="math">\(f\)</span> is bijective, then for some set <span class="math">\(B \subset im(f)\)</span> there's defined an <em>"inverse image of a set <span class="math">\(B\)</span> under the inverse function <span class="math">\(f^{-1} : im(f) \rightarrow X \)</span>"</em>:
+                    <p>
+                        If, for example, our function <span class="math">\(f\)</span> is bijective, then for some set
+                        <span class="math">\(B \subset im(f)\)</span> there's defined an <em>"inverse image of a set
+                            <span class="math">\(B\)</span> under the inverse function <span class="math">\(f^{-1} :
+                                im(f) \rightarrow X \)</span>"</em>:
                     </p>
 
                     <div>
-                    <img src="images/pic_3.png" alt style>
+                        <img src="images/pic_3.png" alt style>
                     </div>
 
                     <span class="math">\[
-                    f^{-1}(B) = \lbrace x \in dom(f) \, | \, f(x) \in B \rbrace
-                    \]</span> 
+                        f^{-1}(B) = \lbrace x \in dom(f) \, | \, f(x) \in B \rbrace
+                        \]</span>
 
                     <p style="text-indent: 0%">
-                    Thus, the inverse function just maps all <span class="math">\(y \in im(f)\)</span> back to <span class="math">\(x \in dom(f)\)</span>. All other details regarding the functions will be described as we move forward.
+                        Thus, the inverse function just maps all <span class="math">\(y \in im(f)\)</span> back to <span
+                            class="math">\(x \in dom(f)\)</span>. All other details regarding the functions will be
+                        described as we move forward.
                     </p>
 
                     <h4>Numbers</h4>
                     <p>
-                    Now, when we've just remembered what the functions are, we can stop for a bit. And think about the things functions are working with. As we have already figured out, a function is a rule of mapping something from one set into something from the other set. This something may be anything: ranging from a mapping of some state's citizens last names to their driver license IDs to the simple linear function <span class="math">\(y = x\)</span> that <em>"transfers"</em> numbers into themselves. To tell the truth, despite the fact that mathematics, in general, studies the behavior of abstract objects and the relations between them, it is the calculus that is mainly based on the fact that the objects under study are numbers. Whether it is integers, natural or real numbers - this is not that important.
+                        Now, when we've just remembered what the functions are, we can stop for a bit. And think about
+                        the things functions are working with. As we have already figured out, a function is a rule of
+                        mapping something from one set into something from the other set. This something may be
+                        anything: ranging from a mapping of some state's citizens last names to their driver license IDs
+                        to the simple linear function <span class="math">\(y = x\)</span> that <em>"transfers"</em>
+                        numbers into themselves. To tell the truth, despite the fact that mathematics, in general,
+                        studies the behavior of abstract objects and the relations between them, it is the calculus that
+                        is mainly based on the fact that the objects under study are numbers. Whether it is integers,
+                        natural or real numbers - this is not that important.
                     </p>
 
                     <p>
-                    Usually, the real numbers are used, like <span class="math">\( -1.75, 0, 2, 123.321\)</span>, and so on. The set of all real numbers is denoted by a special sign <span class="math">\( \mathbb{R}\)</span>, which already mentioned above. Despite an apparent simplicity, there's a specific field called <a href="https://en.wikipedia.org/wiki/Number_theory">number theory</a> that studies all number-related questions and strictly introduce the definition of a real number. Here, we certainly don't need such a severity, so for our current needs, we can assume that the real numbers are the numbers, which may be used to measure any possible distance between two points on an infinitely long number line.
+                        Usually, the real numbers are used, like <span class="math">\( -1.75, 0, 2, 123.321\)</span>,
+                        and so on. The set of all real numbers is denoted by a special sign <span class="math">\(
+                            \mathbb{R}\)</span>, which already mentioned above. Despite an apparent simplicity, there's
+                        a specific field called <a href="https://en.wikipedia.org/wiki/Number_theory">number theory</a>
+                        that studies all number-related questions and strictly introduce the definition of a real
+                        number. Here, we certainly don't need such a severity, so for our current needs, we can assume
+                        that the real numbers are the numbers, which may be used to measure any possible distance
+                        between two points on an infinitely long number line.
                     </p>
 
                     <p>
-                    One essential thing we need to know about the real numbers is that <em>"the space of real numbers is complete"</em><a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>. What does that mean? Of course, intuitively, we can think about this as about an ability to measure <em>any</em> possible distance. There's a more strict equivalent of this thought called the Dedekind's theorem: 
+                        One essential thing we need to know about the real numbers is that <em>"the space of real
+                            numbers is complete"</em><a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>.
+                        What does that mean? Of course, intuitively, we can think about this as about an ability to
+                        measure <em>any</em> possible distance. There's a more strict equivalent of this thought called
+                        the Dedekind's theorem:
                     </p>
 
                     <p class="note">
-                    Assume <span class="math">\(A\)</span> and <span class="math">\(B\)</span> are some nonempty sets in <span class="math">\(\mathbb{R}\)</span> with the following properties: <span class="math">\(\forall a \in A \,\, \forall b \in B \,\, a \le b\)</span>. Then <span class="math">\(\exists c \in \mathbb{R} \, | \, \forall a \in A \,\, \forall b \in B \,\, a \le c \le b\)</span>. 
+                        Assume <span class="math">\(A\)</span> and <span class="math">\(B\)</span> are some nonempty
+                        sets in <span class="math">\(\mathbb{R}\)</span> with the following properties: <span
+                            class="math">\(\forall a \in A \,\, \forall b \in B \,\, a \le b\)</span>. Then <span
+                            class="math">\(\exists c \in \mathbb{R} \, | \, \forall a \in A \,\, \forall b \in B \,\, a
+                            \le c \le b\)</span>.
                     </p>
 
                     <p style="text-indent: 0%">
-                    Or in other words, for any two numbers from <span class="math">\( \mathbb{R}\)</span> there's a number between them:
+                        Or in other words, for any two numbers from <span class="math">\( \mathbb{R}\)</span> there's a
+                        number between them:
 
                     <div>
-                    <img src="images/pic_4.png" alt style>
+                        <img src="images/pic_4.png" alt style>
                     </div>
                     </p>
 
                     <p>
-                    Why are we even talking about this? Because this property is crucial for all our further considerations. Actually, all the next statements will be based on this fact either explicitly or implicitly. It is tricky to prove it. However, the Dedekind's theorem evidence is based on the intuitively-simple <a href="https://en.wikipedia.org/wiki/Nested_intervals">nested intervals</a> theorem. So, we can assume that the completeness of <span class="math">\( \mathbb{R}\)</span> is an <a href="https://en.wikipedia.org/wiki/Axiom">axiom</a>. So, it is time to go on further.
+                        Why are we even talking about this? Because this property is crucial for all our further
+                        considerations. Actually, all the next statements will be based on this fact either explicitly
+                        or implicitly. It is tricky to prove it. However, the Dedekind's theorem evidence is based on
+                        the intuitively-simple <a href="https://en.wikipedia.org/wiki/Nested_intervals">nested
+                            intervals</a> theorem. So, we can assume that the completeness of <span class="math">\(
+                            \mathbb{R}\)</span> is an <a href="https://en.wikipedia.org/wiki/Axiom">axiom</a>. So, it is
+                        time to go on further.
                     </p>
 
                     <h4>Infima and Suprema</h4>
                     <p>
-                    The actual state of affairs does not give us an opportunity to move forward directly to derivatives - the first milestone of this series of posts. That being the case, we need to end up with functions. In order to do that, it is important to deal with sequences because their properties are the key to understanding the nature of functions.
+                        The actual state of affairs does not give us an opportunity to move forward directly to
+                        derivatives - the first milestone of this series of posts. That being the case, we need to end
+                        up with functions. In order to do that, it is important to deal with sequences because their
+                        properties are the key to understanding the nature of functions.
                     </p>
 
                     <p>
-                    Firstly, we need to define what the infimum and supremum are. Assume <span class="math">\(A \subset \mathbb{R}\)</span>, then a number <span class="math">\(u \in \mathbb{R}\)</span> is an <em>upper bound</em> of the set <span class="math">\(A\)</span> if <span class="math">\(\forall x \in a \,\, x \le u\)</span>. Likewise, then a number <span class="math">\(l \in \mathbb{R}\)</span> is a <em>lower bound</em> of the set <span class="math">\(A\)</span> if <span class="math">\(\forall x \in a \,\, l \le x\)</span>. Using these terms, we can define a bounded set. A set <span class="math">\(A \subset \mathbb{R}\)</span> is <em>bounded from above (below)</em> if and only if there's at least one upper (lower) bound of the set <span class="math">\(A\)</span>. Thus, the set <span class="math">\(A\)</span> is called <em>bounded</em> when it is bounded both from above and below. One important note: upper or lower bound are not obliged to be an element of the set they bound. Also, it is important not to confuse the term bound and the maximum or minimum of a set. There are maybe many bounds but only one maximum, if it exists, of course. For example, for the interval <span class="math">\((1,\,2)\)</span>, there is an infinite number of bounds, <span class="math">\(2, \, 3, \, ...\)</span> but there is no maximum element at all. 
+                        Firstly, we need to define what the infimum and supremum are. Assume <span class="math">\(A
+                            \subset \mathbb{R}\)</span>, then a number <span class="math">\(u \in \mathbb{R}\)</span> is
+                        an <em>upper bound</em> of the set <span class="math">\(A\)</span> if <span
+                            class="math">\(\forall x \in a \,\, x \le u\)</span>. Likewise, then a number <span
+                            class="math">\(l \in \mathbb{R}\)</span> is a <em>lower bound</em> of the set <span
+                            class="math">\(A\)</span> if <span class="math">\(\forall x \in a \,\, l \le x\)</span>.
+                        Using these terms, we can define a bounded set. A set <span class="math">\(A \subset
+                            \mathbb{R}\)</span> is <em>bounded from above (below)</em> if and only if there's at least
+                        one upper (lower) bound of the set <span class="math">\(A\)</span>. Thus, the set <span
+                            class="math">\(A\)</span> is called <em>bounded</em> when it is bounded both from above and
+                        below. One important note: upper or lower bound are not obliged to be an element of the set they
+                        bound. Also, it is important not to confuse the term bound and the maximum or minimum of a set.
+                        There are maybe many bounds but only one maximum, if it exists, of course. For example, for the
+                        interval <span class="math">\((1,\,2)\)</span>, there is an infinite number of bounds, <span
+                            class="math">\(2, \, 3, \, ...\)</span> but there is no maximum element at all.
                     </p>
 
                     <p>
-                    Let's come back to our set <span class="math">\(A\)</span> and consider it bounded from the above (below). Among the all existing upper (lower) bounds, there is a smallest (largest) one (like for any other set from <span class="math">\(\mathbb{R}\)</span>). This least (greatest) value is called the supremum (infimum). Supremum and infimum are denoted as follows: <span class="math">\(\sup A\)</span> and <span class="math">\(\inf A\)</span> respectively. For example, the closed interval <span class="math">\([3, 5]\)</span> has and infimum <span class="math">\(3\)</span>, and supremum <span class="math">\(5\)</span>.
+                        Let's come back to our set <span class="math">\(A\)</span> and consider it bounded from the
+                        above (below). Among the all existing upper (lower) bounds, there is a smallest (largest) one
+                        (like for any other set from <span class="math">\(\mathbb{R}\)</span>). This least (greatest)
+                        value is called the supremum (infimum). Supremum and infimum are denoted as follows: <span
+                            class="math">\(\sup A\)</span> and <span class="math">\(\inf A\)</span> respectively. For
+                        example, the closed interval <span class="math">\([3, 5]\)</span> has and infimum <span
+                            class="math">\(3\)</span>, and supremum <span class="math">\(5\)</span>.
                     </p>
 
                     <p>
-                    The existence of suprema and infima is guaranteed by the completeness of <span class="math">\(\mathbb{R}\)</span>: 
+                        The existence of suprema and infima is guaranteed by the completeness of <span
+                            class="math">\(\mathbb{R}\)</span>:
                     </p>
 
                     <p class="note">
-                    Every nonempty set of real numbers that is bounded from above has a supremum, and every nonempty set of real numbers that is bounded from below has an infimum. 
+                        Every nonempty set of real numbers that is bounded from above has a supremum, and every nonempty
+                        set of real numbers that is bounded from below has an infimum.
                     </p>
 
                     <p style="text-indent: 0%">
-                    This theorem is the basis for a lot of significant results obtained by calculus.
+                        This theorem is the basis for a lot of significant results obtained by calculus.
                     </p>
 
                     <h4>Limits of Sequences and Functions</h4>
                     <p>
-                    To start with, I'd like to remind what a sequence is. Formally, <em>"a sequence is a function defined on the set of natural numbers <span class="math">\(\mathbb{N}\)</span>"</em>.  
-                    Hence, a sequence is just a mapping rule: <span class="math">\(x_{n} \, : \, \mathbb{N} \rightarrow \mathbb{R}\)</span>. Historically, the entire sequence and its <span class="math">\(n\)</span>-th element as well are denoted by the same notation: <span class="math">\(x_{n}\)</span>. It is worth to note, that in the definition, there is nothing said about the number of elements in a sequence: there are maybe two or infinite elements. 
+                        To start with, I'd like to remind what a sequence is. Formally, <em>"a sequence is a function
+                            defined on the set of natural numbers <span class="math">\(\mathbb{N}\)</span>"</em>.
+                        Hence, a sequence is just a mapping rule: <span class="math">\(x_{n} \, : \, \mathbb{N}
+                            \rightarrow \mathbb{R}\)</span>. Historically, the entire sequence and its <span
+                            class="math">\(n\)</span>-th element as well are denoted by the same notation: <span
+                            class="math">\(x_{n}\)</span>. It is worth to note, that in the definition, there is nothing
+                        said about the number of elements in a sequence: there are maybe two or infinite elements.
                     </p>
 
                     <p>
-                    Among the variety of different sequences, there are those, which have the <a href="https://en.wikipedia.org/wiki/Limit_of_a_sequence">limit</a>. Limit of a sequence is a number <span class="math">\(l \in \mathbb{R}\)</span> that is defined by the following rule:
+                        Among the variety of different sequences, there are those, which have the <a
+                            href="https://en.wikipedia.org/wiki/Limit_of_a_sequence">limit</a>. Limit of a sequence is a
+                        number <span class="math">\(l \in \mathbb{R}\)</span> that is defined by the following rule:
 
-                    <span class="math">\[
-                    \forall \varepsilon > 0, \,\, \exists n_{0}(\varepsilon) \in \mathbb{N}, \,\, \forall n \ge n_{0}(\varepsilon) \rightarrow |x_{n} - l| < \varepsilon
-                    \]</span>     
+                        <span class="math">\[
+                            \forall \varepsilon > 0, \,\, \exists n_{0}(\varepsilon) \in \mathbb{N}, \,\, \forall n \ge
+                            n_{0}(\varepsilon) \rightarrow |x_{n} - l| < \varepsilon \]</span>
 
-                    Well, first things first, how to read it? 
+                                Well, first things first, how to read it?
                     </p>
 
                     <p class="note">
-                    A sequence <span class="math">\(x_{n}\)</span> converges to <span class="math">\(l\)</span> if and only if for any positive number <span class="math">\(\varepsilon\)</span> there exists an integer <span class="math">\(n_{0}\)</span> depending on <span class="math">\(\varepsilon\)</span> such that, for all elements <span class="math">\(x_{n}\)</span> with a sequence number <span class="math">\(n \ge n_{0}\)</span>, the absolute difference between <span class="math">\(x_{n}\)</span> and <span class="math">\(l\)</span> is less then <span class="math">\(\varepsilon\)</span>. 
+                        A sequence <span class="math">\(x_{n}\)</span> converges to <span class="math">\(l\)</span> if
+                        and only if for any positive number <span class="math">\(\varepsilon\)</span> there exists an
+                        integer <span class="math">\(n_{0}\)</span> depending on <span
+                            class="math">\(\varepsilon\)</span> such that, for all elements <span
+                            class="math">\(x_{n}\)</span> with a sequence number <span class="math">\(n \ge
+                            n_{0}\)</span>, the absolute difference between <span class="math">\(x_{n}\)</span> and
+                        <span class="math">\(l\)</span> is less then <span class="math">\(\varepsilon\)</span>.
 
                     <p style="text-indent: 0%">
-                    Any student of mathematics can repeat this definition, even if you try to wake this person up at night.
+                        Any student of mathematics can repeat this definition, even if you try to wake this person up at
+                        night.
 
-                    This pretty long definition might be written, using the next brief notation: <span class="math">\(x_{n} \rightarrow a\)</span> or <span class="math">\(\lim{x_{n}} = a\)</span>. Usually, people say that a sequence <em>converges</em> to some number or that the sequence <em>has a limit</em>. Sometimes these symbols are used with an additional annotation: <span class="math">\(n \rightarrow \infty\)</span>.
+                        This pretty long definition might be written, using the next brief notation: <span
+                            class="math">\(x_{n} \rightarrow a\)</span> or <span class="math">\(\lim{x_{n}} =
+                            a\)</span>. Usually, people say that a sequence <em>converges</em> to some number or that
+                        the sequence <em>has a limit</em>. Sometimes these symbols are used with an additional
+                        annotation: <span class="math">\(n \rightarrow \infty\)</span>.
                     </p>
 
                     <p>
-                    Let's take a look at the next example: sequence <span class="math">\(x_{n}=1+\sin (n) / n \)</span> with a limit <span class="math">\(\lim{x_{n}} = 1\)</span>. The figure below illustrates how for some <span class="math">\(\varepsilon = 0.8\)</span> the particular <span class="math">\(n_{0}=12\)</span> might be found:
+                        Let's take a look at the next example: sequence <span class="math">\(x_{n}=1+\sin (n) / n
+                            \)</span> with a limit <span class="math">\(\lim{x_{n}} = 1\)</span>. The figure below
+                        illustrates how for some <span class="math">\(\varepsilon = 0.8\)</span> the particular <span
+                            class="math">\(n_{0}=12\)</span> might be found:
                     </p>
 
                     <div>
-                    <img src="images/pic_5.png" alt style>
+                        <img src="images/pic_5.png" alt style>
                     </div>
 
                     <p>
-                    You can check, that for this case, we can empirically determine the function <span class="math">\(n_{0} = n_{0}(\varepsilon)\)</span> from the definition above. Here, for instance, the following function works well: <span class="math">\(n_{0} = \dfrac{12 \cdot \ln (\varepsilon / 2)}{\ln (0.4)}\)</span>. By the way, such an approach of looking for some <span class="math">\(n_{0} = n_{0}(\varepsilon)\)</span> along with the so-called Cauchy's convergence <a href="https://en.wikipedia.org/wiki/Cauchy%27s_convergence_test">test</a>, are the most popular methods used for the limits proofs.
+                        You can check, that for this case, we can empirically determine the function <span
+                            class="math">\(n_{0} = n_{0}(\varepsilon)\)</span> from the definition above. Here, for
+                        instance, the following function works well: <span class="math">\(n_{0} = \dfrac{12 \cdot \ln
+                            (\varepsilon / 2)}{\ln (0.4)}\)</span>. By the way, such an approach of looking for some
+                        <span class="math">\(n_{0} = n_{0}(\varepsilon)\)</span> along with the so-called Cauchy's
+                        convergence <a href="https://en.wikipedia.org/wiki/Cauchy%27s_convergence_test">test</a>, are
+                        the most popular methods used for the limits proofs.
                     </p>
 
                     <p>
-                    Not any sequence necessarily has a limit. A good example is <span class="math">\(x_{n} = \sin (n) \)</span> or <span class="math">\(x_{n} = (-1)^{n}\)</span>. Also, some sequences, like <span class="math">\(x_{n} = n\)</span> for example, may have infinite limits:
+                        Not any sequence necessarily has a limit. A good example is <span class="math">\(x_{n} = \sin
+                            (n) \)</span> or <span class="math">\(x_{n} = (-1)^{n}\)</span>. Also, some sequences, like
+                        <span class="math">\(x_{n} = n\)</span> for example, may have infinite limits:
 
-                    <span class="math">\[
-                    \lim_{n\to\infty} x_{n} = \infty \Leftrightarrow \forall E > 0, \,\, \exists n_{0}(E) \in \mathbb{N}: \,\, \forall n \ge n_{0}(E) \rightarrow |x_{n}| > E
-                    \]</span>     
+                        <span class="math">\[
+                            \lim_{n\to\infty} x_{n} = \infty \Leftrightarrow \forall E > 0, \,\, \exists n_{0}(E) \in
+                            \mathbb{N}: \,\, \forall n \ge n_{0}(E) \rightarrow |x_{n}| > E
+                            \]</span>
 
-                    For such cases, the word <em>"tends"</em> is used instead of <em>"converges"</em>. There is a couple of theorems relating to the sequences, which are used for the proofs of some important facts, describing the nature of functions. Perhaps, the most frequently used one is the Bolzano–Weierstrass <a href="https://en.wikipedia.org/wiki/Bolzano%E2%80%93Weierstrass_theorem">theorem</a> that states, that any bounded sequence has a convergent subsequence.
+                        For such cases, the word <em>"tends"</em> is used instead of <em>"converges"</em>. There is a
+                        couple of theorems relating to the sequences, which are used for the proofs of some important
+                        facts, describing the nature of functions. Perhaps, the most frequently used one is the
+                        Bolzano–Weierstrass <a
+                            href="https://en.wikipedia.org/wiki/Bolzano%E2%80%93Weierstrass_theorem">theorem</a> that
+                        states, that any bounded sequence has a convergent subsequence.
                     </p>
 
                     <p>
-                    Now, let's talk about the result of everything we discussed above: limit of functions. For convenience, limits are usually considered in the so-called limit (or accumulation) points: 
-                    </p>
-
-                    <p class="note">  
-                    A point <span class="math">\(a \in \mathbb{R}\)</span> is a limit point of a set <span class="math">\(X \subset \mathbb{R}\)</span>, if <span class="math">\(X\)</span> has points indefinitely close to the point <span class="math">\(a\)</span> other than <span class="math">\(a\)</span>:
-
-                    <span class="math">\[
-                    \forall \varepsilon > 0, \,\, \exists x \in X: \,\, 0 < |x - a | < \varepsilon
-                    \]</span>
-                    </p>
-
-                    <p>   
-                    There are two more types of limit points: right or left limit points, where for a given point  <span class="math">\(a\)</span>, there exist some points only from the left or right respectively. So, consider <span class="math">\(f \, : \, X \rightarrow \mathbb{R}, \, X \subset \mathbb{R}\)</span> and <span class="math">\(a \in X\)</span> is a limit point, then <span class="math">\(l \in \mathbb{R}\)</span> is a <em>limit</em> of <span class="math">\(f(x)\)</span> at <span class="math">\(a\)</span>:
-
-
-                    <span class="math">\[
-                    \lim_{x\to a} f(x) = l \Leftrightarrow  \forall \varepsilon > 0, \,\, \exists \delta(\varepsilon) > 0, \,\, \forall x \in X: \,\, 0 < |x - a| < \delta(\varepsilon) \rightarrow |f(x) - l| < \varepsilon
-                    \]</span> 
-
-                    Another way of writing this is: <span class="math">\(f(x) \xrightarrow[x \to a ]{} l \)</span>. This can be read as follows: function <span class="math">\(f\)</span> has a limit <span class="math">\(l\)</span> at a point <span class="math">\(a\)</span>, if and only if, for any positive <span class="math">\(\varepsilon\)</span>, it is possible to find some positive <span class="math">\(\delta\)</span>, that any point from <span class="math">\(l\)</span>'s <span class="math">\(\varepsilon\)</span>-<a href="https://en.wikipedia.org/wiki/Neighbourhood_(mathematics)">neighborhood</a> can be mapped into the punctured <span class="math">\(\delta\)</span>-neighborhood of the point <span class="math">\(a\)</span>: 
-
-                    <div>
-                    <img src="images/pic_6.gif" alt style>
-                    </div>
-                    </p>
-
-                    <p>
-                    That is why it is denoted that <span class="math">\(\delta\)</span> depends on <span class="math">\(\varepsilon\)</span>: <span class="math">\(\delta = \delta(\varepsilon)\)</span>. Exclusion of the limit point from the consideration is an important nuance, because the function value can be undefined at this point, for example, due to the division by zero.
-                    </p>
-
-                    <p>
-                    In general, not every function has a limit at each point of its domain. Actually, assuming <span class="math">\(f \, : \, \mathbb{R} \rightarrow \mathbb{R}\)</span> and some limit point <span class="math">\(a \in \mathbb{R}\)</span> (<span class="math">\(a\)</span> can also be <span class="math">\(+\infty\)</span> or <span class="math">\(-\infty\)</span>), there are several scenarios:
-                    <li><span class="math">\(f\)</span> doesn't have a limit at <span class="math">\(a\)</span>.  Example: <span class="math">\(f(x) = \sin (1 / x),\, a = 0\)</span>.</li>
-                    <li><span class="math">\(f\)</span> has a finite limit at <span class="math">\(a\)</span>. Example: <span class="math">\(f(x) = \sin (x) / x \xrightarrow[x \to 0 ]{} 1\)</span>.</li>
-                    <li><span class="math">\(f\)</span> has an infinite limit at <span class="math">\(a\)</span>.
-                     Example: <span class="math">\(f(x) = 1 / x \xrightarrow[x \to 0 ]{} \infty \)</span>.</li>
-                    </p>
-
-                    <p>
-                    Sometimes functions have different limit's value at one point. Everything depends on the direction in which we approach that point<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>. If a function has different values ​​on different sides of the same point, then it undergoes a <a href="https://en.wikipedia.org/wiki/Classification_of_discontinuities">discontinuity</a> at it. Thus, when one-sided <a href="https://en.wikipedia.org/wiki/One-sided_limit">limits</a> have different values, the regular double-sided limit defined above doesn't exist at this point:
-                    </p>
-
-                    <div>
-                    <img src="images/pic_7.png" alt style>
-                    </div>
-
-                    <p>
-                    The way how limits behave in the function composition case is pretty straightforward:
+                        Now, let's talk about the result of everything we discussed above: limit of functions. For
+                        convenience, limits are usually considered in the so-called limit (or accumulation) points:
                     </p>
 
                     <p class="note">
-                    Consider a function composition <span class="math">\(g \circ f \, : \, X \rightarrow \mathbb{R}\, | \, (g\circ f)(x) = g(f(x))\)</span>, where <span class="math">\(f\, : \, X \rightarrow \mathbb{R}\)</span>, <span class="math">\(g\, : \, Y \rightarrow \mathbb{R}\)</span> and <span class="math">\(f(X) \subset Y\)</span>. If there exist both <span class="math">\(\lim_{x\to a} f(x) = l_{1} \in \mathbb{R}\)</span> and <span class="math">\(\lim_{y\to l_{1}} g(y) = l_{2} \in \mathbb{R}\)</span>, and for every <span class="math">\(x\in X \, | \, x \ne a \rightarrow f(x) \ne l_{1}\)</span>. Then there exists a limit of the composition <span class="math">\(\lim_{x\to a} g(f(x)) = l_{2}\)</span>. 
-                    </p>
+                        A point <span class="math">\(a \in \mathbb{R}\)</span> is a limit point of a set <span
+                            class="math">\(X \subset \mathbb{R}\)</span>, if <span class="math">\(X\)</span> has points
+                        indefinitely close to the point <span class="math">\(a\)</span> other than <span
+                            class="math">\(a\)</span>:
 
-                    <p style="text-indent: 0%">
-                    Despite first glance transparency, this theorem, by the way, is frequently implicitly used in mathematical analysis proofs.
+                        <span class="math">\[
+                            \forall \varepsilon > 0, \,\, \exists x \in X: \,\, 0 < |x - a | < \varepsilon \]</span>
                     </p>
 
                     <p>
-                    The last but not the least issue with limits of functions I would like to address relates to the way how usually the limit existence fact is being checked. Often, the original definition is used to check that the limit exists. However, sometimes it's needed to prove that at some point there's no limit. Such a fact can be proved using the so-called Cauchy criterion (which, by the way, was already mentioned above for sequences) that states that <span class="math">\(\lim_{x\to a} f(x) = l\)</span> if and only if:
+                        There are two more types of limit points: right or left limit points, where for a given point
+                        <span class="math">\(a\)</span>, there exist some points only from the left or right
+                        respectively. So, consider <span class="math">\(f \, : \, X \rightarrow \mathbb{R}, \, X \subset
+                            \mathbb{R}\)</span> and <span class="math">\(a \in X\)</span> is a limit point, then <span
+                            class="math">\(l \in \mathbb{R}\)</span> is a <em>limit</em> of <span
+                            class="math">\(f(x)\)</span> at <span class="math">\(a\)</span>:
 
-                    <span class="math">\[
-                    \underbrace{\forall \varepsilon > 0, \,\, \exists \delta > 0, \,\, \forall x_{1},x_{2} \in X}_{P}: \,\, \underbrace{0 < |x_{1} - a| < \delta, 0 < |x_{2} - a| < \delta}_{A} \rightarrow \underbrace{|f(x_{1}) - f(x_{2})| < \varepsilon}_{B}
-                    \]</span> 
-                    
-                    And it literally means, that the limit exists if and only if, for any two points close to <span class="math">\(a\)</span> their mappings, to some extent, are close as well. <span class="math">\(\delta\)</span> in this definition, of course, depends on the <span class="math">\(\varepsilon\)</span> alike in the similar statements above and below. 
+
+                        <span class="math">\[
+                            \lim_{x\to a} f(x) = l \Leftrightarrow \forall \varepsilon > 0, \,\, \exists
+                            \delta(\varepsilon) > 0, \,\, \forall x \in X: \,\, 0 < |x - a| < \delta(\varepsilon)
+                                \rightarrow |f(x) - l| < \varepsilon \]</span>
+
+                                Another way of writing this is: <span class="math">\(f(x) \xrightarrow[x \to a ]{} l
+                                    \)</span>. This can be read as follows: function <span class="math">\(f\)</span> has
+                                a limit <span class="math">\(l\)</span> at a point <span class="math">\(a\)</span>, if
+                                and only if, for any positive <span class="math">\(\varepsilon\)</span>, it is possible
+                                to find some positive <span class="math">\(\delta\)</span>, that any point from <span
+                                    class="math">\(l\)</span>'s <span class="math">\(\varepsilon\)</span>-<a
+                                    href="https://en.wikipedia.org/wiki/Neighbourhood_(mathematics)">neighborhood</a>
+                                can be mapped into the punctured <span class="math">\(\delta\)</span>-neighborhood of
+                                the point <span class="math">\(a\)</span>:
+
+                                <div>
+                                    <img src="images/pic_6.gif" alt style>
+                                </div>
                     </p>
-                        
+
                     <p>
-                    Let's prove that, for example, that the function in the figure above <span class="math">\(f(x) = (1 + 2^{-1/x})^{-1}\)</span> has no limit at point <span class="math">\(x = 0\)</span>. In this case, we can negate the Cauchy criterion, i.e., if the criterion isn't satisfied then the limit doesn't exist. As stated in the <em>statements and quantifiers</em> section abvoe, during the negation, quantifiers are replaced with the opposite ones, and the implication <span class="math">\(A \rightarrow B\)</span> is replaced with <span class="math">\(A \land (\lnot B) \)</span>. Finally, we get:
+                        That is why it is denoted that <span class="math">\(\delta\)</span> depends on <span
+                            class="math">\(\varepsilon\)</span>: <span class="math">\(\delta =
+                            \delta(\varepsilon)\)</span>. Exclusion of the limit point from the consideration is an
+                        important nuance, because the function value can be undefined at this point, for example, due to
+                        the division by zero.
+                    </p>
 
+                    <p>
+                        In general, not every function has a limit at each point of its domain. Actually, assuming <span
+                            class="math">\(f \, : \, \mathbb{R} \rightarrow \mathbb{R}\)</span> and some limit point
+                        <span class="math">\(a \in \mathbb{R}\)</span> (<span class="math">\(a\)</span> can also be
+                        <span class="math">\(+\infty\)</span> or <span class="math">\(-\infty\)</span>), there are
+                        several scenarios:
+                        <li><span class="math">\(f\)</span> doesn't have a limit at <span class="math">\(a\)</span>.
+                            Example: <span class="math">\(f(x) = \sin (1 / x),\, a = 0\)</span>.</li>
+                        <li><span class="math">\(f\)</span> has a finite limit at <span class="math">\(a\)</span>.
+                            Example: <span class="math">\(f(x) = \sin (x) / x \xrightarrow[x \to 0 ]{} 1\)</span>.</li>
+                        <li><span class="math">\(f\)</span> has an infinite limit at <span class="math">\(a\)</span>.
+                            Example: <span class="math">\(f(x) = 1 / x \xrightarrow[x \to 0 ]{} \infty \)</span>.</li>
+                    </p>
 
-                    <span class="math">\[
-                    \underbrace{\exists \varepsilon > 0, \,\, \forall \delta > 0, \,\, \exists x_{1},x_{2} \in X}_{\lnot P}:\,\, \underbrace{0 < |x_{1} - a| < \delta, 0 < |x_{2} - a| < \delta}_{A} \land \underbrace{|f(x_{1}) - f(x_{2})| \ge \varepsilon}_{\lnot B}
-                    \]</span> 
-                    
-                    This expression states, that there exists some positive <span class="math">\(\varepsilon\)</span>, that for any positive <span class="math">\(\delta\)</span>, there are two points <span class="math">\(x_{1},x_{2}\)</span> inside <span class="math">\(a\)</span>'s <span class="math">\(\delta\)</span>-neighborhood, whose <span class="math">\(f(x_{1})\)</span> and <span class="math">\(f(x_{2})\)</span> aren't close. In our example, not strictly speaking, we can consider, for instance, <span class="math">\(\varepsilon=0.6\)</span> and, as you can see, for whatever <span class="math">\(\delta\)</span> you'll chose (for example <span class="math">\(\delta=0.5\)</span>), you can find such two points inside zero's <span class="math">\(\delta\)</span>-neighborhood. For example, if <span class="math">\(x_{1}=-0.25\)</span> and <span class="math">\(x_{2}=0.25\)</span>, then <span class="math">\(|f(x_{1})-f(x_{2}| \approx 0.88 \ge \varepsilon = 0.6\)</span> is true. This proves that <span class="math">\(f\)</span> has no limit at <span class="math">\(x = 0\)</span>:
+                    <p>
+                        Sometimes functions have different limit's value at one point. Everything depends on the
+                        direction in which we approach that point<a href="#fn4" class="footnoteRef"
+                            id="fnref4"><sup>4</sup></a>. If a function has different values ​​on different sides of the
+                        same point, then it undergoes a <a
+                            href="https://en.wikipedia.org/wiki/Classification_of_discontinuities">discontinuity</a> at
+                        it. Thus, when one-sided <a href="https://en.wikipedia.org/wiki/One-sided_limit">limits</a> have
+                        different values, the regular double-sided limit defined above doesn't exist at this point:
                     </p>
 
                     <div>
-                    <img src="images/pic_8.png" alt style>
+                        <img src="images/pic_7.png" alt style>
                     </div>
 
                     <p>
-                    By the way, some functions have pretty surprising values of the limits at their special points. Here are the two most famous examples:
-                    <li><span class="math">\( \lim_{x\to 0} \dfrac{\sin (x)}{x} = 1\)</span>, where two infinitely small values became "the same" as the argument tends to zero. <a href="https://ocw.mit.edu/courses/mathematics/18-01sc-single-variable-calculus-fall-2010/1.-differentiation/part-a-definition-and-basic-rules/session-8-limits-of-sine-and-cosine/MIT18_01SCF10_Ses8a.pdf">Here</a> is an example of the geometrical proof.</li>
-                    <li><span class="math">\( \lim_{n \to \infty} \left(1 + \dfrac{1}{n} \right) ^{n} = e\)</span>.
-                    <a href="https://en.wikipedia.org/wiki/Jacob_Bernoulli">Jacob Bernoulli</a> was the first one who calculated this number, solving the compound interest problem. <a href="http://www.milefoot.com/math/calculus/limits/LimitDefinitionOfE10.htm">Here</a> you can find the sequences-based proof of this equality, not using anything that we haven't discussed today.</li>
+                        The way how limits behave in the function composition case is pretty straightforward:
+                    </p>
+
+                    <p class="note">
+                        Consider a function composition <span class="math">\(g \circ f \, : \, X \rightarrow
+                            \mathbb{R}\, | \, (g\circ f)(x) = g(f(x))\)</span>, where <span class="math">\(f\, : \, X
+                            \rightarrow \mathbb{R}\)</span>, <span class="math">\(g\, : \, Y \rightarrow
+                            \mathbb{R}\)</span> and <span class="math">\(f(X) \subset Y\)</span>. If there exist both
+                        <span class="math">\(\lim_{x\to a} f(x) = l_{1} \in \mathbb{R}\)</span> and <span
+                            class="math">\(\lim_{y\to l_{1}} g(y) = l_{2} \in \mathbb{R}\)</span>, and for every <span
+                            class="math">\(x\in X \, | \, x \ne a \rightarrow f(x) \ne l_{1}\)</span>. Then there exists
+                        a limit of the composition <span class="math">\(\lim_{x\to a} g(f(x)) = l_{2}\)</span>.
+                    </p>
+
+                    <p style="text-indent: 0%">
+                        Despite first glance transparency, this theorem, by the way, is frequently implicitly used in
+                        mathematical analysis proofs.
+                    </p>
+
+                    <p>
+                        The last but not the least issue with limits of functions I would like to address relates to the
+                        way how usually the limit existence fact is being checked. Often, the original definition is
+                        used to check that the limit exists. However, sometimes it's needed to prove that at some point
+                        there's no limit. Such a fact can be proved using the so-called Cauchy criterion (which, by the
+                        way, was already mentioned above for sequences) that states that <span class="math">\(\lim_{x\to
+                            a} f(x) = l\)</span> if and only if:
+
+                        <span class="math">\[
+                            \underbrace{\forall \varepsilon > 0, \,\, \exists \delta > 0, \,\, \forall x_{1},x_{2} \in
+                            X}_{P}: \,\, \underbrace{0 < |x_{1} - a| < \delta, 0 < |x_{2} - a| < \delta}_{A} \rightarrow
+                                \underbrace{|f(x_{1}) - f(x_{2})| < \varepsilon}_{B} \]</span>
+
+                                And it literally means, that the limit exists if and only if, for any two points close
+                                to <span class="math">\(a\)</span> their mappings, to some extent, are close as well.
+                                <span class="math">\(\delta\)</span> in this definition, of course, depends on the <span
+                                    class="math">\(\varepsilon\)</span> alike in the similar statements above and below.
+                    </p>
+
+                    <p>
+                        Let's prove that, for example, that the function in the figure above <span class="math">\(f(x) =
+                            (1 + 2^{-1/x})^{-1}\)</span> has no limit at point <span class="math">\(x = 0\)</span>. In
+                        this case, we can negate the Cauchy criterion, i.e., if the criterion isn't satisfied then the
+                        limit doesn't exist. As stated in the <em>statements and quantifiers</em> section abvoe, during
+                        the negation, quantifiers are replaced with the opposite ones, and the implication <span
+                            class="math">\(A \rightarrow B\)</span> is replaced with <span class="math">\(A \land (\lnot
+                            B) \)</span>. Finally, we get:
+
+
+                        <span class="math">\[
+                            \underbrace{\exists \varepsilon > 0, \,\, \forall \delta > 0, \,\, \exists x_{1},x_{2} \in
+                            X}_{\lnot P}:\,\, \underbrace{0 < |x_{1} - a| < \delta, 0 < |x_{2} - a| < \delta}_{A} \land
+                                \underbrace{|f(x_{1}) - f(x_{2})| \ge \varepsilon}_{\lnot B} \]</span>
+
+                                This expression states, that there exists some positive <span
+                                    class="math">\(\varepsilon\)</span>, that for any positive <span
+                                    class="math">\(\delta\)</span>, there are two points <span
+                                    class="math">\(x_{1},x_{2}\)</span> inside <span class="math">\(a\)</span>'s <span
+                                    class="math">\(\delta\)</span>-neighborhood, whose <span
+                                    class="math">\(f(x_{1})\)</span> and <span class="math">\(f(x_{2})\)</span> aren't
+                                close. In our example, not strictly speaking, we can consider, for instance, <span
+                                    class="math">\(\varepsilon=0.6\)</span> and, as you can see, for whatever <span
+                                    class="math">\(\delta\)</span> you'll chose (for example <span
+                                    class="math">\(\delta=0.5\)</span>), you can find such two points inside zero's
+                                <span class="math">\(\delta\)</span>-neighborhood. For example, if <span
+                                    class="math">\(x_{1}=-0.25\)</span> and <span class="math">\(x_{2}=0.25\)</span>,
+                                then <span class="math">\(|f(x_{1})-f(x_{2}| \approx 0.88 \ge \varepsilon = 0.6\)</span>
+                                is true. This proves that <span class="math">\(f\)</span> has no limit at <span
+                                    class="math">\(x = 0\)</span>:
+                    </p>
+
+                    <div>
+                        <img src="images/pic_8.png" alt style>
+                    </div>
+
+                    <p>
+                        By the way, some functions have pretty surprising values of the limits at their special points.
+                        Here are the two most famous examples:
+                        <li><span class="math">\( \lim_{x\to 0} \dfrac{\sin (x)}{x} = 1\)</span>, where two infinitely
+                            small values became "the same" as the argument tends to zero. <a
+                                href="https://ocw.mit.edu/courses/mathematics/18-01sc-single-variable-calculus-fall-2010/1.-differentiation/part-a-definition-and-basic-rules/session-8-limits-of-sine-and-cosine/MIT18_01SCF10_Ses8a.pdf">Here</a>
+                            is an example of the geometrical proof.</li>
+                        <li><span class="math">\( \lim_{n \to \infty} \left(1 + \dfrac{1}{n} \right) ^{n} = e\)</span>.
+                            <a href="https://en.wikipedia.org/wiki/Jacob_Bernoulli">Jacob Bernoulli</a> was the first
+                            one who calculated this number, solving the compound interest problem. <a
+                                href="http://www.milefoot.com/math/calculus/limits/LimitDefinitionOfE10.htm">Here</a>
+                            you can find the sequences-based proof of this equality, not using anything that we haven't
+                            discussed today.
+                        </li>
                     </p>
 
                     <h4>Continuity</h4>
                     <p>
-                    Great, we are almost done! Let's take a look at the probably one of the key concepts the whole calculus is based on. Why is continuity so important?  It is because most of the functions which are used in physics, math, at last in machine learning are changing smoothly, without "fractures", in other words, such functions are continuous. If a function is discontinuous, we cannot calculate its derivative or integral as well as to approximate it with simple functions, using, for example, Taylor or Fourier series. This is why this property is fundamental in calculus. So, to be more precise:
+                        Great, we are almost done! Let's take a look at the probably one of the key concepts the whole
+                        calculus is based on. Why is continuity so important? It is because most of the functions which
+                        are used in physics, math, at last in machine learning are changing smoothly, without
+                        "fractures", in other words, such functions are continuous. If a function is discontinuous, we
+                        cannot calculate its derivative or integral as well as to approximate it with simple functions,
+                        using, for example, Taylor or Fourier series. This is why this property is fundamental in
+                        calculus. So, to be more precise:
                     </p>
 
                     <p class="note">
-                    A function <span class="math">\(f \, : \, X \rightarrow \mathbb{R}\)</span> is called continuous at a point <span class="math">\(a\in X\)</span> if:
-                    
-                    <span class="math">\[
-                    \forall \varepsilon > 0, \,\, \exists \delta(\varepsilon) > 0, \,\, \forall x \in X: \,\, |x - a| < \delta(\varepsilon) \rightarrow |f(x) - f(a)| < \varepsilon
-                    \]</span> 
+                        A function <span class="math">\(f \, : \, X \rightarrow \mathbb{R}\)</span> is called continuous
+                        at a point <span class="math">\(a\in X\)</span> if:
+
+                        <span class="math">\[
+                            \forall \varepsilon > 0, \,\, \exists \delta(\varepsilon) > 0, \,\, \forall x \in X: \,\, |x
+                            - a| < \delta(\varepsilon) \rightarrow |f(x) - f(a)| < \varepsilon \]</span>
                     </p>
 
                     <p>
-                    If we compare this definition to the function limit's definition given above, we can see, that in the case when a point <span class="math">\(a\)</span> is the limit point of <span class="math">\(f\)</span>, the continuity simply means equality of the function value to its limit at a given point: <span class="math">\(\lim_{x\rightarrow a} f(x) = f(a)\)</span> - that is how the continuity-at-a-point property is tested in practice.
+                        If we compare this definition to the function limit's definition given above, we can see, that
+                        in the case when a point <span class="math">\(a\)</span> is the limit point of <span
+                            class="math">\(f\)</span>, the continuity simply means equality of the function value to its
+                        limit at a given point: <span class="math">\(\lim_{x\rightarrow a} f(x) = f(a)\)</span> - that
+                        is how the continuity-at-a-point property is tested in practice.
                     </p>
 
                     <p>
-                    Also, sometimes it is convenient to consider continuity in the terms of function increments. Let me remind, that increment of a function <span class="math">\(f(x)\)</span> at a point <span class="math">\(x\)</span>, that is close to the point <span class="math">\(x_{0}\)</span>, is called the difference <span class="math">\(\Delta f  = f(x) - f(x_{0})\)</span>. Or, using the argument increment <span class="math">\(\Delta x  = x - x_{0}\)</span>, the above expression can be written as follows: <span class="math">\(\Delta f  = f(x_{0}+\Delta x) - f(x_{0})\)</span>. Thus, in accordance with the continuity definition through the limit, we have, that a function <span class="math">\(f(x)\)</span> is continuous at a point <span class="math">\(x_{0}\)</span> if and only if <span class="math">\(\lim_{\Delta x\rightarrow 0} \Delta f = 0\)</span>.
+                        Also, sometimes it is convenient to consider continuity in the terms of function increments. Let
+                        me remind, that increment of a function <span class="math">\(f(x)\)</span> at a point <span
+                            class="math">\(x\)</span>, that is close to the point <span class="math">\(x_{0}\)</span>,
+                        is called the difference <span class="math">\(\Delta f = f(x) - f(x_{0})\)</span>. Or, using the
+                        argument increment <span class="math">\(\Delta x = x - x_{0}\)</span>, the above expression can
+                        be written as follows: <span class="math">\(\Delta f = f(x_{0}+\Delta x) - f(x_{0})\)</span>.
+                        Thus, in accordance with the continuity definition through the limit, we have, that a function
+                        <span class="math">\(f(x)\)</span> is continuous at a point <span class="math">\(x_{0}\)</span>
+                        if and only if <span class="math">\(\lim_{\Delta x\rightarrow 0} \Delta f = 0\)</span>.
                     </p>
 
                     <p>
-                    For example, let's prove that the function <span class="math">\(f(x)=x^{3}-x+1\)</span> is continuous everywhere on its domain <span class="math">\(\mathbb{R}\)</span>:
+                        For example, let's prove that the function <span class="math">\(f(x)=x^{3}-x+1\)</span> is
+                        continuous everywhere on its domain <span class="math">\(\mathbb{R}\)</span>:
 
-                    <span class="math">\[
-                    \Delta f = (x_{0}+\Delta x)^{3}-(x_{0}+\Delta x)-1-x_{0}^{3}+x_{0}-1 = {\Delta x}^{3} + 3 x^{2} \Delta x + 3x {\Delta x}^{2}-\Delta x =
-                    \]</span> 
+                        <span class="math">\[
+                            \Delta f = (x_{0}+\Delta x)^{3}-(x_{0}+\Delta x)-1-x_{0}^{3}+x_{0}-1 = {\Delta x}^{3} + 3
+                            x^{2} \Delta x + 3x {\Delta x}^{2}-\Delta x =
+                            \]</span>
 
-                    <span class="math">\[
-                        = \Delta x \cdot ({\Delta x}^{2}+3x\Delta x + 3x^{2}-1) \xrightarrow[\Delta x \to 0 ]{} 0 \,\, \forall x \in \mathbb{R} \,\, \quad \blacksquare
-                    \]</span> 
-                    
-                    Here, as you can see, this trick helps to "extend" the study area on the entire domain, thereby simplifying the process quite significantly.
+                        <span class="math">\[
+                            = \Delta x \cdot ({\Delta x}^{2}+3x\Delta x + 3x^{2}-1) \xrightarrow[\Delta x \to 0 ]{} 0
+                            \,\, \forall x \in \mathbb{R} \,\, \quad \blacksquare
+                            \]</span>
+
+                        Here, as you can see, this trick helps to "extend" the study area on the entire domain, thereby
+                        simplifying the process quite significantly.
                     </p>
 
                     <p>
-                    The property of continuity extends to compositions of two continuous functions, such as their addition, subtraction, multiplication, and division. If a function is discontinuous at some point, then this discontinuity might be <a href="https://en.wikipedia.org/wiki/Classification_of_discontinuities#The_set_of_discontinuities_of_a_function">classified</a> as removable, jump or essential discontinuity. The last type of discontinuity is an extremely important <a href="https://en.wikipedia.org/wiki/Zeros_and_poles">topic</a> of complex analysis.
+                        The property of continuity extends to compositions of two continuous functions, such as their
+                        addition, subtraction, multiplication, and division. If a function is discontinuous at some
+                        point, then this discontinuity might be <a
+                            href="https://en.wikipedia.org/wiki/Classification_of_discontinuities#The_set_of_discontinuities_of_a_function">classified</a>
+                        as removable, jump or essential discontinuity. The last type of discontinuity is an extremely
+                        important <a href="https://en.wikipedia.org/wiki/Zeros_and_poles">topic</a> of complex analysis.
                     </p>
 
                     <p>
-                    The continuity of a function on the closed interval, as already mentioned, is an incredibly strong property. For example, it provides the basis for the presence of the function's maximum and minimum (<a href="https://en.wikipedia.org/wiki/Extreme_value_theorem">extreme value theorem</a>), as well as the presence of an inverse function defined on this interval (<a href="https://en.wikipedia.org/wiki/Inverse_function_theorem">inverse function theorem</a>). 
+                        The continuity of a function on the closed interval, as already mentioned, is an incredibly
+                        strong property. For example, it provides the basis for the presence of the function's maximum
+                        and minimum (<a href="https://en.wikipedia.org/wiki/Extreme_value_theorem">extreme value
+                            theorem</a>), as well as the presence of an inverse function defined on this interval (<a
+                            href="https://en.wikipedia.org/wiki/Inverse_function_theorem">inverse function theorem</a>).
                     </p>
-  
+
 
                     <p>
-                    ...    
+                        ...
                     </p>
 
                     <p>
-                    I hope that this post turned out to be helpful to freshen up your knowledge and now, we can move forward.
-                    In the next <a href="../2018-12-9-Math-Part-2/index.html">post</a>, we will proceed to the next step - derivatives.
+                        I hope that this post turned out to be helpful to freshen up your knowledge and now, we can move
+                        forward.
+                        In the next <a href="../2018-12-9-Math-Part-2/index.html">post</a>, we will proceed to the next
+                        step - derivatives.
                     </p>
 
 
                     <h3>References</h3>
-                    <p>It is a list of basic mathematical analysis (and not only) books I found useful to write this and the follow-up posts:</p>
+                    <p>It is a list of basic mathematical analysis (and not only) books I found useful to write this and
+                        the follow-up posts:</p>
                     <hr>
                     <ol>
-                       <li><em>Jim Hefferon - "Linear Algebra"</em>. 
-                       Illustrated course to the basics of linear algebra with many examples. <a href=
-                       "http://joshua.smcvt.edu/linearalgebra/book.pdf">Link</a>. </li>
-                       <li><em>John E. Hutchinson - "Introduction To Mathematical Analysis"</em>. 
-                       Short and clear mathematical analysis course from Australian National University. <a href="https://maths-people.anu.edu.au/~john/Assets/Lecture%20Notes/B21H_97.pdf">Link</a>. </li>
-                       <li><em>Walter Rudin - "Principles of Mathematical Analysis"</em>. 
-                       Collection of essential mathematical analysis theorems and their detailed proofs. <a href="https://notendur.hi.is/vae11/%C3%9Eekking/principles_of_mathematical_analysis_walter_rudin.pdf">Link</a>. </li>
-                       <li><em>Thomson, Brian S., Judith B. Bruckner, and Andrew M. Bruckner - "Elementary real analysis".</em> Well-structured guide to the real analysis with plenty of good and illustrative examples. <a href="http://prac.im.pwr.wroc.pl/~kwasnicki/pl/stuff/tbb-hyper.pdf">Link</a>.</li>
+                        <li><em>Jim Hefferon - "Linear Algebra"</em>.
+                            Illustrated course to the basics of linear algebra with many examples. <a
+                                href="http://joshua.smcvt.edu/linearalgebra/book.pdf">Link</a>. </li>
+                        <li><em>John E. Hutchinson - "Introduction To Mathematical Analysis"</em>.
+                            Short and clear mathematical analysis course from Australian National University. <a
+                                href="https://maths-people.anu.edu.au/~john/Assets/Lecture%20Notes/B21H_97.pdf">Link</a>.
+                        </li>
+                        <li><em>Walter Rudin - "Principles of Mathematical Analysis"</em>.
+                            Collection of essential mathematical analysis theorems and their detailed proofs. <a
+                                href="https://notendur.hi.is/vae11/%C3%9Eekking/principles_of_mathematical_analysis_walter_rudin.pdf">Link</a>.
+                        </li>
+                        <li><em>Thomson, Brian S., Judith B. Bruckner, and Andrew M. Bruckner - "Elementary real
+                                analysis".</em> Well-structured guide to the real analysis with plenty of good and
+                            illustrative examples. <a
+                                href="http://prac.im.pwr.wroc.pl/~kwasnicki/pl/stuff/tbb-hyper.pdf">Link</a>.</li>
                     </ol>
                     <hr>
 
@@ -527,13 +917,19 @@
                         <hr>
                         <ol>
                             <li id="fn1">
-                                There is a nice Wikipedia <a href="https://en.wikipedia.org/wiki/History_of_mathematical_notation">page</a> describing the history of mathematical notation. <a href="#fnref1">↩</a>
+                                There is a nice Wikipedia <a
+                                    href="https://en.wikipedia.org/wiki/History_of_mathematical_notation">page</a>
+                                describing the history of mathematical notation. <a href="#fnref1">↩</a>
                             </li>
                             <li id="fn2">
-                                See <a href="http://www.math.toronto.edu/weiss/set_theory.pdf">this</a> course for more details. <a href="#fnref2">↩</a>
+                                See <a href="http://www.math.toronto.edu/weiss/set_theory.pdf">this</a> course for more
+                                details. <a href="#fnref2">↩</a>
                             </li>
                             <li id="fn3">
-                                The question of <a href="https://en.wikipedia.org/wiki/Complete_metric_spacef">completeness</a> of some spaces is studied in the course of functional analysis. Unfortunately, for now, this question is out of the scope of this post. <a href="#fnref3">↩</a>
+                                The question of <a
+                                    href="https://en.wikipedia.org/wiki/Complete_metric_spacef">completeness</a> of some
+                                spaces is studied in the course of functional analysis. Unfortunately, for now, this
+                                question is out of the scope of this post. <a href="#fnref3">↩</a>
                             </li>
                             <li id="fn4">
                                 Sometimes, the limit exists only at one side.<a href="#fnref4">↩</a></a>
@@ -552,7 +948,8 @@
     </main>
     <div class="footer"></div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/popper.js@^1"></script>
     <script src="https://unpkg.com/tippy.js@4"></script>
     <script src="../../js/main.js"></script>
@@ -565,8 +962,3 @@
 </body>
 
 </html>
-
-
-
-
-

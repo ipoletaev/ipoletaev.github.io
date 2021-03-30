@@ -20,7 +20,8 @@
     <link rel="stylesheet" href="../../css/tooltip.css">
     <link rel="stylesheet" href="../../comments/inlineDisqussions.css">
 
-    <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -30,10 +31,10 @@
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143270978-1"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-143270978-1');
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-143270978-1');
     </script>
 
     <link rel="shortcut icon" href="../../data/icons/Icon.ico" />
@@ -84,348 +85,670 @@
                     </div>
 
                     <p>
-                    Today I would like to continue recently started  <a href="../2019-03-15-DL/index.html">conversation</a> about machine learning and give more details on how the conventional architecture, called a multilayer perceptron, works. This post will contain information about the basic concepts used in, let's name it, neural networks theory.
+                        Today I would like to continue recently started <a
+                            href="../2019-03-15-DL/index.html">conversation</a> about machine learning and give more
+                        details on how the conventional architecture, called a multilayer perceptron, works. This post
+                        will contain information about the basic concepts used in, let's name it, neural networks
+                        theory.
                     </p>
 
                     <p>
-                    Unlike the previous post, this and the subsequent ones, in addition to the general notes, contain some formulas, thus the one who likes mathematical strictness, I hope, will find something interesting as well. How can that be useful? First, it can be useful to those, who work in the field of machine learning or to those, who are simply interested in it. Also, in my opinion, it is tough to obtain a beneficial result in practice without an understanding of the basics: how things work from the inside. Secondly, generally speaking, neural networks in a large variety of their different architectures have a lot in common. Also, it is the perceptron that is the very foundation, the awareness of which will help greatly simplify further immersion in the world of neural networks and advanced ML technologies.
+                        Unlike the previous post, this and the subsequent ones, in addition to the general notes,
+                        contain some formulas, thus the one who likes mathematical strictness, I hope, will find
+                        something interesting as well. How can that be useful? First, it can be useful to those, who
+                        work in the field of machine learning or to those, who are simply interested in it. Also, in my
+                        opinion, it is tough to obtain a beneficial result in practice without an understanding of the
+                        basics: how things work from the inside. Secondly, generally speaking, neural networks in a
+                        large variety of their different architectures have a lot in common. Also, it is the perceptron
+                        that is the very foundation, the awareness of which will help greatly simplify further immersion
+                        in the world of neural networks and advanced ML technologies.
                     </p>
 
                     <p>
-                    For a complete understanding of cause-effect relationships, before reading the text below, I would like to ask you to refresh your knowledge in probability theory, mathematical statistics, linear algebra, and calculus.
+                        For a complete understanding of cause-effect relationships, before reading the text below, I
+                        would like to ask you to refresh your knowledge in probability theory, mathematical statistics,
+                        linear algebra, and calculus.
                     </p>
 
                     <p>
-                    The multilayer perceptron will be mostly used as an example, but many of the conclusions that we will make are valid for many other ML algorithms.
+                        The multilayer perceptron will be mostly used as an example, but many of the conclusions that we
+                        will make are valid for many other ML algorithms.
                     </p>
 
                     <h3>Machine Learning Methods</h3>
                     <p>
-                    Firstly, let me remind you that most of the machine learning methods can be categorized into two branches: <a href="https://en.wikipedia.org/wiki/Supervised_learning">supervised</a> and <a href="https://en.wikipedia.org/wiki/Unsupervised_learning">unsupervised</a> learning.
+                        Firstly, let me remind you that most of the machine learning methods can be categorized into two
+                        branches: <a href="https://en.wikipedia.org/wiki/Supervised_learning">supervised</a> and <a
+                            href="https://en.wikipedia.org/wiki/Unsupervised_learning">unsupervised</a> learning.
                     </p>
 
                     <div>
-                    <img src="images/scheme.png">
-                    <div class="source">Examples of supervised and unsupervised machine learning methods.</div>
+                        <img src="images/scheme.png">
+                        <div class="source">Examples of supervised and unsupervised machine learning methods.</div>
                     </div>
 
                     <p>
-                    Supervised learning is called so because algorithms using this approach are trained on the data consisting of pairs of the "expected input" - "expected output" type. In other words, <em>being under supervision</em>, an algorithm is explicitly learned to do something specific, hence the name. As an example, handwritten digits classification: for each image of a digit in such a data set, there is a label, whether a given image contains 0, 1 ... or 9.
+                        Supervised learning is called so because algorithms using this approach are trained on the data
+                        consisting of pairs of the "expected input" - "expected output" type. In other words, <em>being
+                            under supervision</em>, an algorithm is explicitly learned to do something specific, hence
+                        the name. As an example, handwritten digits classification: for each image of a digit in such a
+                        data set, there is a label, whether a given image contains 0, 1 ... or 9.
                     </p>
 
                     <p>
-                    In the case of unsupervised learning, as you have already guessed, there are no labels - only inputs. This means that an algorithm should find some hidden dependencies in the data and, for example, <a href="https://en.wikipedia.org/wiki/Cluster_analysis">clusterize</a> it. We can discuss unsupervised algorithms in future posts. But today, in this post we will be talking about neural networks, which are trained with supervision.
+                        In the case of unsupervised learning, as you have already guessed, there are no labels - only
+                        inputs. This means that an algorithm should find some hidden dependencies in the data and, for
+                        example, <a href="https://en.wikipedia.org/wiki/Cluster_analysis">clusterize</a> it. We can
+                        discuss unsupervised algorithms in future posts. But today, in this post we will be talking
+                        about neural networks, which are trained with supervision.
                     </p>
 
                     <p>
-                    Secondly, in the previous post we discussed the basic idea of how perceptron operates. An arbitrary perceptron, being a mathematical function, is designed to perform either a regression or classification task. In the case of a regression task, perceptron can be trained to output any possible (theoretically) output signal, processing some input. Similarly, in the case of a classification task, perceptron can be trained to predict the class label of a given input. 
+                        Secondly, in the previous post we discussed the basic idea of how perceptron operates. An
+                        arbitrary perceptron, being a mathematical function, is designed to perform either a regression
+                        or classification task. In the case of a regression task, perceptron can be trained to output
+                        any possible (theoretically) output signal, processing some input. Similarly, in the case of a
+                        classification task, perceptron can be trained to predict the class label of a given input.
                     </p>
 
                     <p>
-                    As a part of the technical blog, this post has to express thoughts briefly and clearly, trying to avoid vague wording and concepts. So I would like to elaborate on this a little bit more. Nowadays, plenty of popular media resources speak about neural networks like something "animated". For example, you can often find expressions such as "based on previous experience", "self-learning algorithm" and so on. In fact, of course, there is a human behind everything. A human writes and tests the code that implements various stages of the neural network operation. A human is engaged in the preparation of data and its labeling. Moreover, again, a human "presses a button" to run the process of training, and it is essential to understand, that the training itself is actually automated. That is, a neural network processes the training examples one by one and adjusts its weights accordingly. However, it is worth noting that usually the training process has a lot of different parameters (which will be discussed later), and, of course, a human is responsible for setting them up. Therefore, frankly, it is incredibly difficult to call such a thing fully autonomous, let alone artificial intelligence. Summarizing this up, neural networks are just an algorithm. So let's discuss how this algorithm works.
+                        As a part of the technical blog, this post has to express thoughts briefly and clearly, trying
+                        to avoid vague wording and concepts. So I would like to elaborate on this a little bit more.
+                        Nowadays, plenty of popular media resources speak about neural networks like something
+                        "animated". For example, you can often find expressions such as "based on previous experience",
+                        "self-learning algorithm" and so on. In fact, of course, there is a human behind everything. A
+                        human writes and tests the code that implements various stages of the neural network operation.
+                        A human is engaged in the preparation of data and its labeling. Moreover, again, a human
+                        "presses a button" to run the process of training, and it is essential to understand, that the
+                        training itself is actually automated. That is, a neural network processes the training examples
+                        one by one and adjusts its weights accordingly. However, it is worth noting that usually the
+                        training process has a lot of different parameters (which will be discussed later), and, of
+                        course, a human is responsible for setting them up. Therefore, frankly, it is incredibly
+                        difficult to call such a thing fully autonomous, let alone artificial intelligence. Summarizing
+                        this up, neural networks are just an algorithm. So let's discuss how this algorithm works.
                     </p>
 
                     <h3>Multilayer Perceptron</h3>
                     <p>
-                    So, suppose you have multiple artificial neurons and some labeled data for solving either a regression or classification task<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. As it was explained in the previous <a href="../2019-03-15-DL/index.html">post</a>, artificial neurons with the same properties (e.g. with the same activation function) are usually combined into the layers. 
+                        So, suppose you have multiple artificial neurons and some labeled data for solving either a
+                        regression or classification task<a href="#fn1" class="footnoteRef"
+                            id="fnref1"><sup>1</sup></a>. As it was explained in the previous <a
+                            href="../2019-03-15-DL/index.html">post</a>, artificial neurons with the same properties
+                        (e.g. with the same activation function) are usually combined into the layers.
                     </p>
 
                     <p>
-                    A set of such layers forms a neural network, which is usually called a perceptron or a <a href="https://en.wikipedia.org/wiki/Feedforward_neural_network">feedforward neural network</a>. The feedforward architecture necessarily has at least one input layer and one output layer that receive and output signals respectively. Depending on how many layers of neurons are between the input and output layers (such layers are usually called hidden), the network can be called a multilayer perceptron or MLP. Just in case, I will repeat and say that it is important that the size of a neural network and number of layers in it do not have primary significance: they all work the same way.
+                        A set of such layers forms a neural network, which is usually called a perceptron or a <a
+                            href="https://en.wikipedia.org/wiki/Feedforward_neural_network">feedforward neural
+                            network</a>. The feedforward architecture necessarily has at least one input layer and one
+                        output layer that receive and output signals respectively. Depending on how many layers of
+                        neurons are between the input and output layers (such layers are usually called hidden), the
+                        network can be called a multilayer perceptron or MLP. Just in case, I will repeat and say that
+                        it is important that the size of a neural network and number of layers in it do not have primary
+                        significance: they all work the same way.
                     </p>
 
                     <h3>Notation</h3>
                     <p>
-                    Let's agree on notation. This part is pretty boring, I do admit it. Nevertheless it will definitely simplify the further conversation, allowing not to repeat the same over and over again. 
+                        Let's agree on notation. This part is pretty boring, I do admit it. Nevertheless it will
+                        definitely simplify the further conversation, allowing not to repeat the same over and over
+                        again.
                     </p>
 
                     <div>
-                    <img src="images/ff.png">
-                    <div class="source">Processing of a single training example by MLP.</div>
+                        <img src="images/ff.png">
+                        <div class="source">Processing of a single training example by MLP.</div>
                     </div>
 
                     <p>
-                    Let pair <span class="math">\((\vec{x}_{i}, \vec{t}_{i})\)</span> stand for <span class="math">\(i\)</span>-th training example, where:
-                    <li><span class="math">\(\vec{x}_{i} = [x^{1}, x^{2}, \ldots , x^{m}]_{i} \in \mathbb{R}^{m}\)</span> is an input vector,</li>
-                    <li><span class="math">\(\vec{t}_{i} = [t^{1}, t^{2}, \ldots , t^{n}]_{i} \in \mathbb{R}^{n}\)</span> is a vector of expected output signals for the class label <span class="math">\(c_{i}\)</span>,</li>
-                    <li>while <span class="math">\(\vec{y}_{i}\)</span> is the output produced by the NN after processing the input <span class="math">\(\vec{x}_{i}\)</span>.</li>
+                        Let pair <span class="math">\((\vec{x}_{i}, \vec{t}_{i})\)</span> stand for <span
+                            class="math">\(i\)</span>-th training example, where:
+                        <li><span class="math">\(\vec{x}_{i} = [x^{1}, x^{2}, \ldots , x^{m}]_{i} \in
+                                \mathbb{R}^{m}\)</span> is an input vector,</li>
+                        <li><span class="math">\(\vec{t}_{i} = [t^{1}, t^{2}, \ldots , t^{n}]_{i} \in
+                                \mathbb{R}^{n}\)</span> is a vector of expected output signals for the class label <span
+                                class="math">\(c_{i}\)</span>,</li>
+                        <li>while <span class="math">\(\vec{y}_{i}\)</span> is the output produced by the NN after
+                            processing the input <span class="math">\(\vec{x}_{i}\)</span>.</li>
                     </p>
                     <p>
-                    In the case of regression, each expected output signal <span class="math">\(t_{i}^{j}\)</span> could be any real number, whereas for classification it may be either <span class="math">\(0\)</span> (stands for "not <span class="math">\(i\)</span>-th class") or <span class="math">\(1\)</span> (stands for "<span class="math">\(i\)</span>-th class"). Usually, input signals are not limited and can be any real vectors, like pixel brightness values, for example.
+                        In the case of regression, each expected output signal <span class="math">\(t_{i}^{j}\)</span>
+                        could be any real number, whereas for classification it may be either <span
+                            class="math">\(0\)</span> (stands for "not <span class="math">\(i\)</span>-th class") or
+                        <span class="math">\(1\)</span> (stands for "<span class="math">\(i\)</span>-th class").
+                        Usually, input signals are not limited and can be any real vectors, like pixel brightness
+                        values, for example.
                     </p>
 
                     <p>
-                    As it was already mentioned during our last conversation, a neural network can be viewed as a mathematical function that transforms input signals <span class="math">\(\vec{x}\)</span> into output <span class="math">\(\vec{y}\)</span>. And the only thing that this function depends on is the weights of the connections between the neurons (or just weights). A set of all weights and biases of a neural network is conveniently to denote as <span class="math">\(\textbf{w} \)</span>. Thus, any neural network is just a function: <span class="math">\(\vec{y} = f_{\textbf{w} }(\vec{x})\)</span>.
+                        As it was already mentioned during our last conversation, a neural network can be viewed as a
+                        mathematical function that transforms input signals <span class="math">\(\vec{x}\)</span> into
+                        output <span class="math">\(\vec{y}\)</span>. And the only thing that this function depends on
+                        is the weights of the connections between the neurons (or just weights). A set of all weights
+                        and biases of a neural network is conveniently to denote as <span class="math">\(\textbf{w}
+                            \)</span>. Thus, any neural network is just a function: <span class="math">\(\vec{y} =
+                            f_{\textbf{w} }(\vec{x})\)</span>.
                     </p>
 
                     <p>
-                    To make a neural network produce desired output, it is necessary to tune its weights. Let's denote them as follows: <span class="math">\(w_{l}^{j,k}\)</span> is the weight of connection between <span class="math">\(j\)</span>-th neuron in <span class="math">\(l\)</span>-th layer with the <span class="math">\(k\)</span>-th</li> neuron of <span class="math">\(l-1\)</span>-th layer. Similarly, if <span class="math">\(\varphi\)</span> is an activation function of the <span class="math">\(m\)</span>-th neuron in <span class="math">\(l\)</span>-th layer, then its output signal <span class="math">\(y_{l}^{m}\)</span> can be computed as a weighted sum (which is called the <em>induced local field</em> <span class="math">\(z_{l}^{m}\)</span>) of all its input signals and a bias <span class="math">\(b_{l}^{m}\)</span>:
-                    
-                    <span class="math">\[
-                    \begin{equation} y_{l}^{m}= \varphi(z_{l}^{m}) =  \varphi \left (\sum_{k=1}^{n}(w_{l}^{m,k} \cdot y_{l-1}^{k}) + b_{l}^{m} \right ) \end{equation}
-                    \]</span>
+                        To make a neural network produce desired output, it is necessary to tune its weights. Let's
+                        denote them as follows: <span class="math">\(w_{l}^{j,k}\)</span> is the weight of connection
+                        between <span class="math">\(j\)</span>-th neuron in <span class="math">\(l\)</span>-th layer
+                        with the <span class="math">\(k\)</span>-th</li> neuron of <span class="math">\(l-1\)</span>-th
+                        layer. Similarly, if <span class="math">\(\varphi\)</span> is an activation function of the
+                        <span class="math">\(m\)</span>-th neuron in <span class="math">\(l\)</span>-th layer, then its
+                        output signal <span class="math">\(y_{l}^{m}\)</span> can be computed as a weighted sum (which
+                        is called the <em>induced local field</em> <span class="math">\(z_{l}^{m}\)</span>) of all its
+                        input signals and a bias <span class="math">\(b_{l}^{m}\)</span>:
 
-                    Here <span class="math">\(n\)</span> is a number of neurons in the previous layer<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>. As a result, the bottom indices denote the layer number, while the upper indices denote the sequence number of this neuron, starting from the left edge.
+                        <span class="math">\[
+                            \begin{equation} y_{l}^{m}= \varphi(z_{l}^{m}) = \varphi \left (\sum_{k=1}^{n}(w_{l}^{m,k}
+                            \cdot y_{l-1}^{k}) + b_{l}^{m} \right ) \end{equation}
+                            \]</span>
+
+                        Here <span class="math">\(n\)</span> is a number of neurons in the previous layer<a href="#fn2"
+                            class="footnoteRef" id="fnref2"><sup>2</sup></a>. As a result, the bottom indices denote the
+                        layer number, while the upper indices denote the sequence number of this neuron, starting from
+                        the left edge.
                     </p>
 
                     <div>
-                    <img src="images/weights.png">
-                    <div class="source">Weights naming scheme.</div>
-                    </div>                   
-                    
+                        <img src="images/weights.png">
+                        <div class="source">Weights naming scheme.</div>
+                    </div>
+
                     <h3>Inference</h3>
                     <p>
-                    Somebody of you might be interested how exactly output signals are calculated. This process is usually called <em>inference</em>. Actually this process can be implemented in practice in many different ways. Here is one possible way: 
-                    <li>Compute output signals of the first-layer neurons, using expression <span class="math">\((1)\)</span> and input <span class="math">\(\vec{x}\)</span>;</li>
-                    <li>These output signals will be used as inputs for the second layer neurons;</li>
-                    <li>...</li>
-                    <li>Compute <span class="math">\(\vec{y}\)</span>, using output signals from the previous layer and the same expression <span class="math">\((1)\)</span>.</li>
+                        Somebody of you might be interested how exactly output signals are calculated. This process is
+                        usually called <em>inference</em>. Actually this process can be implemented in practice in many
+                        different ways. Here is one possible way:
+                        <li>Compute output signals of the first-layer neurons, using expression <span
+                                class="math">\((1)\)</span> and input <span class="math">\(\vec{x}\)</span>;</li>
+                        <li>These output signals will be used as inputs for the second layer neurons;</li>
+                        <li>...</li>
+                        <li>Compute <span class="math">\(\vec{y}\)</span>, using output signals from the previous layer
+                            and the same expression <span class="math">\((1)\)</span>.</li>
                     </p>
 
                     <p>
-                    In the case of classification, exactly as shown on the illustrations above, if we have <span class="math">\(n\)</span> classes, then we will have <span class="math">\(n\)</span> output neurons. Each neuron outputs a real number from the line segment <span class="math">\([0, 1]\)</span>, representing probability that the given input <span class="math">\(\vec{x}_{i}\)</span> belongs to some class <span class="math">\(1\)</span>, <span class="math">\(2\)</span>, ..., or <span class="math">\(n\)</span>. Therefore, NN outputs the probability distribution <span class="math">\(\vec{y}_{i}\)</span> for each <span class="math">\(i\)</span>-th training example:
+                        In the case of classification, exactly as shown on the illustrations above, if we have <span
+                            class="math">\(n\)</span> classes, then we will have <span class="math">\(n\)</span> output
+                        neurons. Each neuron outputs a real number from the line segment <span class="math">\([0,
+                            1]\)</span>, representing probability that the given input <span
+                            class="math">\(\vec{x}_{i}\)</span> belongs to some class <span class="math">\(1\)</span>,
+                        <span class="math">\(2\)</span>, ..., or <span class="math">\(n\)</span>. Therefore, NN outputs
+                        the probability distribution <span class="math">\(\vec{y}_{i}\)</span> for each <span
+                            class="math">\(i\)</span>-th training example:
                     </p>
 
                     <div>
-                    <img src="images/probs.png">
-                    <div class="source">The NN's output layer signals example.</div>
-                    </div>  
+                        <img src="images/probs.png">
+                        <div class="source">The NN's output layer signals example.</div>
+                    </div>
 
                     <p>
-                    Thus, it is important to ensure, that the output neurons produce signals exactly in the desired range and according to the <a href="https://en.wikipedia.org/wiki/Probability_axioms">second probability axiom</a>, the total probability of all outcomes should be equal to <span class="math">\(1\)</span>, i.e., <span class="math">\(\sum_{i}^{n} y^{i} = 1\)</span>. It is usually achieved by using the <a href="https://en.wikipedia.org/wiki/Softmax_function">softmax</a> function, that basically just normalizes any arbitrary real number vector (<em>raw</em> output neurons' signals in our case) into the vector, whose components will add up to <span class="math">\(1\)</span>. 
+                        Thus, it is important to ensure, that the output neurons produce signals exactly in the desired
+                        range and according to the <a href="https://en.wikipedia.org/wiki/Probability_axioms">second
+                            probability axiom</a>, the total probability of all outcomes should be equal to <span
+                            class="math">\(1\)</span>, i.e., <span class="math">\(\sum_{i}^{n} y^{i} = 1\)</span>. It is
+                        usually achieved by using the <a
+                            href="https://en.wikipedia.org/wiki/Softmax_function">softmax</a> function, that basically
+                        just normalizes any arbitrary real number vector (<em>raw</em> output neurons' signals in our
+                        case) into the vector, whose components will add up to <span class="math">\(1\)</span>.
                     </p>
 
                     <p>
-                    It's also important to note, that in the case of a binary classification problem, it is not needed to have two separate neurons, just because softmax above them will do exactly the same thing as a single neuron would do, using the <a href="https://en.wikipedia.org/wiki/Sigmoid_function">sigmoid</a> activation function: <span class="math">\(\sigma(x) = (1+e^{-x})^{-1}\)</span>. We can easily show this. Since softmax for two classes looks as follows:
+                        It's also important to note, that in the case of a binary classification problem, it is not
+                        needed to have two separate neurons, just because softmax above them will do exactly the same
+                        thing as a single neuron would do, using the <a
+                            href="https://en.wikipedia.org/wiki/Sigmoid_function">sigmoid</a> activation function: <span
+                            class="math">\(\sigma(x) = (1+e^{-x})^{-1}\)</span>. We can easily show this. Since softmax
+                        for two classes looks as follows:
 
-                    <span class="math">\[
-                      \lbrace y^{1}; y^{2} \rbrace = \left \lbrace \dfrac{e^{z_{1}}}{e^{z_{1}} + e^{z_{2}}}; \dfrac{e^{z_{2}}}{e^{z_{1}} + e^{z_{2}}} \right \rbrace
-                    \]</span>
+                        <span class="math">\[
+                            \lbrace y^{1}; y^{2} \rbrace = \left \lbrace \dfrac{e^{z_{1}}}{e^{z_{1}} + e^{z_{2}}};
+                            \dfrac{e^{z_{2}}}{e^{z_{1}} + e^{z_{2}}} \right \rbrace
+                            \]</span>
 
-                    so it can be easily transformed into the following:
+                        so it can be easily transformed into the following:
 
-                    <span class="math">\[
-                      \lbrace y^{1}; y^{2} \rbrace = \left \lbrace \dfrac{1}{1 + e^{z_{2}-z_{1}}}; \dfrac{1}{1 + e^{z_{1}-z_{2}}} \right \rbrace \stackrel{g=z_{1}-z_{2}}{=} \left \lbrace \dfrac{1}{1 + e^{-g}};\dfrac{1}{1 + e^{g}} \right \rbrace  = \lbrace  \sigma(g); 1-\sigma(g) \rbrace 
-                    \]</span>                    
+                        <span class="math">\[
+                            \lbrace y^{1}; y^{2} \rbrace = \left \lbrace \dfrac{1}{1 + e^{z_{2}-z_{1}}}; \dfrac{1}{1 +
+                            e^{z_{1}-z_{2}}} \right \rbrace \stackrel{g=z_{1}-z_{2}}{=} \left \lbrace \dfrac{1}{1 +
+                            e^{-g}};\dfrac{1}{1 + e^{g}} \right \rbrace = \lbrace \sigma(g); 1-\sigma(g) \rbrace
+                            \]</span>
 
-                    That is it, only single neuron that computes sigmoid is required! If this single neuron outputs 0 (or 1) it can be interpreted that the first (or second) class was predicted.
+                        That is it, only single neuron that computes sigmoid is required! If this single neuron outputs
+                        0 (or 1) it can be interpreted that the first (or second) class was predicted.
                     </p>
 
                     <p>
-                    I especially want to emphasize, that these formulas have concrete rationale. Let's consider two classes <span class="math">\( c_{1},c_{2} \)</span> and some input <span class="math">\(x\)</span> that we want to classify. Then, in accordance with <a href="https://en.wikipedia.org/wiki/Bayes%27_theorem">Bayes' theorem</a>, the <a href="https://en.wikipedia.org/wiki/Posterior_probability">posterior probability</a>, that <span class="math">\(x\)</span> belongs to <span class="math">\(c_{1}\)</span> can be computed as follows:
+                        I especially want to emphasize, that these formulas have concrete rationale. Let's consider two
+                        classes <span class="math">\( c_{1},c_{2} \)</span> and some input <span
+                            class="math">\(x\)</span> that we want to classify. Then, in accordance with <a
+                            href="https://en.wikipedia.org/wiki/Bayes%27_theorem">Bayes' theorem</a>, the <a
+                            href="https://en.wikipedia.org/wiki/Posterior_probability">posterior probability</a>, that
+                        <span class="math">\(x\)</span> belongs to <span class="math">\(c_{1}\)</span> can be computed
+                        as follows:
 
-                    <span class="math">\[
-                      p(c_{1}|x) = \dfrac{p(x|c_{1})p(c_{1})}{p(x)} = \dfrac{p(x|c_{1})p(c_{1})}{p(x|c_{1})p(c_{1}) + p(x|c_{2})p(c_{2})}
-                    \]</span>  
+                        <span class="math">\[
+                            p(c_{1}|x) = \dfrac{p(x|c_{1})p(c_{1})}{p(x)} =
+                            \dfrac{p(x|c_{1})p(c_{1})}{p(x|c_{1})p(c_{1}) + p(x|c_{2})p(c_{2})}
+                            \]</span>
 
-                    <span class="math">\[
-                      g = \ln{\left ( \dfrac{p(x|c_{1})p(c_{1})}{p(x|c_{2})p(c_{2})} \right )} \Rightarrow p(c_{1}|x) = \dfrac{1}{1+e^{-g}}
-                    \]</span>  
+                        <span class="math">\[
+                            g = \ln{\left ( \dfrac{p(x|c_{1})p(c_{1})}{p(x|c_{2})p(c_{2})} \right )} \Rightarrow
+                            p(c_{1}|x) = \dfrac{1}{1+e^{-g}}
+                            \]</span>
 
-                    This is why the sigmoid function looks that way. Similarly, if there are multiple classes, the probability <span class="math">\(p(c_{k}|x)\)</span> is given by:
+                        This is why the sigmoid function looks that way. Similarly, if there are multiple classes, the
+                        probability <span class="math">\(p(c_{k}|x)\)</span> is given by:
 
-                    <span class="math">\[
-                    p(c_{k}|x) = \dfrac{p(x|c_{k})p(c_{k})}{\sum_{i} p(x|c_{i})p(c_{i})} = \dfrac{e^{g_{k}}}{\sum_{i} e^{g_{i}}} = \text{softmax}({\vec{g}}); \quad g_{k} = \ln \left (p(x|c_{k})p(c_{k}) \right )
-                    \]</span>  
+                        <span class="math">\[
+                            p(c_{k}|x) = \dfrac{p(x|c_{k})p(c_{k})}{\sum_{i} p(x|c_{i})p(c_{i})} =
+                            \dfrac{e^{g_{k}}}{\sum_{i} e^{g_{i}}} = \text{softmax}({\vec{g}}); \quad g_{k} = \ln \left
+                            (p(x|c_{k})p(c_{k}) \right )
+                            \]</span>
 
                     </p>
 
                     <p>
-                    Also, generally speaking, any smooth function can be used for transforming sums of neurons' signals <span class="math">\(\vec{z}\)</span> into the final outputs <span class="math">\(\vec{y}\)</span>. We will discuss how this choice affect the training a little later.
+                        Also, generally speaking, any smooth function can be used for transforming sums of neurons'
+                        signals <span class="math">\(\vec{z}\)</span> into the final outputs <span
+                            class="math">\(\vec{y}\)</span>. We will discuss how this choice affect the training a
+                        little later.
                     </p>
 
                     <p>
-                    In fact, at this stage, this is all we need to know about the inference. Let's continue and go back to how neural networks are trained.
+                        In fact, at this stage, this is all we need to know about the inference. Let's continue and go
+                        back to how neural networks are trained.
                     </p>
 
 
                     <h3>Loss Function</h3>
                     <p>
-                    Let's assume that the data set we work with consist of <span class="math">\(N\)</span> training examples: <span class="math">\(\lbrace (\vec{x}_{1}, \vec{t}_{1}), (\vec{x}_{2}, \vec{t}_{2}), \ldots, (\vec{x}_{N}, \vec{t}_{N}) \rbrace\)</span>, where each <span class="math">\(c_{i}\)</span> class label corresponds to the respective desired output vector <span class="math">\(\vec{t}_{i}\)</span>. If it is a classification problem and there are <span class="math">\(n\)</span> classes, then <span class="math">\(\vec{t}_{i}\in \mathbb{Z}^{n}\)</span> is a probability distribution represented as an <a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/">one-hot</a> vector:
+                        Let's assume that the data set we work with consist of <span class="math">\(N\)</span> training
+                        examples: <span class="math">\(\lbrace (\vec{x}_{1}, \vec{t}_{1}), (\vec{x}_{2}, \vec{t}_{2}),
+                            \ldots, (\vec{x}_{N}, \vec{t}_{N}) \rbrace\)</span>, where each <span
+                            class="math">\(c_{i}\)</span> class label corresponds to the respective desired output
+                        vector <span class="math">\(\vec{t}_{i}\)</span>. If it is a classification problem and there
+                        are <span class="math">\(n\)</span> classes, then <span class="math">\(\vec{t}_{i}\in
+                            \mathbb{Z}^{n}\)</span> is a probability distribution represented as an <a
+                            href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/">one-hot</a>
+                        vector:
 
-                    <span class="math">\[  \begin{equation} 
-                     \vec{t}_{i}=[0,\ldots,\underbrace{1}_{c_{i}:\,i\text{-th example's class label}},\ldots,0]  \Leftrightarrow 
-                     t^{j}_{i} = \begin{cases}
-                        1,&\text{if $j=c_{i}$;}\\
-                        0,&\text{if $j \ne c_{i}$;}
-                        \end{cases}  \end{equation} 
-                    \]</span>
+                        <span class="math">\[ \begin{equation}
+                            \vec{t}_{i}=[0,\ldots,\underbrace{1}_{c_{i}:\,i\text{-th example's class label}},\ldots,0]
+                            \Leftrightarrow
+                            t^{j}_{i} = \begin{cases}
+                            1,&\text{if $j=c_{i}$;}\\
+                            0,&\text{if $j \ne c_{i}$;}
+                            \end{cases} \end{equation}
+                            \]</span>
 
-                    If it is a regression problem, then <span class="math">\(\vec{t}_{i}\)</span> is an arbitrary real-valued vector.
+                        If it is a regression problem, then <span class="math">\(\vec{t}_{i}\)</span> is an arbitrary
+                        real-valued vector.
                     </p>
 
                     <p>
-                    As mentioned above, the goal is to somehow teach the neural network to produce the necessary signals <span class="math">\(\vec{t}_{i}\)</span> for a given input <span class="math">\(\vec{x}_{i}\)</span>. How to do it? Let's take a closer look at the uppermost layer of an arbitrary perceptron, the so-called output layer. This layer outputs signals <span class="math">\(\vec{y}_{i}\)</span>, which ideally should be as close to <span class="math">\(\vec{t}_{i}\)</span> as possible. Ensuring this, the neural network can do what is required of it. Thus, regardless what the task is, it is necessary to somehow adjust NN's weights, that for every <span class="math">\(i\)</span>-th training example the distance, or error, between vectors <span class="math">\(\vec{t}_{i}\)</span> and <span class="math">\(\vec{y}_{i}\)</span> was as small as possible, or more formally</span><a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>:
+                        As mentioned above, the goal is to somehow teach the neural network to produce the necessary
+                        signals <span class="math">\(\vec{t}_{i}\)</span> for a given input <span
+                            class="math">\(\vec{x}_{i}\)</span>. How to do it? Let's take a closer look at the uppermost
+                        layer of an arbitrary perceptron, the so-called output layer. This layer outputs signals <span
+                            class="math">\(\vec{y}_{i}\)</span>, which ideally should be as close to <span
+                            class="math">\(\vec{t}_{i}\)</span> as possible. Ensuring this, the neural network can do
+                        what is required of it. Thus, regardless what the task is, it is necessary to somehow adjust
+                        NN's weights, that for every <span class="math">\(i\)</span>-th training example the distance,
+                        or error, between vectors <span class="math">\(\vec{t}_{i}\)</span> and <span
+                            class="math">\(\vec{y}_{i}\)</span> was as small as possible, or more formally</span><a
+                            href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>:
 
-                    <span class="math">\[\begin{equation} 
-                      ||\vec{t} - \vec{y}|| \rightarrow 0,\quad \forall i = \overline{1,N} \end{equation} 
-                    \]</span>
+                        <span class="math">\[\begin{equation}
+                            ||\vec{t} - \vec{y}|| \rightarrow 0,\quad \forall i = \overline{1,N} \end{equation}
+                            \]</span>
                     </p>
 
-                    <p>                  
-                    So, with the given weights <span class="math">\( \textbf{w} \)</span>, a neural network produces  specific <em>errors</em> for each training example. So it is convenient to combine them all together to estimate how "good or bad" the neural network works on a given data set at the current moment with the given weights. Exactly at this point the definition of the <a href="https://en.wikipedia.org/wiki/Loss_function">loss function</a> arises:
+                    <p>
+                        So, with the given weights <span class="math">\( \textbf{w} \)</span>, a neural network produces
+                        specific <em>errors</em> for each training example. So it is convenient to combine them all
+                        together to estimate how "good or bad" the neural network works on a given data set at the
+                        current moment with the given weights. Exactly at this point the definition of the <a
+                            href="https://en.wikipedia.org/wiki/Loss_function">loss function</a> arises:
 
-                    <span class="math">\[\begin{equation}  L = \dfrac{1}{N} \sum_{i}^{N} ||\vec{t}_{i} - \vec{y}_{i}||  \end{equation}  \]</span>
+                        <span class="math">\[\begin{equation} L = \dfrac{1}{N} \sum_{i}^{N} ||\vec{t}_{i} -
+                            \vec{y}_{i}|| \end{equation} \]</span>
 
-                    This is the average sum of all errors produced by the neural network for each training example. The sum is averaged because we don't want the loss function value to depend on the number of examples used. Using definition of the loss function <span class="math">\((3)\)</span>, expression <span class="math">\((2)\)</span>, which stands for the goal of a neural network training, can be generalized as follows:
+                        This is the average sum of all errors produced by the neural network for each training example.
+                        The sum is averaged because we don't want the loss function value to depend on the number of
+                        examples used. Using definition of the loss function <span class="math">\((3)\)</span>,
+                        expression <span class="math">\((2)\)</span>, which stands for the goal of a neural network
+                        training, can be generalized as follows:
 
-                    <span class="math">\[
-                    \begin{equation} \textbf{w}^{*} \equiv  \text{optimal}\,\, \textbf{w}  = \operatorname*{argmin}_{\textbf{w} } \left ( L \right) \end{equation}  \]
-                    </span>
-                    
-                    In fact, this is the answer to the question that we asked earlier:
+                        <span class="math">\[
+                            \begin{equation} \textbf{w}^{*} \equiv \text{optimal}\,\, \textbf{w} =
+                            \operatorname*{argmin}_{\textbf{w} } \left ( L \right) \end{equation} \]
+                        </span>
+
+                        In fact, this is the answer to the question that we asked earlier:
                     </p>
 
                     <p class="note">
-                    In order to train a neural network, it is necessary to find a global minimum of an appropriate loss function. A point <span class="math">\( \textbf{w}^{*} \)</span>, where the loss function reaches its global minimum, gives a set of optimal weights<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>.
+                        In order to train a neural network, it is necessary to find a global minimum of an appropriate
+                        loss function. A point <span class="math">\( \textbf{w}^{*} \)</span>, where the loss function
+                        reaches its global minimum, gives a set of optimal weights<a href="#fn4" class="footnoteRef"
+                            id="fnref4"><sup>4</sup></a>.
                     </p>
 
                     <p>
-                    Theoretically, these optimal weights will allow the neural network to produce desired signals for the given training data set. However, as you know, the reality is ugly and therefore, the above case is not always working in practice. Sometimes it is too hard (and/or computationally expensive) to find the global minimum. Sometimes a neural network that was trained very well on some data, doesn't give a good performance on the previously unseen examples. There are many different restrictions and rules, applicable for the training process, and without following them it's easy to get an absolutely useless neural network for practical purposes. But let's talk about these nuances a bit later, now - we need to come back to the loss function.
+                        Theoretically, these optimal weights will allow the neural network to produce desired signals
+                        for the given training data set. However, as you know, the reality is ugly and therefore, the
+                        above case is not always working in practice. Sometimes it is too hard (and/or computationally
+                        expensive) to find the global minimum. Sometimes a neural network that was trained very well on
+                        some data, doesn't give a good performance on the previously unseen examples. There are many
+                        different restrictions and rules, applicable for the training process, and without following
+                        them it's easy to get an absolutely useless neural network for practical purposes. But let's
+                        talk about these nuances a bit later, now - we need to come back to the loss function.
                     </p>
 
                     <p>
-                    By its definition, any loss function depends only on the weights of the network and training data. Therefore, in terms of the output layer neurons, minimization of a loss function "penalizes" each output neuron, if they don't produce exactly expected signals. And because these output neurons depend on all underlying neurons' signals, this penalization applies to every neural network's weight.
+                        By its definition, any loss function depends only on the weights of the network and training
+                        data. Therefore, in terms of the output layer neurons, minimization of a loss function
+                        "penalizes" each output neuron, if they don't produce exactly expected signals. And because
+                        these output neurons depend on all underlying neurons' signals, this penalization applies to
+                        every neural network's weight.
                     </p>
 
                     <p>
-                    For example, in the case of a quadratic loss function, it can be computed as follows (why? we will talk about it a bit later):
+                        For example, in the case of a quadratic loss function, it can be computed as follows (why? we
+                        will talk about it a bit later):
 
-                    <span class="math">\[
-                        L = \dfrac{1}{2N} \cdot \left ( \underbrace{\overbrace{(t_{1}^{1}-y_{1}^{1})^{2}}^{\textit{first neuron}} + \ldots + (t_{1}^{n}-y_{1}^{n})^{2}}_{\textit{first example}} + \cdots + \underbrace{||\vec{t}_{N}-\vec{y}_{N}||^{2}}_{N\textit{-th example}} \right )
-                    \]</span>
+                        <span class="math">\[
+                            L = \dfrac{1}{2N} \cdot \left (
+                            \underbrace{\overbrace{(t_{1}^{1}-y_{1}^{1})^{2}}^{\textit{first neuron}} + \ldots +
+                            (t_{1}^{n}-y_{1}^{n})^{2}}_{\textit{first example}} + \cdots +
+                            \underbrace{||\vec{t}_{N}-\vec{y}_{N}||^{2}}_{N\textit{-th example}} \right )
+                            \]</span>
 
                     </p>
 
                     <h3>Theoretical Justification</h3>
                     <p>
-                    Before turning to the question of how to find the global minimum of the loss function, I would like to emphasize that in addition to the purely geometric considerations, there are other approaches to derive the loss function. Probability theory and mathematical statistics can be used to theoretically prove that all we've gotten so far is correct and it actually works.
+                        Before turning to the question of how to find the global minimum of the loss function, I would
+                        like to emphasize that in addition to the purely geometric considerations, there are other
+                        approaches to derive the loss function. Probability theory and mathematical statistics can be
+                        used to theoretically prove that all we've gotten so far is correct and it actually works.
                     </p>
 
                     <p>
-                    Let's denote <em>input examples</em> data set as <span class="math">\(\mathcal{X}\)</span> and <em>class labels</em> set as <span class="math">\(\mathcal{C}\)</span>. Let's also consider an arbitrary neural network with weights <span class="math">\(\textbf{w} \)</span> that is used for a classification task <span class="math">\(\mathcal{X} \rightarrow \mathcal{C}\)</span> to be trained on the data set <span class="math">\((\mathcal{X}, \mathcal{C}) = \lbrace (\vec{x}_{1},c_{1}), \ldots, (\vec{x}_{N},c_{N}) \rbrace \)</span>. For brevity, we will denote the data set as <span class="math">\(\mathcal{D}\)</span>.
-                    </p>
-                    
-                    <p>
-                    We can assume, that all input examples <span class="math">\(\vec{x}\)</span> and output class labels <span class="math">\(c\)</span>, which make the training set, are actually samples obtained using two random distributions, i.e.,  we can consider that <span class="math">\(\chi \, : \Omega \rightarrow \vec{x} \in \mathcal{X}\)</span> and <span class="math">\(\tau \, : \Omega \rightarrow c \in \mathcal{C}\)</span> are two <a href="https://en.wikipedia.org/wiki/Random_variable">random variables</a>, which represent random samples from <span class="math">\(\mathcal{X}\)</span> and <span class="math">\(\mathcal{C}\)</span> sets correspondingly. Let's also assume, that the joint random variable <span class="math">\((\chi, \tau) \, :  \Omega \rightarrow (\mathcal{X}, \mathcal{C})\)</span> has <a href="https://en.wikipedia.org/wiki/Joint_probability_distribution">joint probability distribution</a>, with the density that we will denote as <span class="math">\(p_{d}(\vec{x}, c)\)</span>. This distribution is often called the <em>empirical distribution</em>.
-                    </p>
-
-                    <p>
-                    Having clarified the notation, it is time to move to the tastiest! The goal of any supervised machine learning algorithm (more precisely - any <a href="https://en.wikipedia.org/wiki/Discriminative_model">discriminative model</a>), including the neural network we are considering, is to build a model that can estimate empirical distribution <span class="math">\(p_{d}(\vec{x}, c)\)</span>. How to express this idea in the language of probability theory and mathematical statistics? 
+                        Let's denote <em>input examples</em> data set as <span class="math">\(\mathcal{X}\)</span> and
+                        <em>class labels</em> set as <span class="math">\(\mathcal{C}\)</span>. Let's also consider an
+                        arbitrary neural network with weights <span class="math">\(\textbf{w} \)</span> that is used for
+                        a classification task <span class="math">\(\mathcal{X} \rightarrow \mathcal{C}\)</span> to be
+                        trained on the data set <span class="math">\((\mathcal{X}, \mathcal{C}) = \lbrace
+                            (\vec{x}_{1},c_{1}), \ldots, (\vec{x}_{N},c_{N}) \rbrace \)</span>. For brevity, we will
+                        denote the data set as <span class="math">\(\mathcal{D}\)</span>.
                     </p>
 
                     <p>
-                    First, let's define what a neural network does from a probabilistic point of view. As we've already discussed above, the output layer of the neural network predicts probability distribution over the class labels. In probability theory terms, this distribution can be interpreted as the multidimensional <a href="https://en.wikipedia.org/wiki/Conditional_probability">conditional probability</a> that given example <span class="math">\(\vec{x}\)</span> belongs to some class <span class="math">\(c\)</span>. This conditional probability is usually denoted as <span class="math">\(p_{\textbf{w}}(c|\vec{x})\)</span> or <span class="math">\(p(c|\vec{x}, \textbf{w})\)</span>, because the neural network's output <span class="math">\(\vec{y} = f_{\textbf{w} }(\vec{x})\)</span>, used to predict this class label <span class="math">\(c\)</span>, also depends on the weights <span class="math">\( \textbf{w} \)</span>.
+                        We can assume, that all input examples <span class="math">\(\vec{x}\)</span> and output class
+                        labels <span class="math">\(c\)</span>, which make the training set, are actually samples
+                        obtained using two random distributions, i.e., we can consider that <span class="math">\(\chi \,
+                            : \Omega \rightarrow \vec{x} \in \mathcal{X}\)</span> and <span class="math">\(\tau \, :
+                            \Omega \rightarrow c \in \mathcal{C}\)</span> are two <a
+                            href="https://en.wikipedia.org/wiki/Random_variable">random variables</a>, which represent
+                        random samples from <span class="math">\(\mathcal{X}\)</span> and <span
+                            class="math">\(\mathcal{C}\)</span> sets correspondingly. Let's also assume, that the joint
+                        random variable <span class="math">\((\chi, \tau) \, : \Omega \rightarrow (\mathcal{X},
+                            \mathcal{C})\)</span> has <a
+                            href="https://en.wikipedia.org/wiki/Joint_probability_distribution">joint probability
+                            distribution</a>, with the density that we will denote as <span
+                            class="math">\(p_{d}(\vec{x}, c)\)</span>. This distribution is often called the
+                        <em>empirical distribution</em>.
                     </p>
 
                     <p>
-                    Secondly, we need to imagine that the classification of each individual example is an experiment, which is carried out using our NN model (this is similar to the classical example of coin flipping). Thus, having conducted <span class="math">\(N\)</span> independent experiments, we are able to compute the probability <span class="math">\(p_{\textbf{w}}(\mathcal{D})\)</span> of observing the data set <span class="math">\(\mathcal{D}\)</span>. For a fixed set of weights, this probability is equal to the so-called <a href="https://en.wikipedia.org/wiki/Likelihood_function">likelihood function</a> <span class="math">\(\mathcal{L}\, : \Omega \rightarrow \mathbb{R}\)</span>, or simply the <em>likelihood</em>. The likelihood shows how plausible the selected NN's weights <span class="math">\(\textbf{w}\)</span> are, given the observed data <span class="math">\(\mathcal{D}\)</span>:
-
-                    <span class="math">\[  \begin{equation} 
-                     \mathcal{L} \equiv \mathcal{L}_{\textbf{w}}(\mathcal{D}) = p_{\textbf{w}}(c_{1},\ldots,c_{N}|\vec{x}_{1},\ldots,\vec{x}_{N}) = p_{\textbf{w}}(\mathcal{D})  \end{equation} 
-                    \]</span>
+                        Having clarified the notation, it is time to move to the tastiest! The goal of any supervised
+                        machine learning algorithm (more precisely - any <a
+                            href="https://en.wikipedia.org/wiki/Discriminative_model">discriminative model</a>),
+                        including the neural network we are considering, is to build a model that can estimate empirical
+                        distribution <span class="math">\(p_{d}(\vec{x}, c)\)</span>. How to express this idea in the
+                        language of probability theory and mathematical statistics?
                     </p>
 
                     <p>
-                    Let's additionally assume that all training examples are independent and drawn uniformly from the empirical distribution <span class="math">\(p_{d}(\vec{x}, c)\)</span>, so they are <a href="https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables">i.i.d.</a>. This will allow us to compute the aforementioned likelihood as for <a href="https://en.wikipedia.org/wiki/Independence_(probability_theory)">independent</a> events<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>, using our model:
-
-                    <span class="math">\[  \begin{equation} 
-                       \mathcal{L} = \prod_{i=1}^{N}p_{\textbf{w}}(c_{i}|\vec{x}_{i}) \end{equation} 
-                    \]</span>    
+                        First, let's define what a neural network does from a probabilistic point of view. As we've
+                        already discussed above, the output layer of the neural network predicts probability
+                        distribution over the class labels. In probability theory terms, this distribution can be
+                        interpreted as the multidimensional <a
+                            href="https://en.wikipedia.org/wiki/Conditional_probability">conditional probability</a>
+                        that given example <span class="math">\(\vec{x}\)</span> belongs to some class <span
+                            class="math">\(c\)</span>. This conditional probability is usually denoted as <span
+                            class="math">\(p_{\textbf{w}}(c|\vec{x})\)</span> or <span class="math">\(p(c|\vec{x},
+                            \textbf{w})\)</span>, because the neural network's output <span class="math">\(\vec{y} =
+                            f_{\textbf{w} }(\vec{x})\)</span>, used to predict this class label <span
+                            class="math">\(c\)</span>, also depends on the weights <span class="math">\( \textbf{w}
+                            \)</span>.
                     </p>
 
                     <p>
-                    So we are given a fixed data set <span class="math">\(\mathcal{D}\)</span>, a model that can estimate individual conditional probabilities <span class="math">\(p_{\textbf{w}}(c|\vec{x})\)</span>, and the likelihood function <span class="math">\(\mathcal{L}\)</span> to be computed by this model for this data set. How to combine this all together? According to the definition, the higher the likelihood is, the higher the probability <span class="math">\(p_{\textbf{w}}(\mathcal{D})\)</span> is. Thus, similarly to <span class="math">\((5)\)</span>, weights <span class="math">\( \textbf{w}^{*} \)</span> which will give the highest likelihood are the optimal weights:
+                        Secondly, we need to imagine that the classification of each individual example is an
+                        experiment, which is carried out using our NN model (this is similar to the classical example of
+                        coin flipping). Thus, having conducted <span class="math">\(N\)</span> independent experiments,
+                        we are able to compute the probability <span class="math">\(p_{\textbf{w}}(\mathcal{D})\)</span>
+                        of observing the data set <span class="math">\(\mathcal{D}\)</span>. For a fixed set of weights,
+                        this probability is equal to the so-called <a
+                            href="https://en.wikipedia.org/wiki/Likelihood_function">likelihood function</a> <span
+                            class="math">\(\mathcal{L}\, : \Omega \rightarrow \mathbb{R}\)</span>, or simply the
+                        <em>likelihood</em>. The likelihood shows how plausible the selected NN's weights <span
+                            class="math">\(\textbf{w}\)</span> are, given the observed data <span
+                            class="math">\(\mathcal{D}\)</span>:
 
-                    <span class="math">\[ \begin{equation} 
-                       \textbf{w}^{*}= \operatorname*{argmax}_{\textbf{w}} \mathcal{L} \end{equation} 
-                    \]</span>
-
-                    Such an approach is called <a href="https://en.wikipedia.org/wiki/Maximum_likelihood_estimation"> maximum likelihood estimation</a> (or MLE) and it is <a href="https://ocw.mit.edu/courses/mathematics/18-443-statistics-for-applications-fall-2006/lecture-notes/lecture3.pdf">proved</a> that the estimate it provides for <span class="math">\(N \rightarrow \infty \)</span> is <a href="https://en.wikipedia.org/wiki/Consistent_estimator">consistent</a> and <a href="https://en.wikipedia.org/wiki/Bias_of_an_estimator">unbiased</a>.
-                    That is why MLE results are reliable enough to be used in practice.
+                        <span class="math">\[ \begin{equation}
+                            \mathcal{L} \equiv \mathcal{L}_{\textbf{w}}(\mathcal{D}) =
+                            p_{\textbf{w}}(c_{1},\ldots,c_{N}|\vec{x}_{1},\ldots,\vec{x}_{N}) =
+                            p_{\textbf{w}}(\mathcal{D}) \end{equation}
+                            \]</span>
                     </p>
 
                     <p>
-                    As shown above, we don't actually need to worry about the actual likelihood value. The only thing that matters is where this likelihood has a maximum. It simplifies everything significantly. Watch the hands carefully!
-                     </p>
+                        Let's additionally assume that all training examples are independent and drawn uniformly from
+                        the empirical distribution <span class="math">\(p_{d}(\vec{x}, c)\)</span>, so they are <a
+                            href="https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables">i.i.d.</a>.
+                        This will allow us to compute the aforementioned likelihood as for <a
+                            href="https://en.wikipedia.org/wiki/Independence_(probability_theory)">independent</a>
+                        events<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>, using our model:
 
-                    <p>
-                    Let's take advantage of the fact that the extrema of a function <span class="math">\(f(x)\)</span> and its composition with an arbitrary monotonic function <span class="math">\(g(f(x))\)</span> are the same, so let's use the logarithm (which is monotonic, of course) to simplify <span class="math">\((7)\)</span> and <span class="math">\((8)\)</span>:
-
-                     <span class="math">\[
-                       \textbf{w}^{*}= \operatorname*{argmax}_{\textbf{w}} \hat{\mathcal{L}}; \qquad \hat{\mathcal{L}} = \log{\mathcal{L}} = \sum_{i=1}^{N} \log{p_{\textbf{w}}(c_{i}|\vec{x}_{i})}
-                    \]</span> 
-
-                    Due to the same reason, optimal weights point won't be changed even if we will multiply the likelihood by some constant value, therefore we can average <span class="math">\(\hat{\mathcal{L}}\)</span>:
-
-                     <span class="math">\[
-                       \hat{l} = \dfrac{\mathcal{L}}{N} =  \dfrac{1}{N} \sum_{i=1}^{N} \log{p_{\textbf{w}}(c_{i}|\vec{x}_{i})}
-                    \]</span>                   
-
-                    Does this expression ring a bell?! Taking into account the <a href="https://en.wikipedia.org/wiki/Law_of_large_numbers">law of large numbers</a> (i.e., in the case when <span class="math">\(N \rightarrow \infty \)</span>), <span class="math">\(\hat{l}\)</span> defined above becomes nothing else than the <a href="https://en.wikipedia.org/wiki/Expected_value">expected value</a> of <span class="math">\(p_{\textbf{w}}(c|\vec{x})\)</span> with respect to <span class="math">\(p_{d}(c|\vec{x})\)</span>. This fact is usually denoted by<a href="#fn6" class="footnoteRef" id="fnref6"></a>:
-
-                    <span class="math">\[
-                       \hat{l} \approx \mathbb{E}_{\vec{x} \sim p_{d}(c|\vec{x})} [ \log{p_{\textbf{w}}(c|\vec{x})}]
-                    \]</span>            
-
-                    Thus, we finally have:
-
-                    <span class="math">\[ \begin{equation} 
-                       \textbf{w}^{*} = \operatorname*{argmax}_{\textbf{w}} \hat{l} = - \operatorname*{argmin}_{\textbf{w}} \mathbb{E}_{\vec{x} \sim p_{d}(c|\vec{x})} [ \log{p_{\textbf{w}}(c|\vec{x})}] =  \operatorname*{argmin}_{\textbf{w}} H(p_{d}, p_{\textbf{w}}) \quad \blacksquare \end{equation} 
-                    \]</span>  
-
-                    , where <span class="math">\(H(p_{d}, p_{\textbf{w}})\)</span> is called the <a href="https://en.wikipedia.org/wiki/Cross_entropy">cross-entropy</a> between the empirical distribution <span class="math">\(p_{d}\)</span> and the model-estimated one, <span class="math">\(p_{\textbf{w}}\)</span>. <span class="math">\(H(p_{d}, p_{\textbf{w}})\)</span> is basically a measure of how close these two distributions are. Consequently, maximization of <span class="math">\(\hat{l}\)</span> given by <span class="math">\((9)\)</span> makes the conditional probability distributions <span class="math">\(p_{\textbf{w}}(c|\vec{x})\)</span>, produced by the neural network, maximally close to the desired ones <span class="math">\(p_{d}(c|\vec{x})\)</span>. This confirms our intuitive <a href="#fnref3">hypothesis</a> put forward a little earlier - see <span class="math">\((3,4,5)\)</span>. Furthermore, since we need to minimize the cross-entropy, it can be considered as the loss function: <span class="math">\(L = -\hat{l} = H(p_{d}, p_{\textbf{w}})\)</span>. By the way, we can prove this hypothesis and achieve the same results considering the <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">Kullback–Leibler divergence</a> between <span class="math">\(p_{d}\)</span> and <span class="math">\(p_{\textbf{w}}\)</span>. 
+                        <span class="math">\[ \begin{equation}
+                            \mathcal{L} = \prod_{i=1}^{N}p_{\textbf{w}}(c_{i}|\vec{x}_{i}) \end{equation}
+                            \]</span>
                     </p>
 
                     <p>
-                    It is important to take into account that all formulas above are given considering that distribution <span class="math">\(p_{d}(\vec{x}, c)\)</span> is actually an <em>empirical</em> approximation of the real data-generating distribution <span class="math">\(\hat{p}_{d}(\vec{x}, c)\)</span>. Therefore, the process which is expressed through <span class="math">\((9)\)</span> is also called the <a href="https://en.wikipedia.org/wiki/Empirical_risk_minimization">empirical risk minimization</a>. What we ideally want is to compute MLE using the real distribution <span class="math">\(\hat{p}_{d}(\vec{x}, c)\)</span> (i.e., representing all possible inputs and outputs) rather than the finite <span class="math">\(p_{d}(\vec{x}, c)\)</span>, which is limited by a given data set. Unfortunately, in most of the cases, the true distribution is unknown, so the approximation is needed. Otherwise, instead of machine learning, methods for computing integrals <span class="math">\(\mathbb{E}_{\vec{x} \sim \hat{p}_{d}(c|\vec{x})} [ \log{p_{\textbf{w}}(c|\vec{x})}] \)</span> would have been actively developed. This nuance is one more assumption in addition to those, which we have already mentioned earlier. We will further discuss it in the next <a href="../2019-05-20-MLP-Part-2/index.html">post</a>.
+                        So we are given a fixed data set <span class="math">\(\mathcal{D}\)</span>, a model that can
+                        estimate individual conditional probabilities <span
+                            class="math">\(p_{\textbf{w}}(c|\vec{x})\)</span>, and the likelihood function <span
+                            class="math">\(\mathcal{L}\)</span> to be computed by this model for this data set. How to
+                        combine this all together? According to the definition, the higher the likelihood is, the higher
+                        the probability <span class="math">\(p_{\textbf{w}}(\mathcal{D})\)</span> is. Thus, similarly to
+                        <span class="math">\((5)\)</span>, weights <span class="math">\( \textbf{w}^{*} \)</span> which
+                        will give the highest likelihood are the optimal weights:
+
+                        <span class="math">\[ \begin{equation}
+                            \textbf{w}^{*}= \operatorname*{argmax}_{\textbf{w}} \mathcal{L} \end{equation}
+                            \]</span>
+
+                        Such an approach is called <a
+                            href="https://en.wikipedia.org/wiki/Maximum_likelihood_estimation"> maximum likelihood
+                            estimation</a> (or MLE) and it is <a
+                            href="https://ocw.mit.edu/courses/mathematics/18-443-statistics-for-applications-fall-2006/lecture-notes/lecture3.pdf">proved</a>
+                        that the estimate it provides for <span class="math">\(N \rightarrow \infty \)</span> is <a
+                            href="https://en.wikipedia.org/wiki/Consistent_estimator">consistent</a> and <a
+                            href="https://en.wikipedia.org/wiki/Bias_of_an_estimator">unbiased</a>.
+                        That is why MLE results are reliable enough to be used in practice.
+                    </p>
+
+                    <p>
+                        As shown above, we don't actually need to worry about the actual likelihood value. The only
+                        thing that matters is where this likelihood has a maximum. It simplifies everything
+                        significantly. Watch the hands carefully!
+                    </p>
+
+                    <p>
+                        Let's take advantage of the fact that the extrema of a function <span
+                            class="math">\(f(x)\)</span> and its composition with an arbitrary monotonic function <span
+                            class="math">\(g(f(x))\)</span> are the same, so let's use the logarithm (which is
+                        monotonic, of course) to simplify <span class="math">\((7)\)</span> and <span
+                            class="math">\((8)\)</span>:
+
+                          <span class="math">\[
+                            \textbf{w}^{*}= \operatorname*{argmax}_{\textbf{w}} \hat{\mathcal{L}}; \qquad
+                            \hat{\mathcal{L}} = \log{\mathcal{L}} = \sum_{i=1}^{N}
+                            \log{p_{\textbf{w}}(c_{i}|\vec{x}_{i})}
+                            \]</span>
+
+                        Due to the same reason, optimal weights point won't be changed even if we will multiply the
+                        likelihood by some constant value, therefore we can average <span
+                            class="math">\(\hat{\mathcal{L}}\)</span>:
+
+                          <span class="math">\[
+                            \hat{l} = \dfrac{\mathcal{L}}{N} = \dfrac{1}{N} \sum_{i=1}^{N}
+                            \log{p_{\textbf{w}}(c_{i}|\vec{x}_{i})}
+                            \]</span>
+
+                        Does this expression ring a bell?! Taking into account the <a
+                            href="https://en.wikipedia.org/wiki/Law_of_large_numbers">law of large numbers</a> (i.e., in
+                        the case when <span class="math">\(N \rightarrow \infty \)</span>), <span
+                            class="math">\(\hat{l}\)</span> defined above becomes nothing else than the <a
+                            href="https://en.wikipedia.org/wiki/Expected_value">expected value</a> of <span
+                            class="math">\(p_{\textbf{w}}(c|\vec{x})\)</span> with respect to <span
+                            class="math">\(p_{d}(c|\vec{x})\)</span>. This fact is usually denoted by<a href="#fn6"
+                            class="footnoteRef" id="fnref6"></a>:
+
+                          <span class="math">\[
+                            \hat{l} \approx \mathbb{E}_{\vec{x} \sim p_{d}(c|\vec{x})} [
+                            \log{p_{\textbf{w}}(c|\vec{x})}]
+                            \]</span>
+
+                        Thus, we finally have:
+
+                          <span class="math">\[ \begin{equation}
+                            \textbf{w}^{*} = \operatorname*{argmax}_{\textbf{w}} \hat{l} = -
+                            \operatorname*{argmin}_{\textbf{w}} \mathbb{E}_{\vec{x} \sim p_{d}(c|\vec{x})} [
+                            \log{p_{\textbf{w}}(c|\vec{x})}] = \operatorname*{argmin}_{\textbf{w}} H(p_{d},
+                            p_{\textbf{w}}) \quad \blacksquare \end{equation}
+                            \]</span>
+
+                        , where <span class="math">\(H(p_{d}, p_{\textbf{w}})\)</span> is called the <a
+                            href="https://en.wikipedia.org/wiki/Cross_entropy">cross-entropy</a> between the empirical
+                        distribution <span class="math">\(p_{d}\)</span> and the model-estimated one, <span
+                            class="math">\(p_{\textbf{w}}\)</span>. <span class="math">\(H(p_{d},
+                            p_{\textbf{w}})\)</span> is basically a measure of how close these two distributions are.
+                        Consequently, maximization of <span class="math">\(\hat{l}\)</span> given by <span
+                            class="math">\((9)\)</span> makes the conditional probability distributions <span
+                            class="math">\(p_{\textbf{w}}(c|\vec{x})\)</span>, produced by the neural network, maximally
+                        close to the desired ones <span class="math">\(p_{d}(c|\vec{x})\)</span>. This confirms our
+                        intuitive <a href="#fnref3">hypothesis</a> put forward a little earlier - see <span
+                            class="math">\((3,4,5)\)</span>. Furthermore, since we need to minimize the cross-entropy,
+                        it can be considered as the loss function: <span class="math">\(L = -\hat{l} = H(p_{d},
+                            p_{\textbf{w}})\)</span>. By the way, we can prove this hypothesis and achieve the same
+                        results considering the <a
+                            href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">Kullback–Leibler
+                            divergence</a> between <span class="math">\(p_{d}\)</span> and <span
+                            class="math">\(p_{\textbf{w}}\)</span>.
+                    </p>
+
+                    <p>
+                        It is important to take into account that all formulas above are given considering that
+                        distribution <span class="math">\(p_{d}(\vec{x}, c)\)</span> is actually an <em>empirical</em>
+                        approximation of the real data-generating distribution <span class="math">\(\hat{p}_{d}(\vec{x},
+                            c)\)</span>. Therefore, the process which is expressed through <span
+                            class="math">\((9)\)</span> is also called the <a
+                            href="https://en.wikipedia.org/wiki/Empirical_risk_minimization">empirical risk
+                            minimization</a>. What we ideally want is to compute MLE using the real distribution <span
+                            class="math">\(\hat{p}_{d}(\vec{x}, c)\)</span> (i.e., representing all possible inputs and
+                        outputs) rather than the finite <span class="math">\(p_{d}(\vec{x}, c)\)</span>, which is
+                        limited by a given data set. Unfortunately, in most of the cases, the true distribution is
+                        unknown, so the approximation is needed. Otherwise, instead of machine learning, methods for
+                        computing integrals <span class="math">\(\mathbb{E}_{\vec{x} \sim \hat{p}_{d}(c|\vec{x})} [
+                            \log{p_{\textbf{w}}(c|\vec{x})}] \)</span> would have been actively developed. This nuance
+                        is one more assumption in addition to those, which we have already mentioned earlier. We will
+                        further discuss it in the next <a href="../2019-05-20-MLP-Part-2/index.html">post</a>.
                     </p>
 
                     <h3>Key Findings</h3>
                     <p>
-                    Let's summarize the above:
+                        Let's summarize the above:
                     </p>
 
                     <p class="note">
-                    Any supervised-model training is the process of maximizing the data-set likelihood, given by the model-estimated probability distribution, that is equivalent to minimizing the respective cross-entropy.
+                        Any supervised-model training is the process of maximizing the data-set likelihood, given by the
+                        model-estimated probability distribution, that is equivalent to minimizing the respective
+                        cross-entropy.
                     </p>
 
                     <p>
-                    How is it used in practice? Formulas above are utilized to build the loss-functions needed to train neural networks for a variety of tasks. Here are some most popular examples. 
+                        How is it used in practice? Formulas above are utilized to build the loss-functions needed to
+                        train neural networks for a variety of tasks. Here are some most popular examples.
 
 
-                    <li>Regression, if NN's outputs errors <span class="math">\(\varepsilon = \vec{y}(\vec{x})-\vec{t}\)</span> are <a href="https://en.wikipedia.org/wiki/Normal_distribution">normally distributed</a><a href="#fn7" class="footnoteRef" id="fnref7"><sup>6</sup></a>: 
+                        <li>Regression, if NN's outputs errors <span class="math">\(\varepsilon =
+                                \vec{y}(\vec{x})-\vec{t}\)</span> are <a
+                                href="https://en.wikipedia.org/wiki/Normal_distribution">normally distributed</a><a
+                                href="#fn7" class="footnoteRef" id="fnref7"><sup>6</sup></a>:
 
-                    <span class="math">\[ \begin{equation} 
-                       \varepsilon \sim \mathcal{N}(\varepsilon; 0, \sigma) \Rightarrow L\propto - \sum_{i=1}^{N} \dfrac{||\vec{t}_{i}-\vec{y}_{i}||_{2}^{2}}{2} \end{equation} 
-                    \]</span>
+                            <span class="math">\[ \begin{equation}
+                                \varepsilon \sim \mathcal{N}(\varepsilon; 0, \sigma) \Rightarrow L\propto \sum_{i=1}^{N}
+                                \dfrac{||\vec{t}_{i}-\vec{y}_{i}||_{2}^{2}}{2} \end{equation}
+                                \]</span>
 
-                    - mean squared loss function, which we have already seen above.
-                    </li>
-                    
-                    <li>Classification, if NN's output is made of raw output-layer neurons' sigmoidal activations. In this case, because the output signals together aren't actually the probability distribution, each output neuron's signal can be interpreted as an independent two-element probability distribution, i.e., each <span class="math">\(i\)</span>-th neuron predicts whether <span class="math">\(\vec{x}\)</span> belongs to <span class="math">\(i\)</span>-th class or not. So, similarly to the <a href="https://en.wikipedia.org/wiki/Logistic_regression">logistic regression</a>, if <span class="math">\(\vec{t}_{i}\)</span> is an one-hot encoded desired output class distribution vector, then:
+                            - the mean square error (or MSE) loss function, which we have already seen above.
+                        </li>
 
-                    <span class="math">\[ \begin{equation} 
-                       \vec{y} = \sigma(\vec{z}) \Rightarrow  L = -\sum_{i=1}^{N}\sum_{j=1}^{n} [(1-t_{i}^{j})\log{(1-y_{i}^{j})} + t_{i}^{j}\log{(y_{i}^{j})}] \end{equation} 
+                        <li>Classification, if NN's output is made of raw output-layer neurons' activations (usually
+                            sigmoidal). In this case such an output can be used to solve <span class="math">\(n\)</span>
+                            independent two-class classification tasks, where each output neuron's signal can be
+                            interpreted as an
+                            independent two-element probability distribution<a href="#fn8" class="footnoteRef"
+                                id="fnref8"><sup>7</sup></a>. So if <span class="math">\(\vec{t}_{i}\)</span> is an
+                            one-hot encoded desired output
+                            class distribution vector, then we get the so called log-likelihood loss function:
 
-                    \]</span>
-                    </li>
+                            <span class="math">\[ \begin{equation}
+                                L = -\sum_{i=1}^{N}\sum_{j=1}^{n} [t_{i}^{j}\log{(y_{i}^{j})} +
+                                (1-t_{i}^{j})\log{(1-y_{i}^{j})}] \end{equation} \]</span>
+                        </li>
 
-                    <li>Classification, if NN's output layer is the softmax layer and <span class="math">\(\vec{t}\)</span> is encoded as one-hot vector:
+                        <li>Classification, if NN's output layer predicts the probability distribution using the softmax
+                            activation directly (i.e. all neurons together predict the conditional probability
+                            distribution <span class="math">\(p_{\textbf{w}}(c|\vec{x})\)</span>) and <span
+                                class="math">\(\vec{t}\)</span> is encoded as one-hot
+                            vector:
 
-                    <span class="math">\[ \begin{equation} 
-                       \vec{y} = \text{softmax}(\vec{z}) \Rightarrow  L = -\sum_{i=1}^{N} \vec{t}_{i} \cdot \log{(\vec{y}_{i})}  \end{equation} 
-                    \]</span>
+                            <span class="math">\[ \begin{equation}
+                                \vec{y} = \text{softmax}(\vec{z}) \Rightarrow L = -\sum_{i=1}^{N} \vec{t}_{i} \cdot
+                                \log{(\vec{y}_{i})} \end{equation}
+                                \]</span>
 
-                    Here, the dot product <span class="math">\(\vec{t}_{i} \cdot \log{(\vec{y}_{i})} = \log{(y^{k})}\)</span> according to <span class="math">\((2)\)</span>. Don't be confused that this takes into account only <span class="math">\(k\)</span>-th output. Similarly to the previous case, if an error in predictions occurs, then all output neurons will be penalized, because in the case of a softmax output layer, all its neurons' signals are involved in the final output.</li>
+                            which is usually referred as categorical cross-entropy. Here, in accordance with <span
+                                class="math">\((2)\)</span>, the dot product <span class="math">\(\vec{t}_{i} \cdot
+                                \log{(\vec{y}_{i})} = \log{(y^{k})}\)</span>. Don't be confused
+                            that this takes into account only <span class="math">\(k\)</span>-th output. Similarly to
+                            the previous case, if an error in predictions occurs, then all output neurons will be
+                            penalized, because in the case of a softmax output layer, all its neurons' signals are
+                            involved in the final output.
+                        </li>
                     </p>
 
                     <p>
-                    ...
+                        ...
                     </p>
 
                     <p>
-                    Now we have the thing that we need to be aware of while studying neural networks: understanding of how and where to get the loss function and why it is needed. I would even say that everything else, such as finding the optimal weights, knowing the loss function, is just a matter of applying mathematical methods in practice. We will talk about them in the next <a href="../2019-05-20-MLP-Part-2/index.html">post</a>. Thanks for reading this!
+                        Now we have the thing that we need to be aware of while studying neural networks: understanding
+                        of how and where to get the loss function and why it is needed. I would even say that everything
+                        else, such as finding the optimal weights, knowing the loss function, is just a matter of
+                        applying mathematical methods in practice. We will talk about them in the next <a
+                            href="../2019-05-20-MLP-Part-2/index.html">post</a>. Thanks for reading this!
                     </p>
 
 
@@ -434,24 +757,47 @@
                         <hr>
                         <ol>
                             <li id="fn1">
-                            In practice, classification task is more common, so to simplify the reasoning we will consider only it. In the case of regression, almost all considerations remain the same, and we will separately specify exceptions.<a href="#fnref1">↩</a>
+                                In practice, classification task is more common, so to simplify the reasoning we will
+                                consider only it. In the case of regression, almost all considerations remain the same,
+                                and we will separately specify exceptions.<a href="#fnref1">↩</a>
                             </li>
                             <li id="fn2">
-                            For the output signals, indices denoting training example number are omitted for brevity.<a href="#fnref2">↩</a>
+                                For the output signals, indices denoting training example number are omitted for
+                                brevity.<a href="#fnref2">↩</a>
                             </li>
                             <li id="fn3">
-                            <span class="math">\(||\cdot||\)</span> usually denotes any <a href="https://en.wikipedia.org/wiki/Metric_(mathematics)#Metrics_on_vector_spaces">metric</a> on a vector space, but in this post we assume that it is a regular <a href="https://en.wikipedia.org/wiki/Euclidean_distance">Euclidean distance</a>, i.e., <span class="math">\(||\vec{x}|| \equiv ||\vec{x}||_{2} = \sqrt{\sum_{i}^{n} x_{i}^{2}} \)</span>. <a href="#fnref3">↩</a>
+                                <span class="math">\(||\cdot||\)</span> usually denotes any <a
+                                    href="https://en.wikipedia.org/wiki/Metric_(mathematics)#Metrics_on_vector_spaces">metric</a>
+                                on a vector space, but in this post we assume that it is a regular <a
+                                    href="https://en.wikipedia.org/wiki/Euclidean_distance">Euclidean distance</a>,
+                                i.e., <span class="math">\(||\vec{x}|| \equiv ||\vec{x}||_{2} = \sqrt{\sum_{i}^{n}
+                                    x_{i}^{2}} \)</span>. <a href="#fnref3">↩</a>
                             </li>
                             <li id="fn4">
-                            Take a look at <a href="../2018-12-9-Math-Part-2/index.html">these</a> notes if you want to refresh your knowledge about extrema.<a href="#fnref4">↩</a>
+                                Take a look at <a href="../2018-12-9-Math-Part-2/index.html">these</a> notes if you want
+                                to refresh your knowledge about extrema.<a href="#fnref4">↩</a>
                             </li>
                             <li id="fn5">
-                            So far we have already <em>assumed</em> two different things: data-generating distribution is made of two independent probability distributions and the training examples are i.i.d., and we have many training examples to consider <span class="math">\(N \rightarrow \infty \)</span> to be true.
-                            <a href="#fnref5">↩</a>
+                                So far we have already <em>assumed</em> two different things: data-generating
+                                distribution is made of two independent probability distributions and the training
+                                examples are i.i.d., and we have many training examples to consider <span
+                                    class="math">\(N \rightarrow \infty \)</span> to be true.
+                                <a href="#fnref5">↩</a>
                             </li>
                             <li id="fn7">
-                            This assumption is quite true in accordance with <a href="https://en.wikipedia.org/wiki/Central_limit_theorem">CLT</a>.
-                            <a href="#fnref7">↩</a>
+                                This assumption is quite true in accordance with <a
+                                    href="https://en.wikipedia.org/wiki/Central_limit_theorem">CLT</a>.
+                                <a href="#fnref7">↩</a>
+                            </li>
+                            <li id="fn8">
+                                This forumaltion can be thought as a <a
+                                    href="https://en.wikipedia.org/wiki/Bernoulli_trial">Bernoulli trial</a>, where
+                                <span class="math">\(j\)</span>-th
+                                neuron predicts that the input belongs or doesn't belong to <span
+                                    class="math">\(j\)</span>-th class with some probability <span
+                                    class="math">\(y^{j}\)</span> or <span class="math">\(1-y^{j}\)</span>
+                                respectively.
+                                <a href="#fnref8">↩</a>
                             </li>
                         </ol>
                         <hr>
@@ -467,7 +813,8 @@
     </main>
     <div class="footer"></div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/popper.js@^1"></script>
     <script src="https://unpkg.com/tippy.js@4"></script>
     <script src="../../js/main.js"></script>
