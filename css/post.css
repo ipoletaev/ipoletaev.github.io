@@ -59,7 +59,17 @@ b {
   font-weight: bold;
   text-align: left;
   margin-top: 30px;
-  margin-bottom: 20px
+  margin-bottom: 20px;
+}
+
+/* To remove underline from the anchor links. */
+.post h3 a:hover {
+  text-decoration: none;
+}
+
+.post h3 img {
+  color: #f2f2f2;
+  transition: transform 0.3s, opacity 0.3s;
 }
 
 .post h4 {
