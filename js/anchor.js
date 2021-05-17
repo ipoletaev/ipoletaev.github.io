@@ -362,5 +362,8 @@
 }));
 
 jQuery(document).ready(function ($) {
-    anchors.add('.post h3');
+    // Enable only on desktop and tablets.
+    if ($(window).width() > 768) {
+        anchors.add('.post h3');
+    }
 });
