@@ -63,5 +63,5 @@ jQuery(document).ready(function ($) {
   });
 
   // add note to the footer
-  $( ".footer" ).append("<p>Copyright © 2021 Igor Poletaev. All Rights Reserved.</p>");
+  $( ".footer" ).append("<p>Copyright © 2018-2023 Igor Poletaev. All Rights Reserved.</p>");
 });
